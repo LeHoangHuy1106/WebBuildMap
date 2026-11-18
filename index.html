@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Thất Nghiệp Về Quê • World Map Builder</title>
+<style>
+:root{--bg:#101a2c;--nav:#111b2d;--navsoft:#1b2940;--line:#2b3b53;--text:#e7edf6;--muted:#97a8bd;--accent:#e7b77e;--accentdeep:#ce9050;--surface:#f8f5ee;--ink:#23334a;--hair:#e3e8ec}*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:Inter,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}.app{height:100%;display:flex;flex-direction:column}.topbar{height:68px;flex-shrink:0;background:#121e31;display:flex;align-items:center;gap:18px;padding:0 22px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;min-width:274px}.brandmark{width:38px;height:38px;border-radius:11px;background:#f6ce96;color:#28354b;display:grid;place-items:center;font-size:21px;box-shadow:0 3px 14px #e6ac6833}.brand small{font-size:10px;letter-spacing:1.25px;font-weight:800;color:#eab984}.brand strong{display:block;margin-top:3px;font-size:16px;letter-spacing:.3px}.topdivider{width:1px;height:30px;background:#33455d}.maptitle{display:flex;align-items:center;gap:9px;min-width:0}.maptitle span{font-size:12px;color:#a5b4c7;white-space:nowrap}.nameinput{height:36px;width:210px;max-width:22vw;background:transparent;border:1px solid transparent;border-radius:8px;padding:0 10px;color:#f2f4f7;font-weight:650}.nameinput:focus,.nameinput:hover{border-color:#63748b;outline:none;background:#1d2a3f}.topright{display:flex;gap:9px;margin-left:auto;align-items:center}.btn{background:#253650;color:#eaf1fa;border:1px solid #40536d;border-radius:9px;min-height:35px;padding:8px 12px;font-size:12px;font-weight:700;white-space:nowrap}.btn:hover{background:#314663}.btn.primary{background:#eac08e;border-color:#eac08e;color:#3b2b1f}.btn.primary:hover{background:#f1cfa6}.btn.danger{color:#ffd6d6}.btn.icon{padding:8px 11px}.body{display:flex;flex:1;min-height:0}.sidebar{width:310px;min-width:310px;display:flex;flex-direction:column;background:#151f32;border-right:1px solid var(--line)}.section-head{padding:20px 17px 14px;border-bottom:1px solid #2b3a50}.eyebrow{color:#edbd87;font-weight:800;font-size:10px;letter-spacing:1.5px}.side-title{font-size:19px;font-weight:800;margin:6px 0}.side-desc{font-size:12px;line-height:1.5;color:#9faec1}.tabs{display:flex;gap:6px;margin:14px 0 0}.tab{border:1px solid #304158;background:#19273d;color:#b3c1d3;border-radius:9px;padding:9px 7px;font-size:11px;font-weight:700;flex:1}.tab.active{background:#e8bd89;color:#352e28;border-color:#e8bd89}.palette-head{padding:15px 16px 8px;display:flex;align-items:center;justify-content:space-between}.palette-head strong{font-size:13px}.pill{border:1px solid #465770;background:#27364d;border-radius:99px;padding:5px 8px;color:#f2ce9d;font-size:10px;font-weight:700}.palette{padding:7px 13px 18px;display:grid;grid-template-columns:1fr 1fr;gap:9px;overflow-y:auto;align-content:start;flex:1}.tile-option{background:#202e45;border:1px solid #304158;border-radius:11px;text-align:left;color:#e3edf8;padding:9px;min-width:0;position:relative}.tile-option:hover{border-color:#c19a69;background:#293a53}.tile-option.selected{border-color:#f0c58f;box-shadow:0 0 0 1px #f0c58f,inset 0 0 0 1px #f0c58f;background:#344056}.tile-preview{width:100%;aspect-ratio:1/1;object-fit:contain;background:#eff0ec;border-radius:6px;image-rendering:auto}.tile-name{margin-top:7px;font-weight:650;font-size:11px;line-height:1.35;min-height:28px}.tile-code{color:#edc18d;font-size:11px;font-weight:800;margin-top:5px;letter-spacing:.8px}.tile-option .dragmark{position:absolute;right:12px;bottom:9px;font-size:14px;color:#71839c}.sidebottom{padding:12px 17px;border-top:1px solid #314158;font-size:11px;color:#9cacbd;line-height:1.6}.sidebottom b{color:#f3c78f}.workspace{display:flex;flex-direction:column;flex:1;min-width:0;background:#d9c8b5}.toolsbar{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fbfaf6;border-bottom:1px solid #d1cbc2;height:58px;padding:0 16px;color:#26374c;flex-shrink:0}.toolgroup{display:flex;gap:5px;align-items:center}.toolbtn{border:1px solid #d6d9dc;border-radius:8px;background:#fff;color:#58677b;padding:8px 10px;font-size:12px;font-weight:700}.toolbtn.active{background:#2b415c;border-color:#2b415c;color:#fff}.toolbtn:hover:not(.active){background:#f2eadf}.toolbar-caption{font-size:11px;color:#65738a}.viewport{flex:1;min-height:0;position:relative;overflow:hidden;cursor:crosshair;background:#e9d8c5}.viewport.pan{cursor:grab}.viewport.panning{cursor:grabbing}.viewport canvas{width:100%;height:100%;display:block;touch-action:none}.canvas-help{position:absolute;left:17px;bottom:17px;pointer-events:none;background:#14233de3;color:#fff;border-radius:11px;padding:11px 14px;font-size:11px;line-height:1.65;box-shadow:0 5px 20px #081b2933}.canvas-help b{color:#ffd6a3}.canvas-help kbd{color:#efd4ad;background:#ffffff1e;padding:2px 4px;border-radius:4px;font-family:inherit}.zoomctl{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:7px;padding:7px;background:#fbfaf5ee;border:1px solid #d8d1c7;border-radius:12px;color:#33455b;box-shadow:0 4px 12px #1b252929}.zoomctl button{width:32px;height:30px;border:0;border-radius:7px;background:#ece7df;color:#25374d;font-size:17px;font-weight:800}.zoomctl label{font-size:12px;font-weight:800;min-width:42px;text-align:center}.axislabel{position:absolute;top:16px;left:16px;background:#f7f9f5ec;color:#45566e;border:1px solid #eee;border-radius:8px;padding:9px 11px;font-size:11px;font-weight:700}.status{height:32px;display:flex;gap:25px;justify-content:space-between;align-items:center;padding:0 16px;background:#e8e6e0;color:#52637a;font-size:11px;border-top:1px solid #cfc9bf;flex-shrink:0}.status strong{color:#33445d}.inspector{width:276px;min-width:276px;background:#f6f5f1;color:var(--ink);border-left:1px solid #dcdcd8;overflow-y:auto}.ins-head{padding:21px 17px 18px;border-bottom:1px solid #dfe2e2}.ins-head .eyebrow{color:#af824f}.ins-head h2{font-size:17px;margin:7px 0 5px}.ins-head p{font-size:11px;line-height:1.5;color:#68778a;margin:0}.ins-card{padding:17px;border-bottom:1px solid #e2e4e3}.ins-title{font-size:12px;font-weight:800;display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.chip{background:#eee5d9;border-radius:99px;color:#966f41;font-size:10px;padding:4px 7px}.selected-art{display:flex;align-items:center;gap:11px}.selected-art img{height:80px;width:80px;border-radius:8px;border:1px solid #d8d8d4;background:#fff}.selected-art strong{font-size:12px}.selected-art p{margin:7px 0;color:#6c7a89;font-size:11px}.kv{display:grid;grid-template-columns:1fr auto;gap:11px;font-size:12px;color:#68788b}.kv strong{color:#263a55;font-weight:800}.rot-controls{display:flex;gap:6px;margin-top:11px}.rot-controls button{flex:1;background:#fff;border:1px solid #cfd6dc;border-radius:7px;padding:8px;font-weight:700;font-size:11px;color:#465972}.ins-card .note{font-size:11px;line-height:1.65;color:#718092;margin-top:12px}.filebtn{position:relative;overflow:hidden}.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}.countgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{background:#fff;border:1px solid #e7e5e1;border-radius:9px;padding:10px}.stat strong{font-size:20px;color:#253854;display:block}.stat small{font-size:10px;color:#778394}.minirow{display:flex;gap:6px;margin-top:13px}.minirow button{flex:1;background:#fff;border:1px solid #d4dce1;border-radius:8px;font-size:11px;color:#485a70;padding:9px 6px;font-weight:700}.help-list{font-size:11px;color:#637184;line-height:1.8;padding-left:16px}.toast{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);background:#172e47;color:white;font-size:12px;padding:12px 16px;border-radius:10px;box-shadow:0 10px 40px #0d1b2b55;pointer-events:none;opacity:0;transition:opacity .2s;max-width:min(550px,75%);text-align:center}.toast.show{opacity:1}.emptylabel{color:#a7bacd;font-size:13px;grid-column:span 2;padding:30px 4px;text-align:center}@media(max-width:1220px){.inspector{width:245px;min-width:245px}.sidebar{width:280px;min-width:280px}.brand{min-width:245px}.topbar{gap:10px;padding:0 12px}.nameinput{width:165px}}@media(max-width:950px){.inspector{display:none}.sidebar{width:252px;min-width:252px}.brand{min-width:0}.topbar{height:60px}.nameinput{width:140px}.toolbar-caption{display:none}.topdivider{display:none}}@media(max-width:680px){.sidebar{width:158px;min-width:158px}.section-head{padding:10px}.side-title{font-size:14px}.tabs{flex-direction:column}.palette{grid-template-columns:1fr}.brand strong{font-size:11px}.brand small{font-size:9px}.maptitle{display:none}.canvas-help{display:none}.topbar{padding:4px 9px}.topright{gap:4px}.btn{padding:7px;font-size:10px}.toolsbar{padding:0 4px}.toolbtn{padding:8px 5px;font-size:10px}.side-desc{font-size:10px}}
+
+/* Traffic simulator mode */
+.btn.sim-on{background:#338365;border-color:#46b388;color:#fff}.sim-panel{display:none}.simulation-active .sim-panel{display:block;background:#f1f8f3}.simulation-active .sidebar{opacity:.47;pointer-events:none}.simulation-active .toolsbar [data-tool]:not([data-tool="pan"]),.simulation-active #rotateBtn,.simulation-active #gridBtn,.simulation-active #undoBtn,.simulation-active #redoBtn{opacity:.35;pointer-events:none}.simulation-active .canvas-help{display:none}.simulation-active .map-edit-inspector{display:none}.simulation-active .viewport{cursor:grab}.simulation-active .viewport.panning{cursor:grabbing}.sim-field{display:flex;flex-direction:column;gap:8px;margin:13px 0}.sim-field label{font-size:11px;font-weight:750;color:#39516b;display:flex;justify-content:space-between}.sim-field output{color:#ae7543}.sim-field input[type=range]{accent-color:#d59750;width:100%}.sim-inline{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sim-field input[type=number]{width:100%;height:34px;border:1px solid #d6dde3;border-radius:8px;padding:0 10px;background:#fff;color:#30455d;font-weight:700}.sim-mini{font-size:11px;line-height:1.55;color:#607388;margin-top:6px}.sim-field select{width:100%;padding:10px;border-radius:8px;border:1px solid #c8d5d2;background:white;color:#263f48;font-weight:700}.sim-actions{display:flex;flex-direction:column;gap:7px}.sim-action{border:0;background:#324f65;color:#fff;font-weight:800;padding:11px;border-radius:9px}.sim-action.main{background:#d59c58;color:#352514}.sim-action.muted{background:#e6edea;color:#436058;border:1px solid #c5d3ce}.sim-check{display:flex;align-items:center;gap:7px;font-size:11px;margin:14px 0;color:#445a61}.sim-check input{accent-color:#cc9256}.sim-detail{font-size:11px;line-height:1.7;color:#687f75;margin:10px 0}.sim-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}.sim-stats>div{background:#fff;border:1px solid #d4e2d8;border-radius:9px;padding:9px}.sim-stats b{font-size:19px;display:block;color:#2c5c56}.sim-stats small{font-size:10px;color:#778c84}.sim-header{background:#def0e0;padding:10px;border-radius:10px;font-weight:850;color:#28654e;font-size:12px;margin-bottom:13px}.sim-hint{font-size:10px;color:#607b77;line-height:1.6;background:#fff;border-left:3px solid #dfad73;padding:9px;border-radius:5px}
+
+.level-picker{display:flex;flex-direction:column;gap:7px;margin-top:12px;background:#222f45;padding:11px;border:1px solid #3c4c60;border-radius:9px}.level-picker label{font-size:11px;font-weight:850;color:#f5cd9c}.level-picker select{background:#fff;color:#283747;padding:9px;border:0;border-radius:7px;font-size:12px;font-weight:750;max-width:100%}.level-picker small{font-size:10px;color:#9faec0;line-height:1.5}.rot-preview{flex:0 0 80px;width:80px;height:80px;border-radius:8px;border:1px solid #d8d8d4;background:#fff;display:grid;place-items:center;overflow:hidden}.rot-preview img{height:80px;width:80px;object-fit:contain;transition:transform 160ms ease}.sharp-on{background:#d8ecda!important;color:#245a3b!important;border-color:#9ccbaa!important}.tile-preview,.rot-preview img{image-rendering:pixelated}.level-picker+div{margin-top:2px}
+
+/* Dynamic full-silhouette shadows + native fullscreen */
+.sun-handle{display:none;position:absolute;left:22%;top:17%;width:56px;height:56px;transform:translate(-50%,-50%);border-radius:50%;border:2px solid #fff8d7;background:radial-gradient(circle at 31% 29%,#fff8b0,#ffca55 63%,#ff9e35);color:#fff;box-shadow:0 0 0 4px #f9dc6b33,0 6px 24px #e0a344bb;align-items:center;justify-content:center;font-size:27px;z-index:5;cursor:grab;touch-action:none;user-select:none;line-height:1}
+.simulation-active .sun-handle{display:flex}.sun-handle.dragging{cursor:grabbing;box-shadow:0 0 0 7px #ffe39a66,0 6px 28px #ce8b39}.sun-handle:focus-visible{outline:3px solid #263a55;outline-offset:3px}
+.shadow-controls{background:#eaf3ee;border:1px solid #bcd8c8;border-radius:11px;padding:12px;margin:13px 0 16px}.shadow-head{font-size:12px;font-weight:850;color:#286345;display:flex;justify-content:space-between;align-items:center;gap:8px}.shadow-head small{font-weight:600;font-size:9px;color:#7b8b80;text-align:right}.shadow-controls .sim-field{margin:12px 0}.shadow-controls .sim-field input[type=range]{accent-color:#65a57c}.shadow-controls .sim-check{margin:10px 0}.shadow-controls .sim-action{width:100%;margin-top:7px}.shadow-note{font-size:10px;line-height:1.6;color:#60806d;margin:11px 0 0}
+:fullscreen .app,.app:fullscreen{height:100vh}:fullscreen .viewport{min-height:0}
+@media(max-width:1090px){#fullscreenBtn{font-size:0}#fullscreenBtn::before{content:'⛶';font-size:17px}}
+
+/* v5 simulation-only fullscreen and dynamic day/night */
+#viewport:fullscreen{width:100vw!important;height:100vh!important;max-height:none!important;min-height:100vh!important;background:#e9d8c5;cursor:grab}
+#viewport:fullscreen canvas{width:100%;height:100%}
+#viewport:fullscreen .axislabel,#viewport:fullscreen .canvas-help{display:none}
+#viewport:fullscreen .zoomctl{bottom:18px;right:20px;z-index:15}
+#viewport:fullscreen .sun-handle{z-index:7}
+.sim-fullscreen-hud{display:none;position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(17,31,50,.93);color:#f4f7fc;border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:10px 13px;box-shadow:0 7px 30px #07142455;gap:10px;align-items:center;max-width:calc(100% - 32px);user-select:none;font-size:12px}
+#viewport:fullscreen .sim-fullscreen-hud{display:flex}
+.sim-fullscreen-hud label{white-space:nowrap;display:flex;align-items:center;gap:5px;font-weight:750}
+.sim-fullscreen-hud input[type=checkbox]{accent-color:#e5b77f;width:15px;height:15px}
+.sim-fullscreen-hud input[type=range]{width:min(150px,16vw);accent-color:#e5b77f;cursor:pointer}
+.sim-fullscreen-hud select{background:#243a55;color:white;border:1px solid #536680;border-radius:7px;padding:6px;font-weight:750}
+.sim-fullscreen-hud button{padding:8px 10px;background:#294562;border:1px solid #57718b;color:white;border-radius:8px;font-size:12px;font-weight:750;white-space:nowrap}
+.sim-fullscreen-hud button:last-child{background:#b67843;border-color:#e4ad7e}
+.sim-fullscreen-hud strong{font-size:13px;color:#ffe6b9;white-space:nowrap}
+.sim-fullscreen-hud .hud-hint{opacity:.7;white-space:nowrap}
+.daynight-controls{border:1px solid #cdd9e8;background:#eef4fb;padding:12px;border-radius:11px;margin:13px 0}
+.daynight-controls .sim-field{margin:11px 0}
+.daynight-controls .sim-check{font-size:12px;font-weight:800;margin:0 0 9px}
+.daynight-controls .sim-field input[type=range]{accent-color:#e3aa5d}
+.daynight-controls .sim-field select{max-width:100%}
+.daynight-controls p{font-size:10px;line-height:1.6;color:#5e7182;margin:8px 0 0}
+.daynight-cycle-on .sun-handle{display:none!important}
+@media(max-width:920px){.sim-fullscreen-hud{flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 20px)}.sim-fullscreen-hud .hud-hint{display:none}.sim-fullscreen-hud input[type=range]{width:105px}}
+
+.generator-box{background:#f6f0e5}.generator-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.generator-fields label{font-size:11px;font-weight:800;color:#4c637c}.generator-fields input{margin-top:6px;display:block;width:100%;padding:9px;border:1px solid #cad4dc;border-radius:8px;color:#273850;font-weight:800;background:white}.gen-water{display:flex;align-items:center;gap:7px;margin:10px 0 0;font-size:11px;font-weight:750;color:#4d6177}.gen-water input{accent-color:#e3aa5d}.gen-help{font-size:11px;color:#62758b;line-height:1.55;margin:11px 0}.gen-btn{width:100%;border:0;border-radius:8px;padding:11px;color:#382c21;background:#ebbd82;font-size:12px;font-weight:800}.gen-btn:hover{background:#f4d09f}.gen-btn.outline{background:white;border:1px solid #d3dce3;color:#30475e}.warn-count.bad{background:#fee1e2;color:#bc303b}.invalid-card{background:#fff8f7}.map-warning{position:absolute;left:50%;top:18px;transform:translateX(-50%);background:#fff1f0;border:1px solid #f2a0a0;color:#ac2330;z-index:9;border-radius:9px;padding:10px 16px;box-shadow:0 3px 15px #2113;font-weight:750;font-size:12px;pointer-events:none}.map-warning[hidden]{display:none}
+
+/* Accordion settings v10 */
+.inspector{width:295px;min-width:295px}.settings-hero{padding:17px 16px 12px;background:#fff;border-bottom:1px solid #e0e6e1}.settings-hero h2{font-size:16px;letter-spacing:-.2px;margin:6px 0 5px;color:#234b4a}.settings-hero p{font-size:11px;line-height:1.45;color:#7b8d8b;margin:0}.setting-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.setting-chips span{background:#e8f2eb;padding:5px 7px;border-radius:14px;color:#49765a;font-size:10px;font-weight:750}.setting-stack{padding:10px;display:grid;gap:8px}.setting-group{border:1px solid #dde6df;border-radius:11px;background:#fff;overflow:hidden;box-shadow:0 2px 5px #243b2710}.setting-group>summary{cursor:pointer;list-style:none;padding:12px 12px;font-size:12px;color:#2e4b50;font-weight:850;display:flex;flex-direction:column;gap:3px;position:relative;padding-right:32px;user-select:none}.setting-group>summary::-webkit-details-marker{display:none}.setting-group>summary:after{content:'⌄';position:absolute;right:13px;top:15px;color:#778a91;font-weight:700;font-size:16px;transition:transform .18s}.setting-group[open]>summary:after{transform:rotate(180deg)}.setting-group>summary small{font-size:10px;color:#91a29d;font-weight:550}.setting-group[open]>summary{background:#edf5ee;border-bottom:1px solid #e0ebe2}.setting-body{padding:11px 13px 14px}.setting-body .sim-field:first-child{margin-top:0}.setting-body .sim-field{margin:11px 0}.setting-body .shadow-controls,.setting-body.shadow-controls{background:none;border:0;box-shadow:none;border-radius:0;margin:0;padding:11px 13px 14px}.setting-readonly{display:flex;justify-content:space-between;font-size:11px;margin:7px 0;background:#f6f7f3;padding:8px;border-radius:7px;color:#67817a}.setting-readonly strong{color:#bf8c5b}.weather-preset{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:1px 0 11px}.weather-preset button{padding:8px 3px;border:1px solid #d4deda;background:#f5f7f5;border-radius:8px;color:#5c7771;font-size:11px;font-weight:750}.weather-preset button.selected{background:#d8ebdb;border-color:#86b39a;color:#2b6950;box-shadow:0 0 0 1px #9bc5a7}.sim-mini{font-size:10px;line-height:1.55;color:#69807a}.settings-hero .eyebrow{color:#c69660}.sim-panel{padding-bottom:20px}.simulation-active .sim-panel{background:#f5f7f4}@media(max-width:1220px){.inspector{width:260px;min-width:260px}}
+
+/* Asset library v12 */
+[hidden]{display:none!important}.library-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:9px 10px;border-bottom:1px solid #30425b}.library-switch button{background:#1d2b41;color:#bbcadb;border:1px solid #34465d;padding:10px 6px;border-radius:8px;font-size:12px;font-weight:800}.library-switch button.active{background:#ecc596;border-color:#ecc596;color:#463421}.sidebar-view{display:flex;flex:1;flex-direction:column;min-height:0}.asset-top{padding:14px 12px 10px;border-bottom:1px solid #304058}.asset-top .side-title{margin:5px 0 5px}.asset-top .side-desc{margin:0 0 10px}.asset-category-pills{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:10px 0}.asset-category-pills button{border:1px solid #3a4e65;border-radius:8px;background:#1d2b40;color:#ccdae8;font-size:11px;font-weight:750;padding:9px 4px}.asset-category-pills button.chosen{background:#e7bd8d;color:#382c22;border-color:#e7bd8d}.asset-options select{display:block;width:100%;margin-top:5px;padding:8px;border-radius:7px;background:#263953;border:1px solid #48617b;color:#fff}.asset-options label{font-size:11px;color:#a5b7cd;font-weight:700}.asset-bulk{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}.asset-bulk button{background:#304862;color:#f0f3f7;border:1px solid #5b708c;font-size:10px;border-radius:7px;padding:8px 2px;font-weight:750}.asset-count{color:#a9bfda;font-size:11px}.asset-cards{min-height:0;overflow:auto;align-content:start;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;gap:9px;padding:11px 12px;flex:1}.asset-bike-card{display:block;background:#22324b;border:1px solid #405674;border-radius:10px;overflow:hidden;cursor:pointer}.asset-bike-card.enabled{border-color:#dfb578}.asset-bike-top{height:111px;display:grid;place-items:center;background:linear-gradient(145deg,#36485a,#2a344a)}.asset-bike-top img{display:block;max-width:95%;max-height:100px;width:auto;height:auto;object-fit:contain;image-rendering:auto}.asset-bike-bottom{display:flex;align-items:center;justify-content:space-between;padding:8px;font-size:11px;font-weight:800;color:#e9f1f9}.asset-bike-bottom input{width:17px;height:17px;accent-color:#d8a86c}.asset-bike-card:not(.enabled) img{opacity:.45;filter:grayscale(.6)}.asset-badge{font-size:9px;color:#c9d6df;font-weight:600;display:block;margin-top:4px}.asset-placeholder{grid-column:span 2;padding:17px 5px;color:#aebed4;font-size:12px;line-height:1.7}.asset-generic-card{background:#24354f;border:1px solid #3c516d;border-radius:10px;padding:8px;min-width:0}.asset-generic-card img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#ddd;border-radius:5px}.asset-generic-card strong{font-size:11px;display:block;overflow-wrap:anywhere;margin-top:7px}.asset-errors{border-top:1px solid #6e4b3b;padding:8px 12px;color:#ffd2a6;background:#55352f;font-size:11px;line-height:1.6;max-height:105px;overflow:auto}.asset-footer{border-top:1px solid #30445d;padding:10px 12px}.asset-import-btn{position:relative;display:block;text-align:center;background:#344f68;border:1px solid #6887a4;border-radius:7px;color:#fff;padding:9px;font-size:11px;font-weight:800;cursor:pointer;overflow:hidden}.asset-import-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}.asset-footer small{display:block;color:#91a7bd;font-size:10px;margin-top:7px;line-height:1.5}.asset-footer code{font-size:10px;color:#f4c794}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="brand"><span class="brandmark">▦</span><div><small>THẤT NGHIỆP VỀ QUÊ</small><strong>WORLD MAP BUILDER</strong></div></div><div class="topdivider"></div><div class="maptitle"><span>Tên bản đồ</span><input id="mapName" class="nameinput" value="Thị trấn ven sông" spellcheck="false"/></div><div class="topright"><button class="btn" id="demoBtn">✦ Map mẫu</button><button class="btn" id="fullscreenBtn" title="Chỉ mở toàn màn hình mô phỏng, ẩn các bảng công cụ">⛶ Xem mô phỏng toàn màn hình</button><button class="btn" id="simToggle" title="Bật/tắt mô phỏng giao thông">▶ Mô phỏng xe</button><button class="btn filebtn" id="importBtn">↥ Import JSON<input id="fileImport" type="file" accept=".json,application/json" aria-label="Import JSON"/></button><button class="btn primary" id="exportBtn">↧ Export JSON</button></div></header>
+<main class="body">
+<aside class="sidebar"><div class="library-switch" role="tablist" aria-label="Bảng bên trái"><button id="libraryMaterials" type="button" role="tab" aria-selected="true" class="active">▦ Vật liệu</button><button id="libraryAssets" type="button" role="tab" aria-selected="false">◈ Asset</button></div><div id="materialsView" class="sidebar-view"><div class="section-head"><span class="eyebrow">TILE LIBRARY / ROAD LEVEL <span id="levelTitle">4</span></span><div class="side-title">Bảng vật liệu</div><div class="side-desc">Chọn ô để tô hoặc kéo ảnh thả vào map. Mỗi ô logic <b>120 × 120 px</b>, mọi cấp đường.</div>
+<div class="level-picker"><label for="materialLevel">Cấp độ vật liệu</label><select id="materialLevel"><option value="1">Level 1 · Đường đất</option><option value="2">Level 2 · Đường cát</option><option value="3">Level 3 · Đường đá</option><option value="4" selected>Level 4 · Đường nhựa</option><option value="5">Level 5 · Đường hiện đại</option></select><small id="levelHint">Đang hiển thị bộ sprite cấp 4.</small></div><div class="tabs"><button class="tab active" data-group="road">🛣 Đường bộ</button><button class="tab" data-group="river">🌊 Đường sông</button><button class="tab" data-group="sidewalk">▦ Vỉa hè</button><button class="tab" data-group="bridge">🌉 Cầu</button></div></div><div class="palette-head"><strong id="paletteTitle">Đường bộ</strong><span class="pill" id="tileCount">20 tile</span></div><div class="palette" id="palette"></div><div class="sidebottom"><div><b>Quy ước xab:</b> x = cấp đường - 1, ab = loại ô (00–12).</div><div>Roads được chia riêng <b>Level_1 ... Level_5</b>.</div></div></div>
+<div id="assetsView" class="sidebar-view" hidden>
+ <div class="asset-top"><div class="eyebrow">ASSET / SPRITE LIBRARY</div><div class="side-title">Danh sách Asset</div><p class="side-desc">Tự quét thư mục và kiểm tra tên frame. Chỉ những Bike được tick mới có trong mô phỏng.</p>
+ <div class="asset-category-pills" role="group" aria-label="Loại asset"><button data-asset-category="vehicles" class="chosen">🛵 Vehicles</button><button data-asset-category="deco">🌳 Deco</button><button data-asset-category="roads">🛣 Roads</button><button data-asset-category="constructions">🏠 Buildings</button></div>
+ <div class="asset-options"><label id="vehicleTypeWrap">Loại phương tiện<select id="assetVehicleType"><option value="bikes">Bikes</option><option value="cars">Ô tô 4+ bánh</option></select></label><label id="assetLevelWrap" hidden>Level<select id="assetLevel"><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4" selected>Level 4</option><option value="5">Level 5</option></select></label></div>
+ <div id="assetBulkActions" class="asset-bulk"><button type="button" id="enableAllBikes">✓ Chọn tất cả</button><button type="button" id="disableAllBikes">✕ Bỏ chọn tất cả</button></div>
+ <div id="assetCount" class="asset-count">Chưa tải registry</div>
+ </div>
+ <div id="assetCards" class="asset-cards"></div>
+ <div id="assetErrors" class="asset-errors" hidden></div>
+ <div class="asset-footer"><label class="asset-import-btn">📂 Quét thư mục Sprites<input id="scanAssetFolder" type="file" webkitdirectory directory multiple/></label><small>Chọn thư mục <code>Asset/Sprites</code>. Quét trực tiếp chỉ áp dụng trong phiên mở này; để lưu danh sách vào source, chạy <code>python scan_assets.py</code>.</small></div>
+</div></aside>
+<section class="workspace">
+<div class="toolsbar"><div class="toolgroup"><button class="toolbtn active" data-tool="paint" title="B: tô ô">✎ Vẽ <small>(B)</small></button><button class="toolbtn" data-tool="line" title="L: vẽ một đường thẳng liên tục">╱ Kẻ đường</button><button class="toolbtn" data-tool="erase" title="E: xóa ô">⌫ Xóa</button><button class="toolbtn" data-tool="pick" title="I: chọn sprite từ ô đang có">◉ Hút mẫu</button><button class="toolbtn" data-tool="pan" title="H hoặc Space: kéo bản đồ">✥ Di chuyển</button></div><div class="toolgroup"><button class="toolbtn" id="rotateBtn" title="R: xoay sprite đang chọn">↻ Xoay 90°</button><button class="toolbtn" id="undoBtn" title="Ctrl+Z">↶</button><button class="toolbtn" id="redoBtn" title="Ctrl+Y">↷</button><button class="toolbtn" id="gridBtn" title="G: bật/tắt lưới">▦ Lưới</button><button class="toolbtn sharp-on" id="sharpBtn" title="Pixel Sharp: không làm mờ sprite khi zoom">◈ Pixel Sharp</button></div></div>
+<div class="viewport" id="viewport"><canvas id="mapCanvas"></canvas><div id="sunHandle" class="sun-handle" tabindex="0" role="slider" aria-label="Kéo mặt trời để đổi hướng bóng" title="Kéo mặt trời để đổi hướng bóng, có thể dùng phím mũi tên">☀️</div><div id="simFullscreenHud" class="sim-fullscreen-hud" aria-label="Điều khiển mô phỏng toàn màn hình"><strong id="hudClock">☀ 08:00</strong><label><input type="checkbox" id="hudDayNightEnable"/> Ngày/đêm</label><input id="hudTime" type="range" min="0" max="1439" step="1" value="480" title="Kéo chọn thời gian trong ngày"/><select id="hudTimeSpeed" aria-label="Tốc độ thời gian"><option value="1" selected>×1</option><option value="60">×60</option><option value="360">×360</option><option value="1440">×1440</option></select><span class="hud-hint">Kéo map · Cuộn để zoom</span><button type="button" id="hudPause">⏸ Tạm dừng</button><button type="button" id="hudExit">✕ Thoát toàn màn hình</button></div><div id="mapWarning" class="map-warning" hidden>⚠ Kết nối sai <b id="mapWarnCount">0</b> ô · Sửa các ô đỏ trước khi mô phỏng</div><div class="axislabel" id="axisLabel">Lưới vô hạn · 120 × 120 px · (0, 0)</div><div class="canvas-help"><b>HƯỚNG DẪN NHANH</b><div>Chọn tile rồi <kbd>click</kbd> hoặc <kbd>kéo chuột</kbd> để vẽ.</div><div><kbd>Chuột phải</kbd> xóa · <kbd>Space + kéo</kbd> di chuyển · <kbd>Con lăn</kbd> zoom.</div><div><kbd>Kéo ô 300</kbd> tự nối đường dọc/ngang và rẽ góc · <kbd>Shift + kéo</kbd> tô chữ nhật.</div><div><kbd>R</kbd> xoay · <kbd>Ctrl+Z</kbd> hoàn tác · <kbd>Ctrl+Y</kbd> làm lại.</div></div><div class="zoomctl"><button id="zoomOut" title="Thu nhỏ">−</button><label id="zoomLabel">100%</label><button id="zoomIn" title="Phóng to">+</button><button id="fitBtn" title="Canh vừa map" style="font-size:12px">⌗</button></div><div class="toast" id="toast"></div></div>
+<div class="status"><span id="coordText">Tọa độ ô: (0, 0)</span><span id="statusCount">0 ô đã đặt</span><span id="saveStatus">Chưa có dữ liệu</span></div>
+</section>
+<aside class="inspector"><div class="map-edit-inspector"><div class="ins-head"><span class="eyebrow">INSPECTOR</span><h2>Chi tiết bản đồ</h2><p>Cấp 4 dùng bộ ảnh gốc do mày cung cấp. Những cấp khác có thể thêm vào sau mà không cần đổi cấu trúc JSON.</p></div>
+<div class="ins-card generator-box" id="genBox"><div class="ins-title">🪄 Sinh map theo số ô <span class="chip">120 × 120</span></div><div class="generator-fields"><label>Rộng (ô)<input type="number" id="genW" min="10" max="120" value="30"></label><label>Cao (ô)<input type="number" id="genH" min="10" max="120" value="22"></label></div><label class="gen-water"><input type="checkbox" id="genRiver" checked> Thêm sông và cầu qua sông</label><div class="generator-fields" style="margin-top:10px"><label>Min dài vỉa hè<input id="sideMin" type="number" min="1" max="12" value="2"/></label><label>Max dài vỉa hè<input id="sideMax" type="number" min="1" max="16" value="6"/></label></div><div class="gen-help">Sinh kín 100% diện tích. Vỉa hè chỉ thành hình chữ nhật: dài từ min–max, cao 1–3 ô; đường 1 ô, sông tạo vòng kín và cầu qua đường.</div><button class="gen-btn" id="generateMap">✨ Sinh bản đồ hợp lệ</button></div>
+<div class="ins-card invalid-card"><div class="ins-title">⚠ Kiểm tra kết nối <span class="chip warn-count" id="invalidCount">0 lỗi</span></div><p class="note" id="invalidHint">Các ô không đúng quy tắc hiện viền đỏ. Vẫn được đặt để chỉnh tiếp, nhưng không thể bật mô phỏng khi còn lỗi.</p><button class="gen-btn outline" id="focusInvalid">◎ Đi tới lỗi đầu tiên</button></div><div class="ins-card"><div class="ins-title">Ô đang chọn <span class="chip" id="selectedGroup">Đường bộ</span></div><div class="selected-art"><div class="rot-preview"><img id="selectedImg" alt="Sprite được chọn"/></div><div><strong id="selectedName">Không viền</strong><p id="selectedCode">Index 300</p><p id="selectedRot">Góc xoay: 0°</p></div></div><div class="rot-controls"><button id="rotateLeft">↶ −90°</button><button id="rotateRight">↷ +90°</button></div><p class="note">Ảnh minh họa ở trên <b>xoay ngay</b> theo nút ±90°. JSON lưu mã xab và rotation riêng.</p></div>
+<div class="ins-card"><div class="ins-title">Ô dưới con trỏ</div><div class="kv"><span>Tọa độ X / Y</span><strong id="cellCoord">0 / 0</strong><span>Mã sprite</span><strong id="cellCode">Trống</strong><span>Kết nối N S T P</span><strong id="cellPorts">—</strong><span>Góc xoay</span><strong id="cellRot">—</strong><span>Kích thước</span><strong>120 × 120 px</strong></div></div>
+<div class="ins-card"><div class="ins-title">Thống kê map</div><div class="countgrid"><div class="stat"><strong id="totalPlaced">0</strong><small>Ô đã đặt</small></div><div class="stat"><strong id="roadPlaced">0</strong><small>Đường bộ</small></div><div class="stat"><strong id="riverPlaced">0</strong><small>Đường sông</small></div><div class="stat"><strong id="walkPlaced">0</strong><small>Vỉa hè</small></div></div><div class="minirow"><button id="centerBtn">◎ Về tọa độ 0</button><button id="clearBtn">🗑 Xóa map</button></div><p class="note">Map không giới hạn chiều ngang/dọc, cho phép đặt ô tại tọa độ âm. Các ô trống không được lưu vào JSON.</p></div>
+<div class="ins-card"><div class="ins-title">File & dữ liệu</div><div class="kv"><span>Tile size</span><strong>120 px</strong><span>Phiên bản JSON</span><strong>3</strong><span>Asset hiện có</span><strong>Level 4</strong><span>Khoảng mã</span><strong>300–312</strong></div><p class="note">13 sprite gốc: xoay 0°/90°/180°/270° để nối góc và lối đi. JSON v3 lưu mã 300–312, rotation và kết nối bốn hướng.</p></div></div>
+<div class="sim-panel">
+  <div class="settings-hero"><div class="eyebrow">SIMULATION SETTINGS</div><h2>⚙️ Điều khiển mô phỏng</h2><p>Chọn từng hạng mục để điều chỉnh. Bấm vào tiêu đề để thu gọn.</p><div class="setting-chips"><span>🚥 Giao thông</span><span>🌗 Thời gian</span><span>🌧️ Thời tiết</span></div></div>
+  <div class="setting-stack">
+    <details class="setting-group" open id="panelVehicles"><summary>🛵 Xe & làn đường <small>Số lượng, tốc độ, kích thước</small></summary><div class="setting-body">
+      <div class="sim-field"><label for="simCount">Số xe mô phỏng <output id="simCountNum">24</output></label><input id="simCount" type="range" min="0" max="200" value="24" step="1"/></div>
+      <div class="sim-field"><label for="simHand">Luật đi đường</label><select id="simHand"><option value="right">🇻🇳 Đi sát phải (Việt Nam)</option><option value="left">Đi sát trái</option></select></div>
+      <div class="sim-field"><label for="simSpeedMin">Tốc độ tối thiểu <output id="simSpeedMinNum">35 px/s</output></label><input id="simSpeedMin" type="range" min="10" max="180" value="35"/></div>
+      <div class="sim-field"><label for="simSpeedMax">Tốc độ tối đa <output id="simSpeedMaxNum">105 px/s</output></label><input id="simSpeedMax" type="range" min="10" max="210" value="105"/></div>
+      <div class="sim-field"><label for="simVehicleScale">Kích thước xe <output id="simVehicleScaleNum">30%</output></label><input id="simVehicleScale" type="range" min="15" max="120" value="30"/></div>
+      <div class="sim-actions"><button id="simApply" class="sim-action main">↻ Áp dụng & tạo xe</button><button id="simPause" class="sim-action">⏸ Tạm dừng</button><button id="simReset" class="sim-action muted">🎲 Tạo lại vị trí ngẫu nhiên</button></div>
+      <p class="sim-mini">Xe dùng 2 nửa làn, giữ 10% lề mỗi bên và có độ lệch tự nhiên theo từng xe.</p>
+    </div></details>
+    <details class="setting-group" id="panelTraffic"><summary>🚥 Đèn giao thông <small>Chu kỳ & giao lộ</small></summary><div class="setting-body">
+      <label class="sim-check"><input id="trafficEnable" type="checkbox" checked/> Bật đèn giao thông tại ngã tư</label>
+      <div class="sim-field"><label for="trafficGreen">Thời gian xanh <output id="trafficGreenNum">7 giây</output></label><input id="trafficGreen" type="range" min="2" max="30" value="7"/></div>
+      <div class="sim-field"><label for="trafficYellow">Thời gian vàng <output id="trafficYellowNum">3 giây</output></label><input id="trafficYellow" type="range" min="1" max="10" value="3"/></div>
+      <div class="setting-readonly">🔴 Đỏ <strong id="trafficRedNum">10 giây</strong></div>
+      <label class="sim-check"><input id="simNetwork" type="checkbox"/> Hiện các đầu nối đường (debug)</label>
+      <p class="sim-mini">Xe chỉ kiểm tra đèn trước khi vào ô ngã tư. Đã vượt vạch dừng hoặc đã vào ngã tư thì đi tiếp.</p>
+    </div></details>
+    <details class="setting-group" open id="panelTime"><summary>🌅 Ngày, đêm & hoàng hôn <small>Giờ, tốc độ, ánh sáng</small></summary><div class="setting-body daynight-controls">
+      <label class="sim-check"><input id="dayNightEnable" type="checkbox"/> Bật chu kỳ ngày đêm</label>
+      <div class="sim-field"><label for="dayNightTime">Giờ trong game <output id="dayNightClock">08:00</output></label><input id="dayNightTime" type="range" min="0" max="1439" value="480"/></div>
+      <div class="sim-field"><label for="dayNightSpeed">Tốc độ mô phỏng</label><select id="dayNightSpeed"><option value="1">×1 · 4 giờ thực/ngày</option><option value="60">×60 · 4 phút/ngày</option><option value="360">×360 · 40 giây/ngày</option><option value="1440">×1440 · 10 giây/ngày</option></select></div>
+      <div class="setting-readonly">🌄 Bình minh <strong>05:00–06:00</strong></div><div class="setting-readonly">🌇 Hoàng hôn <strong>17:00–18:00</strong></div>
+      <p class="sim-mini">Ánh sáng ấm chuyển dần theo giờ. Ban đêm giữ hiệu ứng đèn pha xe máy.</p>
+    </div></details>
+    <details class="setting-group" open id="panelWeather"><summary>🌦️ Thời tiết <small>Trời quang, mưa, tuyết</small></summary><div class="setting-body">
+      <div class="weather-preset" role="group" aria-label="Chọn thời tiết"><button type="button" data-weather="clear" class="selected">☀️ Nắng</button><button type="button" data-weather="rain">🌧️ Mưa</button><button type="button" data-weather="snow">❄️ Tuyết</button></div>
+      <select id="weatherMode" aria-label="Trạng thái thời tiết" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"><option value="clear">Trời quang</option><option value="rain">Mưa</option><option value="snow">Tuyết</option></select>
+      <div class="sim-field"><label for="weatherIntensity">Cường độ <output id="weatherIntensityNum">60%</output></label><input id="weatherIntensity" type="range" min="0" max="100" value="60" step="5"/></div>
+      <div class="sim-field"><label for="weatherWind">Hướng gió <output id="weatherWindNum">0</output></label><input id="weatherWind" type="range" min="-100" max="100" value="0" step="5"/></div>
+      <p class="sim-mini">Mưa và tuyết đều hạ độ sáng cảnh nhẹ theo cường độ; tuyết rơi chậm, mưa có vệt xiên. Cả hai chỉ là lớp thời tiết, không thay đổi JSON tile.</p>
+    </div></details>
+    <details class="setting-group" id="panelShadow"><summary>🌳 Bóng 2D <small>Xe, cột đèn, cầu & vật thể</small></summary><div class="setting-body shadow-controls">
+      <label class="sim-check"><input id="simShadows" type="checkbox" checked/> Hiện bóng mọi vật thể (trừ nền đường, vỉa hè, sông)</label>
+      <div class="sim-field"><label for="simShadowAlpha">Độ đậm <output id="simShadowAlphaNum">34%</output></label><input id="simShadowAlpha" type="range" min="0" max="75" value="34"/></div>
+      <div class="sim-field"><label for="simShadowBlur">Độ mềm <output id="simShadowBlurNum">2 px</output></label><input id="simShadowBlur" type="range" min="0" max="12" value="2"/></div>
+      <div class="sim-field"><label for="simShadowLength">Chiều dài <output id="simShadowLengthNum">115%</output></label><input id="simShadowLength" type="range" min="20" max="230" value="115" step="5"/></div>
+      <div class="sim-field"><label for="simShadowPivot">Pivot từ đáy <output id="simShadowPivotNum">28%</output></label><input id="simShadowPivot" type="range" min="0" max="65" value="28"/></div>
+      <div class="sim-field"><label for="simShadowInset">Dịch chân bóng <output id="simShadowInsetNum">12%</output></label><input id="simShadowInset" type="range" min="0" max="45" value="12"/></div>
+      <label class="sim-check"><input id="simShadowDebug" type="checkbox"/> Hiện điểm bám bóng</label>
+      <button id="simSunReset" type="button" class="sim-action muted" style="width:100%">☀️ Đặt lại mặt trời</button>
+    </div></details>
+    <details class="setting-group" id="panelHeadlight"><summary>🔦 Đèn pha xe <small>Độ sáng & chùm sáng</small></summary><div class="setting-body">
+      <div class="sim-field"><label for="lampPower">Độ sáng <output id="lampPowerNum">24%</output></label><input id="lampPower" type="range" min="0" max="100" value="24"/></div>
+      <div class="sim-field"><label for="lampLength">Chiều dài <output id="lampLengthNum">62 px</output></label><input id="lampLength" type="range" min="20" max="180" value="62" step="2"/></div>
+      <div class="sim-field"><label for="lampWidth">Độ rộng <output id="lampWidthNum">20 px</output></label><input id="lampWidth" type="range" min="6" max="85" value="20"/></div>
+      <div class="sim-field"><label for="lampGlow">Quầng sáng <output id="lampGlowNum">12 px</output></label><input id="lampGlow" type="range" min="0" max="45" value="12"/></div>
+    </div></details>
+    <details class="setting-group" id="panelStats"><summary>📊 Thống kê & trợ giúp <small>Trạng thái mô phỏng</small></summary><div class="setting-body">
+      <div class="sim-stats"><div><b id="simLiveCount">0</b><small>Xe đã tạo</small></div><div><b id="simRoadCount">0</b><small>Ô đường nối</small></div><div><b id="simJunctionCount">0</b><small>Ngã 3 / ngã 4</small></div><div><b id="simNoPath">0</b><small>Xe gặp ngõ cụt</small></div></div>
+      <p class="sim-detail">Kéo map để di chuyển quan sát, cuộn chuột để zoom. Nhấn <b>Thoát mô phỏng</b> để sửa map.</p>
+    </div></details>
+  </div>
+</div>
+</aside>
+</main></div>
+<script src="asset_manifest.js"></script>
+<script>
+'use strict';
+// Asset paths below are replaced with data URIs for the standalone HTML build.
+let ASSET_MANIFEST=window.__ASSET_MANIFEST__||{version:1,vehicles:{bikes:[],cars:[]},invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{}};
+let assetCategory='vehicles',assetVehicleType='bikes',assetLevel=4,assetPreviewIndex=0,blobAssetURLs=[];
+const TILE_SOURCES={};
+function applyTileSources(){for(const key of Object.keys(TILE_SOURCES))delete TILE_SOURCES[key];for(const files of Object.values(ASSET_MANIFEST.roads||{}))for(const tile of files){if(tile.code&&tile.path)TILE_SOURCES[tile.code]=tile.path}}
+applyTileSources();
+const TS=120, STORAGE_KEY='tnvq_world_builder_v12';
+// Only one art asset per orientation family; R rotates 90 degrees at runtime.
+const META=[
+ ['300','Đường thẳng • hai biên song song','road'],
+ ['301','Đường rẽ • hai biên vuông góc','road'],
+ ['302','Ngã tư đường bộ','road'],
+ ['303','Ngã ba chữ T','road'],
+ ['304','Vạch qua đường có hai biên','road'],
+ ['305','Nền vỉa hè','sidewalk'],
+ ['306','Sông rẽ góc','river'],
+ ['307','Ngã ba sông','river'],
+ ['308','Sông ngang • hai bờ','river'],
+ ['309','Sông dọc • hai bờ','river'],
+ ['310','Ngã tư sông','river'],
+ ['311','Cầu dọc • hai đầu N/S','bridge'],
+ ['312','Cầu ngang • hai đầu T/P','bridge']
+];
+// Every level reuses the same 13 tile silhouettes, but has its own sprite folder/code xab.
+const LEVEL4_META=META.map(m=>[...m]);
+function addManifestLevelMetadata(){for(const [level,items] of Object.entries(ASSET_MANIFEST.roads||{}))for(const row of items){const code=row.code;if(!code||META.some(m=>m[0]===code))continue;const base=LEVEL4_META.find(m=>Number(m[0])%100===Number(code)%100);if(base)META.push([code,base[1],base[2]])}}
+addManifestLevelMetadata();
+const META_MAP=Object.fromEntries(META.map(e=>[e[0],{name:e[1],group:e[2]}]));
+const GROUP_LABEL={road:'Đường bộ',river:'Đường sông',sidewalk:'Vỉa hè',bridge:'Cầu qua sông'};
+const $=id=>document.getElementById(id);
+const viewport=$('viewport'),canvas=$('mapCanvas'),ctx=canvas.getContext('2d',{alpha:false});
+let materialLevel=4,sharpPixels=true,sceneObjects=[];
+let generatedBounds=null,map=new Map(),activeGroup='road',selectedCode='300',selectedRotation=0,tool='paint',showGrid=true,zoom=1,cam={x:0,y:0},vw=1,vh=1,dpr=1;
+let hovering=null,pointerState=null,pressedSpace=false,lastSave=0,updatePending=false,history=[],future=[],drawQueued=false;
+const tileImages={};let loaded=0;
+function key(x,y){return `${x},${y}`}
+function clone(t){return t?{code:t.code,rotation:t.rotation}:null}
+function notify(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.classList.remove('show'),2800)}
+function requestDraw(){if(drawQueued)return;drawQueued=true;requestAnimationFrame(()=>{drawQueued=false;draw()})}
+function position(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}}
+function cellAt(p){return {x:Math.floor(((p.x-vw/2)/zoom+cam.x)/TS),y:Math.floor(((p.y-vh/2)/zoom+cam.y)/TS)}}
+function toScreen(x,y){return{x:(x-cam.x)*zoom+vw/2,y:(y-cam.y)*zoom+vh/2}}
+function safeRotation(r){const n=Number(r)||0;return((Math.round(n/90)*90)%360+360)%360}
+function normalizeCode(code){const s=String(code).trim().replace(/[^0-9]/g,'');return s.padStart(3,'0').slice(-3)}
+function drawTile(tile,x,y,alpha=1){
+ const size=TS*zoom,p=toScreen(x*TS,y*TS),img=tileImages[tile.code];ctx.save();ctx.globalAlpha=alpha;
+ if(img&&img.complete&&img.naturalWidth){
+  if(tile.rotation){ctx.translate(p.x+size/2,p.y+size/2);ctx.rotate(tile.rotation*Math.PI/180);ctx.drawImage(img,-size/2,-size/2,size,size)}
+  else{ // Align edges to the physical backing-pixel grid to avoid seams at fractional zoom.
+   const left=Math.round(p.x*dpr)/dpr,top=Math.round(p.y*dpr)/dpr;
+   const right=Math.round((p.x+size)*dpr)/dpr,bottom=Math.round((p.y+size)*dpr)/dpr;
+   ctx.drawImage(img,left,top,right-left,bottom-top);
+  }
+ }else{ctx.fillStyle='#b9bcc2';ctx.fillRect(p.x,p.y,size,size);ctx.fillStyle='#2c3646';ctx.font=`bold ${Math.max(9,12*zoom)}px Arial`;ctx.fillText(tile.code,p.x+8,p.y+18)}ctx.restore()
+}
+function draw(){if(vw<1||vh<1)return;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=!sharpPixels;ctx.imageSmoothingQuality='high';ctx.fillStyle='#e8dac7';ctx.fillRect(0,0,vw,vh);const halfW=vw/(2*zoom),halfH=vh/(2*zoom),xmin=Math.floor((cam.x-halfW)/TS)-1,xmax=Math.ceil((cam.x+halfW)/TS)+1,ymin=Math.floor((cam.y-halfH)/TS)-1,ymax=Math.ceil((cam.y+halfH)/TS)+1;for(let y=ymin;y<=ymax;y++)for(let x=xmin;x<=xmax;x++){const t=map.get(key(x,y));if(t)drawTile(t,x,y)}
+if(showGrid){ctx.strokeStyle='rgba(69,67,57,.21)';ctx.lineWidth=1;ctx.beginPath();for(let x=xmin;x<=xmax+1;x++){let sx=toScreen(x*TS,0).x+0.5;ctx.moveTo(sx,0);ctx.lineTo(sx,vh)}for(let y=ymin;y<=ymax+1;y++){let sy=toScreen(0,y*TS).y+0.5;ctx.moveTo(0,sy);ctx.lineTo(vw,sy)}ctx.stroke();const origin=toScreen(0,0);ctx.strokeStyle='rgba(207,124,55,.5)';ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(origin.x,0);ctx.lineTo(origin.x,vh);ctx.moveTo(0,origin.y);ctx.lineTo(vw,origin.y);ctx.stroke();ctx.setLineDash([])}
+if(simMode){
+ if(simConfig.shadows&&daylightFactor()>.001)drawBridgeShadows(xmin,xmax,ymin,ymax);
+ if(simShowNetwork)drawTrafficNetwork();renderWorldObjects();
+ if(dayNight.enabled)drawDayNightLight();drawWeather();
+}drawValidationOverlay();
+if(pointerState&&pointerState.kind==='rect'){for(const c of rectCells(pointerState.start,pointerState.last))previewCell(c)}
+if(pointerState&&pointerState.kind==='line'){for(const c of bresenham(pointerState.start.x,pointerState.start.y,pointerState.last.x,pointerState.last.y))previewCell(c)}else if(hovering&&tool!=='pan'&&!pointerState?.pan&&!pointerState?.autoRoad){previewCell(hovering)}}
+function drawBridgeShadows(xmin,xmax,ymin,ymax){
+ // Bridges are raised props, unlike background road, sidewalk and river tiles.
+ const bridges=[];
+ for(let y=ymin;y<=ymax;y++)for(let x=xmin;x<=xmax;x++){
+  const tile=map.get(key(x,y));if(tile?.code!=='311'&&tile?.code!=='312')continue;
+  const img=tileImages[tile.code];if(!img?.naturalWidth)continue;
+  bridges.push({x,y,tile,img});
+  const worldX=(x+.5)*TS,worldY=(y+.84)*TS;
+  castFullSpriteShadow(img,worldX,worldY,TS*zoom,TS*zoom,.5,.84,false,.36);
+ }
+ // Redraw bridge sprite over the cast shadow to preserve the wooden surface.
+ for(const b of bridges)drawTile(b.tile,b.x,b.y);
+}
+function rectCells(a,b){let r=[];const x0=Math.min(a.x,b.x),x1=Math.max(a.x,b.x),y0=Math.min(a.y,b.y),y1=Math.max(a.y,b.y);if((x1-x0+1)*(y1-y0+1)>16000)return r;for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)r.push({x,y});return r}
+function previewCell(c){const p=toScreen(c.x*TS,c.y*TS),size=TS*zoom;if(tool==='paint'||tool==='line')drawTile({code:selectedCode,rotation:selectedRotation},c.x,c.y,.47);ctx.save();ctx.strokeStyle=tool==='erase'?'#db5c42':'#c38942';ctx.lineWidth=2;ctx.strokeRect(p.x+1,p.y+1,size-2,size-2);ctx.restore()}
+function resize(){const b=viewport.getBoundingClientRect();vw=Math.max(1,b.width);vh=Math.max(1,b.height);dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(vw*dpr);canvas.height=Math.round(vh*dpr);if(typeof placeSun==='function')placeSun();if(typeof resetWeatherParticles==='function')resetWeatherParticles();requestDraw()}
+new ResizeObserver(resize).observe(viewport);
+function addChange(stroke,x,y,value){if(!Number.isInteger(x)||!Number.isInteger(y))return;const k=key(x,y),old=map.get(k);if(!stroke.changes.has(k))stroke.changes.set(k,{key:k,before:clone(old),after:null});const t=value?{code:value.code,rotation:safeRotation(value.rotation)}:null;validationDirty=true;const c=stroke.changes.get(k);c.after=clone(t);if(t)map.set(k,t);else map.delete(k);requestDraw()}
+function beginStroke(){return {type:'stroke',changes:new Map()}}
+function recordStroke(st){const arr=[...st.changes.values()].filter(c=>JSON.stringify(c.before)!==JSON.stringify(c.after));if(!arr.length)return;history.push({type:'stroke',changes:arr});if(history.length>80)history.shift();future=[];updateStats();saveSoon()}
+function saveSoon(){clearTimeout(saveSoon.timer);saveSoon.timer=setTimeout(()=>{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(serializeMap()));$('saveStatus').textContent='Đã lưu tạm trong trình duyệt';}catch(e){$('saveStatus').textContent='Không lưu tạm được'}} ,320)}
+function performStroke(st,c,erase=false){if(!erase&&(!selectedCode||!TILE_SOURCES[selectedCode]))return;addChange(st,c.x,c.y,erase?null:{code:selectedCode,rotation:selectedRotation})}
+function bresenham(x0,y0,x1,y1){const result=[];let dx=Math.abs(x1-x0),sx=x0<x1?1:-1,dy=-Math.abs(y1-y0),sy=y0<y1?1:-1,err=dx+dy;while(true){result.push({x:x0,y:y0});if(x0===x1&&y0===y1)break;let e2=err*2;if(e2>=dy){err+=dy;x0+=sx}if(e2<=dx){err+=dx;y0+=sy}if(result.length>100000)break}return result}
+function paintSegment(st,a,b,erase){for(const c of bresenham(a.x,a.y,b.x,b.y))performStroke(st,c,erase)}
+// Drag road straight tiles as an orthogonal path. Paths alone never auto-create 3/4-way junctions.
+function tileMatchingPorts(group,want){const codes=group==='road'?[300,301]:group==='river'?[306,308,309]:[];
+ const sig=[...want].sort().join(',');for(const code of codes)for(let r=0;r<4;r++){
+  const got=(PORTS[code]||[]).map(d=>(d+r)%4).sort().join(',');if(got===sig)return{code:String(code),rotation:r*90};}
+ return null;}
+function directionBetween(a,b){if(a.x===b.x&&a.y===b.y-1)return 2;if(a.x===b.x&&a.y===b.y+1)return 0;
+ if(a.y===b.y&&a.x===b.x-1)return 1;if(a.y===b.y&&a.x===b.x+1)return 3;return null;}
+function drawRoadPathPoint(state,c){const path=state.path,prev=path[path.length-1];if(prev&&prev.x===c.x&&prev.y===c.y)return;
+ if(prev&&Math.abs(prev.x-c.x)+Math.abs(prev.y-c.y)!==1)return;
+ let backtracked=false;
+ if(path.length>=2&&path[path.length-2].x===c.x&&path[path.length-2].y===c.y){
+   const removed=path.pop(),before=state.stroke.changes.get(key(removed.x,removed.y))?.before||null;
+   addChange(state.stroke,removed.x,removed.y,before);backtracked=true;
+ }else path.push({x:c.x,y:c.y});
+ const update=(index)=>{const at=path[index],k=key(at.x,at.y),existing=map.get(k);
+  if(existing&&['302','303'].includes(existing.code))return; // junctions are placed manually
+  let dirs=[];if(index>0){const d=directionBetween(at,path[index-1]);if(d!==null)dirs.push(d)}
+  if(index+1<path.length){const d=directionBetween(at,path[index+1]);if(d!==null)dirs.push(d)}
+  if(dirs.length===1){const d=dirs[0];dirs=[d,(d+2)%4]}
+  const tile=tileMatchingPorts('road',dirs);
+  if(tile)addChange(state.stroke,at.x,at.y,tile);};
+ update(path.length-1);if(!backtracked&&path.length>1)update(path.length-2);
+}
+function orthogonalSteps(from,to){const steps=[];let a={...from};let dx=to.x-a.x,dy=to.y-a.y;let guard=0;
+ while((dx||dy)&&guard++<10000){const chooseX=Math.abs(dx)>=Math.abs(dy);if(chooseX&&dx)a.x+=Math.sign(dx);
+ else if(dy)a.y+=Math.sign(dy);else if(dx)a.x+=Math.sign(dx);steps.push({...a});dx=to.x-a.x;dy=to.y-a.y;}
+ return steps;}
+
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0&&e.button!==1&&e.button!==2)return;e.preventDefault();canvas.setPointerCapture(e.pointerId);const p=position(e),c=cellAt(p);hovering=c;const isPan=tool==='pan'||pressedSpace||e.button===1;if(isPan){pointerState={kind:'pan',start:p,last:p,camera:{...cam},pan:true};viewport.classList.add('panning')}else if(tool==='pick'&&e.button!==2){const t=map.get(key(c.x,c.y));if(t){selectTile(t.code,t.rotation);setTool('paint');notify(`Đã hút mẫu ${t.code}`)}pointerState=null}else if(e.shiftKey&&e.button!==2&&(tool==='paint'||tool==='erase')){pointerState={kind:'rect',start:c,last:c,erase:tool==='erase',stroke:beginStroke()}}else if(tool==='line'&&e.button!==2){pointerState={kind:'line',start:c,last:c,stroke:beginStroke()}}else{const erase=e.button===2||tool==='erase';const autoRoad=!erase&&tool==='paint'&&selectedCode==='300'&&materialLevel===4;pointerState={kind:'stroke',last:c,stroke:beginStroke(),erase,autoRoad,path:[]};if(autoRoad)drawRoadPathPoint(pointerState,c);else performStroke(pointerState.stroke,c,erase)}requestDraw()});
+canvas.addEventListener('pointermove',e=>{const p=position(e),c=cellAt(p);hovering=c;updateHover();if(pointerState){if(pointerState.kind==='pan'){cam.x=pointerState.camera.x-(p.x-pointerState.start.x)/zoom;cam.y=pointerState.camera.y-(p.y-pointerState.start.y)/zoom}else if(pointerState.kind==='line'||pointerState.kind==='rect'){pointerState.last=c}else if(pointerState.kind==='stroke'){if(pointerState.autoRoad){for(const p2 of orthogonalSteps(pointerState.last,c))drawRoadPathPoint(pointerState,p2)}else paintSegment(pointerState.stroke,pointerState.last,c,pointerState.erase);pointerState.last=c}}requestDraw()});
+function endPointer(){if(!pointerState)return;if(pointerState.kind==='stroke')recordStroke(pointerState.stroke);if(pointerState.kind==='line'){const s=pointerState;paintSegment(s.stroke,s.start,s.last,false);recordStroke(s.stroke)}if(pointerState.kind==='rect'){const s=pointerState;for(const c of rectCells(s.start,s.last))performStroke(s.stroke,c,s.erase);recordStroke(s.stroke)}pointerState=null;viewport.classList.remove('panning');requestDraw()}
+canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('pointerleave',()=>{if(!pointerState){hovering=null;requestDraw()}});
+canvas.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});
+canvas.addEventListener('drop',e=>{e.preventDefault();try{const d=JSON.parse(e.dataTransfer.getData('application/x-map-tile'));if(!META_MAP[d.code])throw new Error();selectTile(d.code,safeRotation(d.rotation));const c=cellAt(position(e)),st=beginStroke();addChange(st,c.x,c.y,{code:d.code,rotation:d.rotation});recordStroke(st);notify(`Đã đặt ô ${d.code} tại (${c.x}, ${c.y})`)}catch(err){notify('Không đọc được sprite kéo thả')}requestDraw()});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoomTo(zoom*Math.exp(-e.deltaY*.0012),position(e))},{passive:false});
+function zoomTo(n,p={x:vw/2,y:vh/2}){n=Math.max(.25,Math.min(5,n));const wx=(p.x-vw/2)/zoom+cam.x,wy=(p.y-vh/2)/zoom+cam.y;zoom=n;cam.x=wx-(p.x-vw/2)/zoom;cam.y=wy-(p.y-vh/2)/zoom;$('zoomLabel').textContent=Math.round(zoom*100)+'%';requestDraw()}
+$('zoomOut').onclick=()=>zoomTo(zoom/1.25);$('zoomIn').onclick=()=>zoomTo(zoom*1.25);$('fitBtn').onclick=fitMap;
+function fitMap(){if(!map.size){cam={x:0,y:0};zoom=1}else{const b=extent();cam.x=(b.minX+b.maxX+1)*TS/2;cam.y=(b.minY+b.maxY+1)*TS/2;zoom=Math.max(.25,Math.min(2,Math.min(vw/((b.maxX-b.minX+3)*TS),vh/((b.maxY-b.minY+3)*TS))))}$('zoomLabel').textContent=Math.round(zoom*100)+'%';requestDraw()}
+function extent(){let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;for(const k of map.keys()){const [x,y]=k.split(',').map(Number);minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY)}return{minX,maxX,minY,maxY}}
+function setTool(t){if(simMode&&t!=='pan')return;tool=t;document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));viewport.classList.toggle('pan',t==='pan');requestDraw()}
+document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.tool)));
+$('sharpBtn').onclick=()=>{sharpPixels=!sharpPixels;$('sharpBtn').classList.toggle('sharp-on',sharpPixels);$('sharpBtn').textContent=sharpPixels?'◈ Pixel Sharp':'◈ Smooth';requestDraw()};
+$('gridBtn').onclick=()=>{showGrid=!showGrid;$('gridBtn').classList.toggle('active',showGrid);requestDraw()};
+function rotate(delta){selectedRotation=safeRotation(selectedRotation+delta);updateSelected();requestDraw()}
+$('rotateBtn').onclick=()=>rotate(90);$('rotateRight').onclick=()=>rotate(90);$('rotateLeft').onclick=()=>rotate(-90);
+function updateSelected(){$('selectedName').textContent=META_MAP[selectedCode]?.name||'Không có ảnh';$('selectedGroup').textContent=GROUP_LABEL[META_MAP[selectedCode]?.group]||'Ngoài bộ';$('selectedCode').textContent='Index '+selectedCode;$('selectedRot').textContent='Góc xoay: '+selectedRotation+'° · N S T P = '+portsBits({code:selectedCode,rotation:selectedRotation});$('selectedImg').src=TILE_SOURCES[selectedCode]||'';$('selectedImg').style.transform='rotate('+selectedRotation+'deg)';document.querySelectorAll('.tile-option').forEach(el=>el.classList.toggle('selected',el.dataset.code===selectedCode))}
+function selectTile(code,rotation=0){selectedCode=normalizeCode(code);selectedRotation=safeRotation(rotation);const gr=META_MAP[selectedCode]?.group;if(gr&&gr!==activeGroup){activeGroup=gr;renderPalette()}updateSelected()}
+function renderPalette(){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.group===activeGroup));const a=META.filter(m=>m[2]===activeGroup&&Math.floor(Number(m[0])/100)===materialLevel-1&&TILE_SOURCES[m[0]]);$('paletteTitle').textContent=GROUP_LABEL[activeGroup];$('tileCount').textContent=a.length+' tile';const p=$('palette');p.replaceChildren();if(!a.length){const msg=document.createElement('div');msg.className='emptylabel';msg.textContent='Level '+materialLevel+' chưa có sprite. Thêm PNG vào Asset/Sprites/Roads/Level_'+materialLevel+' rồi chạy scan_assets.py.';p.append(msg)}for(const [code,name,group] of a){const b=document.createElement('button');b.type='button';b.draggable=true;b.className='tile-option'+(selectedCode===code?' selected':'');b.dataset.code=code;b.title=`Mã ${code} – ${name}; ${code==='300'?'kéo bút vẽ sẽ tự nối thẳng hoặc rẽ góc':'có thể kéo thả'}`;
+const im=document.createElement('img');im.className='tile-preview';im.src=TILE_SOURCES[code];im.alt=name;const label=document.createElement('div');label.className='tile-name';label.textContent=name;const cd=document.createElement('div');cd.className='tile-code';cd.textContent=code;const drag=document.createElement('span');drag.className='dragmark';drag.textContent='⠿';b.append(im,label,cd,drag);b.onclick=()=>{selectTile(code);setTool('paint')};b.addEventListener('dragstart',e=>{selectTile(code);e.dataTransfer.setData('application/x-map-tile',JSON.stringify({code,rotation:selectedRotation}));e.dataTransfer.effectAllowed='copy'});p.append(b)}}
+$('materialLevel').addEventListener('change',e=>{materialLevel=Number(e.target.value);$('levelTitle').textContent=materialLevel;$('levelHint').textContent=Object.keys(TILE_SOURCES).some(c=>Math.floor(+c/100)===materialLevel-1)?'Sprite tự đọc từ Roads/Level_'+materialLevel+'.':'Chưa có PNG trong Roads/Level_'+materialLevel+'.';renderPalette();requestDraw()});
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{activeGroup=b.dataset.group;const first=META.find(m=>m[2]===activeGroup&&String(m[0]).startsWith(String(materialLevel-1)));if(first)selectedCode=first[0];selectedRotation=0;renderPalette();updateSelected();setTool('paint')});
+function updateHover(){if(!hovering)return;const t=map.get(key(hovering.x,hovering.y));$('coordText').textContent=`Tọa độ ô: (${hovering.x}, ${hovering.y})`;$('cellCoord').textContent=`${hovering.x} / ${hovering.y}`;$('cellCode').textContent=t?.code||'Trống';$('cellPorts').textContent=t?portsBits(t):'—';$('cellRot').textContent=t?t.rotation+'°':'—';$('axisLabel').textContent=`Lưới vô hạn · 120 × 120 px · (${hovering.x}, ${hovering.y})`}
+function updateStats(){validationDirty=true;rebuildValidation();let r=0,s=0,w=0;for(const t of map.values()){const g=META_MAP[t.code]?.group;if(g==='road')r++;else if(g==='river')s++;else if(g==='sidewalk')w++;else if(g==='bridge')r++}$('totalPlaced').textContent=map.size.toLocaleString('vi');$('roadPlaced').textContent=r.toLocaleString('vi');$('riverPlaced').textContent=s.toLocaleString('vi');$('walkPlaced').textContent=w.toLocaleString('vi');$('statusCount').textContent=map.size+' ô đã đặt';$('undoBtn').disabled=!history.length;$('redoBtn').disabled=!future.length;requestDraw()}
+function undoRedo(target,other,reverse){const h=target.pop();if(!h)return;if(h.type==='stroke'){for(const c of h.changes){const t=reverse?c.before:c.after;if(t)map.set(c.key,clone(t));else map.delete(c.key)}}else if(h.type==='snapshot'){const src=reverse?h.before:h.after;map=new Map(src.map(([k,v])=>[k,clone(v)]));generatedBounds=reverse?(h.beforeBounds||null):(h.afterBounds||null)}other.push(h);updateStats();saveSoon()}
+$('undoBtn').onclick=()=>undoRedo(history,future,true);$('redoBtn').onclick=()=>undoRedo(future,history,false);
+function replaceMap(newMap,bounds=null){const beforeBounds=generatedBounds;generatedBounds=bounds;const before=[...map].map(([k,v])=>[k,clone(v)]),after=[...newMap].map(([k,v])=>[k,clone(v)]);history.push({type:'snapshot',before,after,beforeBounds,afterBounds:bounds});if(history.length>80)history.shift();future=[];map=newMap;updateStats();saveSoon()}
+$('clearBtn').onclick=()=>{if(!map.size)return;if(confirm('Xóa toàn bộ ô trên map hiện tại? Có thể hoàn tác bằng Ctrl+Z.')){replaceMap(new Map());notify('Đã xóa map')}};
+$('centerBtn').onclick=()=>{cam={x:0,y:0};zoom=1;$('zoomLabel').textContent='100%';requestDraw()};
+function serializeMap(){const tiles=[...map.entries()].map(([k,v])=>{const [x,y]=k.split(',').map(Number);return{x,y,code:v.code,rotation:v.rotation}}).sort((a,b)=>a.y-b.y||a.x-b.x);return {format:'thất-nghiệp-về-quê-map',schemaVersion:3,generatedBounds:generatedBounds?{...generatedBounds}:null,mapName:$('mapName').value.trim()||'Map mới',tileSize:120,origin:'signed-grid',levelIndex:3,sourceAsset:'Asset/Sprites/Roads/Level_4',codeScheme:'xab: x=level-1, ab=tile-type 00..12; rotation=90*n',simulation:{headlights:{...headlights},trafficLights:{enabled:trafficConfig.enabled,green:trafficConfig.green,yellow:trafficConfig.yellow},weather:{mode:weather.mode,intensity:weather.intensity,wind:weather.wind},vehicleCount:simConfig.count,hand:simConfig.hand,speedMin:simConfig.speedMin,speedMax:simConfig.speedMax,vehicleScale:simConfig.vehicleScale,shadows:simConfig.shadows,enabledBikes:[...enabledBikeIds],shadowSettings:{...shadowSettings},dayNight:{enabled:dayNight.enabled,minute:Math.floor(dayNight.minute),speed:dayNight.speed}},tiles}}
+function download(filename,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$('exportBtn').onclick=()=>{const data=serializeMap();download((data.mapName.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'_')||'map')+'.json',JSON.stringify(data,null,2));notify(`Đã xuất JSON: ${data.tiles.length} ô`)};
+$('fileImport').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(obj.tileSize!==120)throw new Error('JSON có tileSize khác 120 px.');if(!Array.isArray(obj.tiles))throw new Error('JSON không có danh sách tiles.');if(Number(obj.schemaVersion||1)<2)throw new Error('JSON v1 dùng bảng mã tile cũ. Hãy dùng file JSON v2 vì mã 300–312 đã được cấp lại cho ZIP mới.');const m=new Map();for(const v of obj.tiles){const x=Number(v.x),y=Number(v.y),code=normalizeCode(v.code),rotation=safeRotation(v.rotation||0);if(!Number.isInteger(x)||!Number.isInteger(y)||Math.abs(x)>500000||Math.abs(y)>500000)throw new Error('Tọa độ ô không hợp lệ');if(!/^\d{3}$/.test(code))throw new Error('Mã ô không đúng cấu trúc xab');m.set(key(x,y),{code,rotation})}if(map.size&&!confirm(`Nạp ${m.size} ô từ JSON và thay thế map hiện tại?`))return;replaceMap(m,obj.generatedBounds||null);if(obj.simulation){restoreHeadlights(obj.simulation.headlights);restoreTrafficConfig(obj.simulation.trafficLights);restoreWeather(obj.simulation.weather);simConfig.count=Math.max(0,Math.min(200,Number(obj.simulation.vehicleCount)||0));simConfig.hand=obj.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(obj.simulation.speedMin??(obj.simulation.speed?Number(obj.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(obj.simulation.speedMax??(obj.simulation.speed?Number(obj.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(obj.simulation.vehicleScale??30)));simConfig.shadows=obj.simulation.shadows!==false;restoreShadowSettings(obj.simulation.shadowSettings);restoreDayNight(obj.simulation.dayNight);restoreEnabledBikes(obj.simulation.enabledBikes);updateSimUI();syncDayNightUI(true)}$('mapName').value=obj.mapName||'Map nhập từ JSON';saveSoon();fitMap();const misses=[...new Set([...m.values()].map(t=>t.code))].filter(c=>!TILE_SOURCES[c]);notify(`Đã nhập ${m.size} ô${misses.length?'; thiếu sprite cho: '+misses.join(', '):''}`)}catch(err){alert('Không thể nhập file JSON: '+err.message)}finally{e.target.value=''}});
+$('mapName').addEventListener('input',saveSoon);
+
+// ---------- CONNECTIVITY / RECTANGLE VALIDATION ----------
+// 4-bit binary order: North, South, West, East. Rotation is always applied in compass order N,E,S,W.
+let validationDirty=true,invalidCells=new Map();
+function markInvalid(k,msg){if(!invalidCells.has(k))invalidCells.set(k,msg)}
+function riverOpen(tile,dir){if(!tile)return false;if(isRiver(tile))return containsPort(tile,dir);
+ return isBridge(tile)&&!containsPort(tile,dir)}
+function isBoundaryCell(x,y){if(generatedBounds){const b=generatedBounds;return x===b.x||y===b.y||x===b.x+b.width-1||y===b.y+b.height-1}
+ if(!map.size)return false;const b=extent();return x===b.minX||y===b.minY||x===b.maxX||y===b.maxY}
+function sidewalkComponents(){const visited=new Set(),result=[];
+ for(const [k,t]of map){if(tileGroup(t)!=='sidewalk'||visited.has(k))continue;
+ const q=[k],arr=[],bb={minX:Infinity,maxX:-Infinity,minY:Infinity,maxY:-Infinity};visited.add(k);
+ for(let i=0;i<q.length;i++){const nk=q[i],[x,y]=nk.split(',').map(Number);arr.push(nk);
+ bb.minX=Math.min(bb.minX,x);bb.maxX=Math.max(bb.maxX,x);bb.minY=Math.min(bb.minY,y);bb.maxY=Math.max(bb.maxY,y);
+ for(const d of DIRS){const next=key(x+d.dx,y+d.dy);if(!visited.has(next)&&tileGroup(map.get(next))==='sidewalk'){visited.add(next);q.push(next)}}}
+ result.push({cells:arr,width:bb.maxX-bb.minX+1,height:bb.maxY-bb.minY+1,box:bb});}
+ return result;
+}
+function rebuildValidation(){if(!validationDirty)return invalidCells;validationDirty=false;invalidCells=new Map();
+ for(const [k,t]of map){const group=tileGroup(t);if(!['road','river','bridge'].includes(group))continue;
+ const [x,y]=k.split(',').map(Number),ports=baseDirs(t);
+ for(let d=0;d<4;d++){
+  const adjacent=map.get(key(x+DIRS[d].dx,y+DIRS[d].dy)),open=ports.includes(d);
+  if(group==='road'||group==='bridge'){
+   if(open){if(!isRoad(adjacent)||!containsPort(adjacent,(d+2)%4))markInvalid(k,'Đầu đường không nối đúng hướng '+DIRS[d].name)}
+   else if(group==='bridge'){
+    if(!riverOpen(adjacent,(d+2)%4))markInvalid(k,'Cầu cần sông nối xuyên ở hai bên');
+   } else if(isRoad(adjacent)&&containsPort(adjacent,(d+2)%4))markInvalid(k,'Cạnh đường kín bị nối sai');
+  }else{
+   if(open){if(!riverOpen(adjacent,(d+2)%4))markInvalid(k,'Sông không nối đúng hướng '+DIRS[d].name)}
+   else if(riverOpen(adjacent,(d+2)%4))markInvalid(k,'Bờ sông kín đang chặn đầu sông');
+  }
+ }
+ if(group==='road'&&Number(t.code)!==302){
+   const sidewalks=DIRS.filter((di,d)=>!ports.includes(d)&&tileGroup(map.get(key(x+di.dx,y+di.dy)))==='sidewalk').length;
+   // Perimeter is a cropped expandable world: a T/corner can have its sidewalk on a future neighbor tile.
+   if(!sidewalks&&!isBoundaryCell(x,y))markInvalid(k,'Đường cần giáp ít nhất một ô vỉa hè');
+   if(sidewalks>3)markInvalid(k,'Đường không được giáp quá ba ô vỉa hè');
+ }
+ }
+ // Every contiguous sidewalk region is one strict rectangle, 1–3 tiles tall.
+ for(const comp of sidewalkComponents()){
+  if(comp.cells.length!==comp.width*comp.height||comp.height>3){
+   const msg=comp.height>3?`Vỉa hè cao ${comp.height}, tối đa 3 ô`:'Khối vỉa hè lồi lõm, phải là hình chữ nhật';
+   for(const k of comp.cells)markInvalid(k,msg);
+  }
+ }
+ if(generatedBounds){const b=generatedBounds;for(let y=b.y;y<b.y+b.height;y++)for(let x=b.x;x<b.x+b.width;x++){
+  const k=key(x,y);if(!map.has(k))markInvalid(k,'Ô trống trong vùng map đã sinh');}}
+ const el=$('invalidCount');if(el){el.textContent=invalidCells.size+' lỗi';el.classList.toggle('bad',invalidCells.size>0)}
+ const warning=$('mapWarning');if(warning){warning.hidden=invalidCells.size===0;$('mapWarnCount').textContent=invalidCells.size}
+ return invalidCells;
+}
+function drawValidationOverlay(){rebuildValidation();if(!invalidCells.size)return;ctx.save();ctx.lineWidth=Math.max(2,2*zoom);
+ for(const k of invalidCells.keys()){
+  const [x,y]=k.split(',').map(Number),p=toScreen(x*TS,y*TS),size=TS*zoom;if(p.x+size<0||p.x>vw||p.y+size<0||p.y>vh)continue;
+  ctx.fillStyle='rgba(220,35,45,.20)';ctx.fillRect(p.x+1,p.y+1,size-2,size-2);ctx.strokeStyle='#f43f47';ctx.strokeRect(p.x+2,p.y+2,size-4,size-4);
+  ctx.fillStyle='#e22e3b';ctx.font=`bold ${Math.max(10,Math.min(17,14*zoom))}px Arial`;ctx.fillText('!',p.x+8,p.y+20);
+ }ctx.restore();
+}
+function focusFirstInvalid(){rebuildValidation();const first=invalidCells.keys().next().value;if(!first){notify('Không có ô kết nối lỗi');return}
+ const [x,y]=first.split(',').map(Number);cam.x=(x+.5)*TS;cam.y=(y+.5)*TS;requestDraw();notify(`Lỗi tại (${x},${y}): ${invalidCells.get(first)}`)}
+$('focusInvalid').onclick=focusFirstInvalid;
+
+// ---------- RECTANGULAR BLOCK GENERATOR / CLOSED CANAL LOOP ----------
+// Build exact NxM cells. Step 1: fill with sidewalk. Step 2: add optional CLOSED river ring.
+// Step 3: carve one-cell-wide road grid, bridge river-road crossings, and decorate turn approaches.
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function divideBands(total,min,max,includeRiver=false){const memo=new Map();
+ const recur=(left,needRiver)=>{const cache=left+','+needRiver;if(memo.has(cache))return memo.get(cache);
+  if(left===0){const res=needRiver?null:[];memo.set(cache,res);return res}
+  const choices=[];for(let n=min;n<=max;n++)choices.push({width:n,river:false});
+  if(needRiver){for(let n=3*min+2;n<=3*max+2;n++)choices.push({width:n,river:true})}
+  shuffle(choices);
+  for(const piece of choices){if(piece.width>left)continue;
+   if(piece.width===left){if(needRiver&&!piece.river)continue;const res=[piece];memo.set(cache,res);return res;}
+   const remain=left-piece.width-1;if(remain<min)continue;
+   const next=recur(remain,needRiver&&!piece.river);if(next){const res=[piece,...next];memo.set(cache,res);return res;}
+  }
+  memo.set(cache,null);return null;
+ };
+ return recur(total,includeRiver);
+}
+function makeTileForPorts(kind,dirs){const codes=kind==='river'?[306,307,308,309,310]:kind==='road'?[300,301,302,303]:[];
+ const signature=[...dirs].sort().join(',');for(const code of codes)for(let r=0;r<4;r++){
+  const sig=PORTS[code].map(d=>(d+r)%4).sort().join(',');if(sig===signature)return{code:String(code),rotation:r*90}}
+ return null;}
+function generateValidMap(W,H,ask=true,withWater=false){
+ W=Math.max(10,Math.min(120,Math.round(Number(W)||30)));H=Math.max(10,Math.min(120,Math.round(Number(H)||20)));
+ const min=Math.max(1,Math.min(12,Math.round(Number($('sideMin').value)||2)));
+ const max=Math.max(min,Math.min(16,Math.round(Number($('sideMax').value)||6)));
+ if(ask&&map.size&&!confirm('Sinh map mới sẽ thay toàn bộ map hiện tại. Tiếp tục?'))return null;
+ let cols=withWater?divideBands(W-2,min,max,true):null;
+ const addRiver=!!cols;
+ if(!cols)cols=divideBands(W-2,min,max,false);
+ const rows=divideBands(H-2,1,3,false);
+ if(!cols||!rows){notify('Kích thước hoặc min/max vỉa hè không thể chia kín hình chữ nhật. Hãy đổi cấu hình.');return null;}
+ const m=new Map(),roadSet=new Set(),waterSet=new Set(),bridgeSet=new Map(),rowRoads=new Set([0,H-1]),colRoads=new Set([0,W-1]);
+ // Step 1: no empty cells; the base is uniform sidewalk.
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)m.set(key(x,y),{code:'305',rotation:0});
+ let x=1,canal=null;
+ for(let i=0;i<cols.length;i++){const part=cols[i];if(part.river){
+   let found=null;for(let L=min;L<=max&&!found;L++)for(let C=min;C<=max&&!found;C++){
+     const R=part.width-L-C-2;if(R>=min&&R<=max)found={L,C,R};}
+   if(!found)throw new Error('Không thể chia hình chữ nhật chứa sông');
+   canal={xA:x+found.L,xB:x+found.L+1+found.C,yT:1,yB:H-2};
+  }
+  x+=part.width;if(i<cols.length-1){colRoads.add(x);x++}}
+ let y=1;for(let i=0;i<rows.length;i++){y+=rows[i].width;if(i<rows.length-1){rowRoads.add(y);y++}}
+ // Step 2: a genuine closed rectangular water loop; water never leaves an open port.
+ // The two vertical river strips divide every block into three rectangles; upper and lower water caps
+ // cut the central block only across its full width (therefore no concave sidewalk blocks).
+ if(canal){const{xA,xB,yT,yB}=canal;
+  for(let cy=yT;cy<=yB;cy++){waterSet.add(key(xA,cy));waterSet.add(key(xB,cy))}
+  for(let cx=xA+1;cx<xB;cx++){waterSet.add(key(cx,yT));waterSet.add(key(cx,yB))}
+  // At each road across the canal, crossing water is replaced with a horizontal bridge.
+  for(const ry of rowRoads)if(ry>yT&&ry<yB){for(const bx of [xA,xB]){
+    bridgeSet.set(key(bx,ry),{code:'312',rotation:0});waterSet.delete(key(bx,ry));
+   }}
+ }
+ // Step 3: carve 1x1 roads through the FULL area; bridges connect roads and carry the river beneath.
+ for(const ry of rowRoads)for(let rx=0;rx<W;rx++)roadSet.add(key(rx,ry));
+ for(const rx of colRoads)for(let ry=0;ry<H;ry++)roadSet.add(key(rx,ry));
+ for(const k of roadSet){if(waterSet.has(k))throw new Error('Lỗi quy hoạch: đường đè lên sông');}
+ const roadCell=(x,y)=>roadSet.has(key(x,y))||bridgeSet.has(key(x,y));
+ for(const k of roadSet){const [rx,ry]=k.split(',').map(Number),ports=[];
+   for(let d=0;d<4;d++){const nx=rx+DIRS[d].dx,ny=ry+DIRS[d].dy;
+    if(!roadCell(nx,ny))continue;const nextBridge=bridgeSet.get(key(nx,ny));if(nextBridge&&!PORTS[Number(nextBridge.code)].includes((d+2)%4))continue;
+    ports.push(d)}
+   const tile=makeTileForPorts('road',ports);if(!tile)throw new Error('Ô đường không thể nối: '+k+' | '+ports.join(','));m.set(k,tile);
+ }
+ for(const[k,v]of bridgeSet)m.set(k,v);
+ function riverAt(rx,ry){return waterSet.has(key(rx,ry))||bridgeSet.has(key(rx,ry))}
+ for(const k of waterSet){const [rx,ry]=k.split(',').map(Number),ports=[];
+   for(let d=0;d<4;d++){const nx=rx+DIRS[d].dx,ny=ry+DIRS[d].dy,nk=key(nx,ny);
+    if(!riverAt(nx,ny))continue;const b=bridgeSet.get(nk);if(b&&PORTS[Number(b.code)].includes((d+2)%4))continue;
+    ports.push(d)}
+   const tile=makeTileForPorts('river',ports);if(!tile)throw new Error('Ô sông chưa nối đúng: '+k+' | '+ports.join(','));m.set(k,tile);
+ }
+ // Pedestrian crossings occupy an ordinary straight tile immediately BEFORE any T/4-way/bend.
+ // Code 304 is identical to the straight road mask, so graph connectivity stays intact.
+ const toCrosswalk=[];
+ for(const [k,t]of m){if(tileGroup(t)!=='road'||!['301','302','303'].includes(t.code))continue;
+  const [rx,ry]=k.split(',').map(Number);for(const d of baseDirs(t)){
+   const nx=rx+DIRS[d].dx,ny=ry+DIRS[d].dy,nk=key(nx,ny),neighbor=m.get(nk);
+   if(neighbor?.code!=='300'||!containsPort(neighbor,(d+2)%4))continue;
+   toCrosswalk.push({k:nk,t:{code:'304',rotation:neighbor.rotation}});
+  }}
+ for(const item of toCrosswalk)m.set(item.k,item.t);
+ generatedBounds={x:0,y:0,width:W,height:H,sidewalkMin:min,sidewalkMax:max};
+ replaceMap(m,generatedBounds);fitMap();rebuildValidation();
+ const nRiver=[...m.values()].filter(t=>tileGroup(t)==='river').length;
+ notify(`Map ${W}×${H}, ${m.size} ô kín • ${nRiver} ô sông • ${invalidCells.size} lỗi.`);
+ return m;
+}
+$('generateMap').onclick=()=>generateValidMap($('genW').value,$('genH').value,true,$('genRiver').checked);
+function seedExample(){generateValidMap(30,22,false,true);notify('Đã tạo map mẫu đúng quy tắc kết nối. Bấm Mô phỏng để xem xe chạy')}
+$('demoBtn').onclick=()=>{if(map.size&&!confirm('Thay map hiện tại bằng map ví dụ?'))return;seedExample()};
+window.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(simMode){if(e.key==='Escape'&&!document.fullscreenElement)toggleSimulation(false);return;}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undoBtn').click();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();$('redoBtn').click();return}if(e.code==='Space'){pressedSpace=true;viewport.classList.add('pan');e.preventDefault();return}const k=e.key.toLowerCase();if(k==='b')setTool('paint');else if(k==='e')setTool('erase');else if(k==='h')setTool('pan');else if(k==='l')setTool('line');else if(k==='i')setTool('pick');else if(k==='r')rotate(90);else if(k==='g')$('gridBtn').click()});
+window.addEventListener('keyup',e=>{if(e.code==='Space'){pressedSpace=false;viewport.classList.toggle('pan',tool==='pan')}});
+window.addEventListener('blur',()=>{pressedSpace=false;endPointer()});
+function initialLoad(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(data&&data.tileSize===120&&Array.isArray(data.tiles)){for(const v of data.tiles){const x=Number(v.x),y=Number(v.y);if(Number.isInteger(x)&&Number.isInteger(y))map.set(key(x,y),{code:normalizeCode(v.code),rotation:safeRotation(v.rotation)})}generatedBounds=data.generatedBounds||null;$('mapName').value=data.mapName||$('mapName').value;if(data.simulation){restoreHeadlights(data.simulation.headlights);restoreTrafficConfig(data.simulation.trafficLights);restoreWeather(data.simulation.weather);simConfig.count=Math.max(0,Math.min(200,Number(data.simulation.vehicleCount)||0));simConfig.hand=data.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(data.simulation.speedMin??(data.simulation.speed?Number(data.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(data.simulation.speedMax??(data.simulation.speed?Number(data.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(data.simulation.vehicleScale??30)));simConfig.shadows=data.simulation.shadows!==false;restoreShadowSettings(data.simulation.shadowSettings);restoreDayNight(data.simulation.dayNight);restoreEnabledBikes(data.simulation.enabledBikes)}if(map.size){notify('Đã khôi phục bản đồ lưu tạm');setTimeout(fitMap,70)}}}catch(err){console.warn('Could not read saved map',err)}renderPalette();updateSelected();updateStats();resize();loadTileImages();}// Vehicle simulation – top-down, 120px grid, connected roads only.
+const BIKE_SOURCES={};
+let enabledBikeIds=new Set();
+function applyBikeSources(){for(const id of Object.keys(BIKE_SOURCES))delete BIKE_SOURCES[id];for(const row of ASSET_MANIFEST.vehicles?.bikes||[])BIKE_SOURCES[row.id]={right:row.right,up:row.top,down:row.down};}
+function restoreEnabledBikes(saved){const valid=Object.keys(BIKE_SOURCES);enabledBikeIds=new Set(Array.isArray(saved)?saved.filter(id=>valid.includes(String(id))):valid);renderAssetBrowser()}
+function activeBikeTypes(){return [...enabledBikeIds].filter(id=>BIKE_SOURCES[id]&&bikeImages[id]);}
+applyBikeSources();
+restoreEnabledBikes(null);
+const DIRS=[{dx:0,dy:-1,name:'Bắc'},{dx:1,dy:0,name:'Đông'},{dx:0,dy:1,name:'Nam'},{dx:-1,dy:0,name:'Tây'}];
+let simMode=false,simPaused=false,simFrame=0,simLast=0,simBikes=[],simId=0,simShowNetwork=false;
+let savedEditorTool='paint',savedGrid=true;
+const simConfig={count:24,hand:'right',speedMin:35,speedMax:105,vehicleScale:30,shadows:true};
+let visibleBikeCache=[];
+const trafficConfig={enabled:true,green:7,yellow:3};
+let trafficClock=0;
+const LIGHT_SOURCES={...ASSET_MANIFEST.trafficLights};
+const lightImages={},lightShadowMasks={};
+const genericShadowMasks=new WeakMap();
+const bikeImages={},bikeShadows={};
+// N/E/S/W connectivity is canonical before each tile's rotation.
+// N, E, S, W. UI/JSON masks are shown in N,S,W,E order.
+const PORTS={300:[1,3],301:[0,3],302:[0,1,2,3],303:[1,2,3],304:[1,3],
+ 306:[2,3],307:[0,2,3],308:[1,3],309:[0,2],310:[0,1,2,3],311:[0,2],312:[1,3]};
+const BIT_ORDER=[0,2,3,1];
+function portsBits(tile){const ds=baseDirs(tile);return BIT_ORDER.map(d=>ds.includes(d)?'1':'0').join(' ')}
+function tileGroup(t){return META_MAP[t?.code]?.group||null}
+function isRoad(tile){return ['road','bridge'].includes(tileGroup(tile))}
+function isRiver(tile){return tileGroup(tile)==='river'}
+function isBridge(tile){return tileGroup(tile)==='bridge'}
+function isJunction(tile){return tileGroup(tile)==='road'&&[2,3].includes(Number(tile.code)%100)}
+function baseDirs(tile){const a=PORTS[300+Number(tile?.code)%100]||[];const r=safeRotation(tile?.rotation)/90;return a.map(d=>(d+r)%4)}
+function containsPort(t,d){return baseDirs(t).includes(d)}
+function pairLane(){return null}
+function laneLegal(){return true}
+function connections(x,y){const tile=map.get(key(x,y));if(!isRoad(tile))return[];const available=baseDirs(tile),out=[];
+ for(const dir of available){const d=DIRS[dir],next=map.get(key(x+d.dx,y+d.dy));if(!isRoad(next))continue;if(!baseDirs(next).includes((dir+2)%4))continue;out.push(dir)}
+ return out;
+}
+function legalConnections(x,y){return connections(x,y).filter(d=>laneLegal(x,y,d))}
+
+function chooseHeading(x,y,entryDir){const all=legalConnections(x,y);if(!all.length)return null;let opts=all.filter(d=>d!==(entryDir+2)%4);if(!opts.length)opts=all;
+ if(isJunction(map.get(key(x,y))))return opts[Math.floor(Math.random()*opts.length)];
+ if(opts.includes(entryDir))return entryDir;
+ return opts[Math.floor(Math.random()*opts.length)];
+}
+function validSegments(){const result=[];for(const [k,t]of map){if(!isRoad(t)||invalidCells.has(k))continue;const [x,y]=k.split(',').map(Number),dirs=legalConnections(x,y);if(dirs.length)result.push({x,y,dirs})}return result}
+function newBike(pool){const active=activeBikeTypes();if(!pool.length||!active.length)return null;const p=pool[Math.floor(Math.random()*pool.length)];return {id:++simId,type:active[Math.floor(Math.random()*active.length)],x:p.x,y:p.y,dir:p.dirs[Math.floor(Math.random()*p.dirs.length)],t:Math.random()*.8,speedPx:simConfig.speedMin+Math.random()*(simConfig.speedMax-simConfig.speedMin),shift:null,stuck:0,laneBias:(Math.random()*2-1)*10,waitSignal:false,signalCommit:null}}
+function populateBikes(force=false){const pool=validSegments();if(force)simBikes=[];simBikes=simBikes.filter(b=>enabledBikeIds.has(b.type));while(simBikes.length>simConfig.count)simBikes.pop();while(simBikes.length<simConfig.count){const b=newBike(pool);if(!b)break;simBikes.push(b)}updateSimStats();if(!pool.length&&simMode)notify('Chưa có đường bộ nối đủ 2 ô cho xe chạy.');else if(!activeBikeTypes().length&&simMode)notify('Chưa tick xe nào trong tab Asset → Vehicles → Bikes.');requestDraw()}
+function trafficRedSeconds(){return trafficConfig.green+trafficConfig.yellow}
+function trafficCycleSeconds(){return trafficRedSeconds()*2}
+function advanceTrafficClock(dt){if(!trafficConfig.enabled)return;trafficClock=(trafficClock+dt)%Math.max(1,trafficCycleSeconds())}
+function trafficPhaseInfo(){const green=trafficConfig.green,yellow=trafficConfig.yellow,cycle=Math.max(1,trafficCycleSeconds());let t=((trafficClock%cycle)+cycle)%cycle;if(t<green)return{ns:'green',ew:'red'};t-=green;if(t<yellow)return{ns:'yellow',ew:'red'};t-=yellow;if(t<green)return{ns:'red',ew:'green'};return{ns:'red',ew:'yellow'}}
+function signalStateForApproachDir(dir){const phase=trafficPhaseInfo();return (dir===0||dir===2)?phase.ns:phase.ew}
+function controlledIntersectionAt(x,y){const tile=map.get(key(x,y));return trafficConfig.enabled&&Number(tile?.code)%100===2}
+// A bike's b.t moves from CENTER of approach tile to CENTER of the next tile.
+// The true tile border is at t = 0.5, not 1.0. An old stopT=.73 placed
+// its *center* inside the intersection. Stop early enough for the whole sprite.
+function signalStopT(b){
+ // The bike artwork is NOT centered on its wheels: sprite front may extend
+ // up to 76% of its height past the simulated anchor when moving north.
+ const scale=simConfig.vehicleScale/100;
+ const forwardPx=(b?.dir===0?92*.76:b?.dir===2?92*.24:82*.50)*scale;
+ return Math.max(.035,Math.min(.29,.5-(forwardPx+10)/TS));
+}
+function shouldStopAtSignal(b,left){
+ if(!trafficConfig.enabled)return null;
+ const current=map.get(key(b.x,b.y));
+ // Crossing the junction already: ignore every light until safely clear.
+ if(isJunction(current))return null;
+ const d=DIRS[b.dir],nx=b.x+d.dx,ny=b.y+d.dy,signalKey=key(nx,ny);
+ if(!controlledIntersectionAt(nx,ny))return null;
+ const stopT=signalStopT(b);
+ // A green-light admission is permanent for this crossing even if red changes
+ // between frames. Any bike already over the stop line is committed too.
+ if(b.signalCommit===signalKey)return null;
+ if(b.t>stopT+1e-5 && !b.waitSignal){b.signalCommit=signalKey;return null;}
+ if(signalStateForApproachDir(b.dir)==='green'){
+  if(b.waitSignal || b.t+left>=stopT-1e-5)b.signalCommit=signalKey;
+  b.waitSignal=false;
+  return null;
+ }
+ // Hold at the pre-intersection stop line only; never move backwards.
+ if(b.waitSignal && b.t>=stopT-1e-5)return stopT;
+ if(b.t>=stopT-1e-5 || b.t+left>=stopT-1e-5)return stopT;
+ return null;
+}
+
+function tickBikes(dt){for(const b of simBikes){if(b.shift)b.shift.elapsed=Math.min(1,b.shift.elapsed+dt);let left=dt*b.speedPx/TS,iter=0;while(left>0&&iter++<4){const all=legalConnections(b.x,b.y);
+ if(!all.includes(b.dir)){const d=chooseHeading(b.x,b.y,b.dir);if(d===null){b.stuck++;break}b.dir=d;b.t=0;b.signalCommit=null;b.waitSignal=false}
+ const stopT=shouldStopAtSignal(b,left);if(stopT!==null){b.waitSignal=true;b.t=Math.min(stopT,1);left=0;break}else b.waitSignal=false;
+ const remain=1-b.t;if(left<remain){b.t+=left;left=0;break}
+ left-=remain;b.t=0;const delta=DIRS[b.dir],nx=b.x+delta.dx,ny=b.y+delta.dy;
+ if(!isRoad(map.get(key(nx,ny)))){b.stuck++;break}
+ const oldDir=b.dir;b.x=nx;b.y=ny;b.signalCommit=null;b.waitSignal=false;const turn=chooseHeading(nx,ny,oldDir);
+ const newDir=turn===null?(oldDir+2)%4:turn;
+ if(newDir!==oldDir){
+  const a=laneOffset(nx,ny,oldDir,b),z=laneOffset(nx,ny,newDir,b);
+  b.shift={from:a,to:z,elapsed:0,duration:1};
+ }
+ b.dir=newDir;if(turn===null)b.stuck++;
+ }} }
+function laneOffset(x,y,dir,bike=null){const t=map.get(key(x,y));if(!t)return{x:0,y:0};const laneHalf=24;const laneShift=laneHalf+(bike?.laneBias||0);
+ const sign=simConfig.hand==='right'?1:-1,d=DIRS[dir];return{x:-d.dy*laneShift*sign,y:d.dx*laneShift*sign};
+}
+function bikeWorld(b){
+ const d=DIRS[b.dir],a=laneOffset(b.x,b.y,b.dir,b),target=laneOffset(b.x+d.dx,b.y+d.dy,b.dir,b);
+ let off={x:a.x*(1-b.t)+target.x*b.t,y:a.y*(1-b.t)+target.y*b.t};
+ if(b.shift&&b.shift.elapsed<1){const r=b.shift.elapsed/b.shift.duration;const q=r*r*(3-2*r);off={x:b.shift.from.x+(b.shift.to.x-b.shift.from.x)*q,y:b.shift.from.y+(b.shift.to.y-b.shift.from.y)*q}}
+ return {x:(b.x+.5+d.dx*b.t)*TS+off.x,y:(b.y+.5+d.dy*b.t)*TS+off.y};
+}
+function makeShadow(img){const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const g=c.getContext('2d');g.drawImage(img,0,0);g.globalCompositeOperation='source-in';g.fillStyle='#202d37';g.fillRect(0,0,c.width,c.height);return c}
+function initBikes(){for(const n of Object.keys(bikeImages)){delete bikeImages[n];delete bikeShadows[n]};for(const [n,variants]of Object.entries(BIKE_SOURCES)){bikeImages[n]={};bikeShadows[n]={};for(const [dir,src]of Object.entries(variants)){const image=new Image();image.onload=()=>{
+ const mask=makeShadow(image);bikeShadows[n][dir]=mask;
+ if(dir==='right'){const mirror=document.createElement('canvas');mirror.width=mask.width;mirror.height=mask.height;const c=mirror.getContext('2d');c.translate(mirror.width,0);c.scale(-1,1);c.drawImage(mask,0,0);bikeShadows[n].left=mirror}
+ requestDraw()};image.onerror=()=>console.warn('Bike asset failed',src);image.src=src;bikeImages[n][dir]=image}}}
+function loadTileImages(){for(const code of Object.keys(tileImages))delete tileImages[code];loaded=0;for(const [code,src]of Object.entries(TILE_SOURCES)){const img=new Image();img.onload=()=>{loaded++;requestDraw()};img.onerror=()=>console.warn('Road sprite failed',code);img.src=src;tileImages[code]=img}}
+function initTrafficLights(){for(const [state,src] of Object.entries(LIGHT_SOURCES)){
+ const img=new Image();img.onload=()=>{lightShadowMasks[state]=makeShadow(img);requestDraw()};
+ img.onerror=()=>console.warn('Traffic light asset failed',src);
+ img.src=src;lightImages[state]=img;
+}}
+// All dynamic world objects (NPC, trees, shops, vehicles...) share one Y-sort pipeline.
+// worldY = feet/contact position in world coordinates; draw ascending for Canvas +Y/down.
+// Future scenery objects can register {worldX,worldY,draw(ctx)} into sceneObjects.
+// One Y-sorted list is shared by every world object. Ground shadows always render
+// before the sprite layer to avoid shadows floating over passing motorcycles.
+// Cast the FULL sprite alpha onto the ground from its foot pivot.
+// Excludes background terrain: road, river, sidewalk; all other sprite objects may
+// share this method via sceneObjects.push({image,worldX,worldY,drawWidth,drawHeight,category}).
+function maskForSprite(image){
+ if(!image||!image.complete||!image.naturalWidth)return null;
+ let mask=genericShadowMasks.get(image);
+ if(!mask){mask=makeShadow(image);genericShadowMasks.set(image,mask)}
+ return mask;
+}
+function castFullSpriteShadow(image,groundX,groundY,dw,dh,anchorX=.5,anchorY=1,flip=false,opacity=1){
+ if(!simConfig.shadows||daylightFactor()<=.001||!image||!dw||!dh)return;
+ const mask=maskForSprite(image);if(!mask)return;
+ const foot=toScreen(groundX,groundY);
+ if(foot.x<-300||foot.x>vw+300||foot.y<-300||foot.y>vh+300)return;
+ const w=mask.width,h=mask.height,sx=dw/w;
+ const px=anchorX*w,py=Math.max(1,anchorY*h);
+ const sun=solarPosition(),dx=foot.x-sun.x*vw,dy=foot.y-sun.y*vh;
+ const hypot=Math.max(1,Math.hypot(dx,dy));
+ let dirX=dx/hypot,dirY=dy/hypot;
+ if(Math.abs(dirY)<.10)dirY=dirY<0?-.10:.10;
+ const length=dh*shadowSettings.length*1.1;
+ const sl=length/py;
+ const alpha=shadowSettings.alpha*daylightFactor()*opacity;
+ if(alpha<=.001)return;
+ ctx.save();ctx.globalAlpha=alpha;
+ const fast=simBikes.length>=170;
+ ctx.filter=(!fast&&shadowSettings.blur>0)?`blur(${Math.max(0,shadowSettings.blur*zoom*.6)}px)`:'none';
+ // Both mirrored and original sprites are projected from exactly the same pole base.
+ ctx.transform(sx*(flip?-1:1),0,-dirX*sl,-dirY*sl,
+  foot.x+sx*(flip?(w-px):(-px))+dirX*length,
+  foot.y+dirY*length);
+ ctx.drawImage(mask,0,0,w,h);
+ ctx.restore();
+}
+function drawSceneObjectShadow(o){
+ if(o.castsShadow===false || ['road','sidewalk','river'].includes(o.category))return;
+ if(typeof o.drawShadow==='function'){o.drawShadow(ctx,shadowSettings);return}
+ const image=o.shadowImage||o.image||o.sprite;
+ if(!image)return;
+ const w=Number(o.drawWidth||o.width||image.naturalWidth||0)*zoom;
+ const h=Number(o.drawHeight||o.height||image.naturalHeight||0)*zoom;
+ castFullSpriteShadow(image,o.worldX,o.worldY,w,h,
+   o.anchorX??.5,o.anchorY??1,!!o.flipX,o.shadowOpacity??1);
+}
+function intersectionLightState(slot){const phase=trafficPhaseInfo();return (slot===1||slot===3)?phase.ns:phase.ew}
+function trafficLightObjects(){if(!trafficConfig.enabled)return[];const out=[];for(const [k,t] of map){if(Number(t.code)%100!==2||tileGroup(t)!=='road')continue;const [x,y]=k.split(',').map(Number);const anchors=[{slot:1,px:-.03,py:-.03,flip:false},{slot:2,px:1.03,py:-.03,flip:false},{slot:3,px:1.03,py:1.03,flip:true},{slot:4,px:-.03,py:1.03,flip:true}];for(const a of anchors){const state=intersectionLightState(a.slot),footX=(x+a.px)*TS,footY=(y+a.py)*TS;out.push({worldY:footY,drawShadow(){drawTrafficLightShadow(footX,footY,state,a.flip)},draw(){drawTrafficLightSprite(footX,footY,state,a.flip)}})}}return out}
+function drawTrafficLightSprite(worldX,worldY,state,flip){const img=lightImages[state];if(!img?.complete||!img.naturalWidth)return;const scale=.48*zoom,baseX=22,baseY=132,dw=img.naturalWidth*scale,dh=img.naturalHeight*scale,s=toScreen(worldX,worldY);let x,y;if(!flip){x=s.x-baseX*scale}else{x=s.x-(img.naturalWidth-baseX)*scale}y=s.y-baseY*scale;ctx.save();if(flip){ctx.translate(x+dw,y);ctx.scale(-1,1);ctx.drawImage(img,0,0,dw,dh)}else ctx.drawImage(img,x,y,dw,dh);ctx.restore()}
+function drawTrafficLightShadow(groundX,groundY,state,flip){
+ const img=lightImages[state];if(!img?.naturalWidth)return;
+ // The traffic pole's foot anchor is at (22,132) in each 116×137 original PNG.
+ const scale=.48*zoom;
+ const anchorX=flip?(1-22/img.naturalWidth):(22/img.naturalWidth);
+ castFullSpriteShadow(img,groundX,groundY,img.naturalWidth*scale,
+  img.naturalHeight*scale,anchorX,132/img.naturalHeight,flip,.90);
+}
+function renderWorldObjects(){
+ visibleBikeCache=[];
+ const objects=sceneObjects.map(o=>({worldY:o.worldY,kind:'world',object:o}));
+ for(const o of trafficLightObjects())objects.push({worldY:o.worldY,kind:'world',object:o});
+ const margin=simBikes.length>=170?150:240;
+ for(const b of simBikes){
+  const pos=bikeWorld(b),info=bikeDrawInfo(b,pos);
+  if(!info)continue;
+  const s=info.s;
+  if(s.x<-margin||s.x>vw+margin||s.y<-margin||s.y>vh+margin)continue;
+  const item={worldY:pos.y,kind:'bike',bike:b,pos,info};
+  objects.push(item);visibleBikeCache.push(item);
+ }
+ objects.sort((a,b)=>a.worldY-b.worldY || (a.kind==='world'?-1:1));
+ if(simConfig.shadows&&daylightFactor()>.001){for(const item of objects){
+  if(item.kind==='bike')drawBikeShadow(item);
+  else drawSceneObjectShadow(item.object);
+ }}
+ for(const item of objects){if(item.kind==='bike')drawOneBike(item);else item.object.draw(ctx)}
+}
+function bikeDrawInfo(b,w){
+ const s=toScreen(w.x,w.y);
+ const facing=b.dir===0?'up':b.dir===2?'down':'right';
+ const img=bikeImages[b.type]?.[facing];
+ if(!img?.complete||!img.naturalWidth)return null;
+ const side=b.dir%2===1,scale=simConfig.vehicleScale/100;
+ const dw=(side?82:49)*scale*zoom,dh=(side?81:92)*scale*zoom;
+ return {s,facing,img,dw,dh,x:s.x-dw/2,y:s.y-dh*.76};
+}
+function drawOneBike(item,w){
+ const b=item?.bike||item;
+ const o=item?.info||bikeDrawInfo(b,w);if(!o)return;
+ const {img,dw,dh,x,y}=o;
+ ctx.save();
+ if(b.dir===3){ctx.translate(x+dw,y);ctx.scale(-1,1);ctx.drawImage(img,0,0,dw,dh)}
+ else ctx.drawImage(img,x,y,dw,dh);
+ ctx.restore();
+}
+const shadowSettings={sunX:.2,sunY:.18,alpha:.34,blur:2,length:1.15,pivot:.28,inset:.12,debug:false};
+function shadowDirectionAt(o){
+ const pivotY=o.y+o.dh*(1-shadowSettings.pivot),sun=solarPosition(),dx=o.s.x-sun.x*vw,dy=pivotY-sun.y*vh;
+ const magnitude=Math.hypot(dx,dy);
+ if(magnitude<.001)return{x:0,y:1};
+ const dir={x:dx/magnitude,y:dy/magnitude};
+ // Avoid a fully horizontal collapse which would make the entire shadow invisible.
+ if(Math.abs(dir.y)<.12){dir.x=dir.x<0?-.99277:.99277;dir.y=dir.y<0?-.12:.12}
+ return dir;
+}
+function drawBikeShadow(item,w){
+ const b=item?.bike||item;
+ const o=item?.info||bikeDrawInfo(b,w);if(!o||o.s.x<-300||o.s.x>vw+300||o.s.y<-300||o.s.y>vh+300)return;
+ const source=bikeShadows[b.type]?.[b.dir===3?'left':o.facing];
+ if(!source||!source.width)return;
+ const width=source.width,height=source.height,dir=shadowDirectionAt(o);
+ const pivotY=height*(1-shadowSettings.pivot);
+ const length=o.dh*shadowSettings.length*1.45*(dayNight.enabled?(1.45-.55*Math.sin(Math.PI*Math.max(0,Math.min(1,(dayNight.minute/60-6)/12)))):1);
+ const lower=length*.16;
+ const upper=length-lower;
+ const baseX=o.s.x,baseY=o.y+o.dh*(1-shadowSettings.inset);
+ // The original *complete* alpha mask is projected using two affine bands.
+ // The pivot is a bending anchor, NEVER a cropping boundary.
+ function projectBand(y0,y1,near,far){
+  if(y1-y0<.01)return;
+  const slope=(far-near)/(y1-y0);
+  const sx=o.dw/width;
+  ctx.save();
+  ctx.transform(sx,0,-dir.x*slope,-dir.y*slope,
+   baseX-sx*width*.5+dir.x*(near+y1*slope),
+   baseY+dir.y*(near+y1*slope));
+  ctx.drawImage(source,0,y0,width,y1-y0,0,y0,width,y1-y0);
+  ctx.restore();
+ }
+ ctx.save();
+ ctx.globalAlpha=shadowSettings.alpha*daylightFactor();
+ const heavyLoad=simBikes.length>=170;
+ ctx.filter=(!heavyLoad&&shadowSettings.blur)?`blur(${Math.max(0,shadowSettings.blur*zoom)}px)`:'none';
+ projectBand(pivotY,height,0,lower);
+ projectBand(0,pivotY,lower,length);
+ ctx.restore();
+ // Contact shadow is independent of the projected silhouette and stays at the wheel contact.
+ ctx.save();
+ ctx.fillStyle='#293747';ctx.globalAlpha=shadowSettings.alpha*.30*daylightFactor();
+ const heavyLoad2=simBikes.length>=170;
+ ctx.filter=heavyLoad2?'none':`blur(${Math.max(1,(shadowSettings.blur+1)*zoom)}px)`;
+ ctx.beginPath();ctx.ellipse(o.s.x,baseY,o.dw*.38,Math.max(2,o.dh*.07),0,0,Math.PI*2);ctx.fill();ctx.restore();
+ if(shadowSettings.debug){
+  const py=o.y+o.dh*(1-shadowSettings.pivot);
+  ctx.save();ctx.strokeStyle='#ed533c';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(o.s.x-5,py);ctx.lineTo(o.s.x+5,py);ctx.moveTo(o.s.x,py-5);ctx.lineTo(o.s.x,py+5);ctx.stroke();
+  ctx.strokeStyle='#f8d21b';ctx.beginPath();ctx.arc(baseX,baseY,4,0,Math.PI*2);ctx.stroke();ctx.restore();
+ }
+}
+function drawTrafficNetwork(){ctx.save();for(const [k,t]of map){if(!isRoad(t))continue;const [x,y]=k.split(',').map(Number);const p=toScreen((x+.5)*TS,(y+.5)*TS);if(p.x<0||p.x>vw||p.y<0||p.y>vh)continue;const ds=connections(x,y);for(const di of ds){const d=DIRS[di];ctx.strokeStyle='#13a464bb';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+d.dx*TS*zoom*.35,p.y+d.dy*TS*zoom*.35);ctx.stroke()}ctx.fillStyle=isJunction(t)?'#ee7d2a':'#198b76';ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill()}ctx.restore()}
+function loopSimulation(timestamp){if(!simMode)return;const dt=simLast?Math.min((timestamp-simLast)/1000,.06):0;simLast=timestamp;if(!simPaused){advanceTrafficClock(dt);tickBikes(dt);advanceDayNight(dt);advanceWeather(dt)}requestDraw();simFrame=requestAnimationFrame(loopSimulation)}
+function updateSimStats(){const a=$('simLiveCount');if(a)a.textContent=simBikes.length;const b=$('simRoadCount');if(b)b.textContent=validSegments().length;const c=$('simJunctionCount');if(c)c.textContent=[...map.values()].filter(isJunction).length;const d=$('simNoPath');if(d)d.textContent=simBikes.filter(b=>b.stuck>0).length}
+function updateTrafficUI(){const red=trafficRedSeconds();$('trafficEnable').checked=trafficConfig.enabled;$('trafficGreen').value=trafficConfig.green;$('trafficYellow').value=trafficConfig.yellow;$('trafficGreenNum').textContent=trafficConfig.green+' giây';$('trafficYellowNum').textContent=trafficConfig.yellow+' giây';$('trafficRedNum').textContent=red+' giây'}
+function restoreTrafficConfig(saved){if(!saved||typeof saved!=='object')return;trafficConfig.enabled=saved.enabled!==false;const g=Number(saved.green),y=Number(saved.yellow);if(Number.isFinite(g))trafficConfig.green=Math.max(2,Math.min(30,g));if(Number.isFinite(y))trafficConfig.yellow=Math.max(1,Math.min(10,y));updateTrafficUI()}
+function updateSimUI(){
+ $('simCount').value=simConfig.count;$('simCountNum').textContent=simConfig.count;
+ $('simHand').value=simConfig.hand;
+ $('simSpeedMin').value=simConfig.speedMin;$('simSpeedMax').value=simConfig.speedMax;
+ $('simSpeedMinNum').textContent=simConfig.speedMin+' px/s';$('simSpeedMaxNum').textContent=simConfig.speedMax+' px/s';
+ $('simVehicleScale').value=simConfig.vehicleScale;$('simVehicleScaleNum').textContent=simConfig.vehicleScale+'%';
+ $('simShadows').checked=simConfig.shadows;$('simNetwork').checked=simShowNetwork;updateTrafficUI();updateSimStats();
+}
+function toggleSimulation(to){if(to===simMode)return;if(to){rebuildValidation();if(invalidCells.size){const a=[...invalidCells.entries()].slice(0,5).map(([pos,msg])=>pos+': '+msg).join('\n');alert('Bản đồ còn '+invalidCells.size+' ô lỗi (đánh dấu đỏ). Hãy sửa trước khi mô phỏng.\n\n'+a);focusFirstInvalid();return;}savedEditorTool=tool;savedGrid=showGrid;simMode=true;simPaused=false;simLast=0;trafficClock=0;document.body.classList.add('simulation-active');$('simToggle').textContent='■ Thoát mô phỏng';$('simToggle').classList.add('sim-on');$('simPause').textContent='⏸ Tạm dừng';setTool('pan');showGrid=false;populateBikes(true);updateSimUI();document.querySelector('.inspector').scrollTop=0;notify('Đang mô phỏng xe chạy • kéo map và zoom để quan sát');simFrame=requestAnimationFrame(loopSimulation)}else{if(document.fullscreenElement===viewport)document.exitFullscreen().catch(()=>{});simMode=false;cancelAnimationFrame(simFrame);document.body.classList.remove('simulation-active');$('simToggle').textContent='▶ Mô phỏng xe';$('simToggle').classList.remove('sim-on');showGrid=savedGrid;setTool(savedEditorTool);simBikes=[];requestDraw();notify('Đã trở về chế độ chỉnh sửa bản đồ')} }
+$('simToggle').onclick=()=>toggleSimulation(!simMode);
+
+function readSimControls(){
+ simConfig.count=Number($('simCount').value)||0;
+ simConfig.hand=$('simHand').value;
+ simConfig.speedMin=Number($('simSpeedMin').value);
+ simConfig.speedMax=Math.max(simConfig.speedMin,Number($('simSpeedMax').value));
+ simConfig.vehicleScale=Number($('simVehicleScale').value);
+ simConfig.shadows=$('simShadows').checked;
+ trafficConfig.enabled=$('trafficEnable').checked;
+ trafficConfig.green=Math.max(2,Math.min(30,Number($('trafficGreen').value)||7));
+ trafficConfig.yellow=Math.max(1,Math.min(10,Number($('trafficYellow').value)||3));
+ updateSimUI();
+}
+for(const id of ['simSpeedMin','simSpeedMax','simVehicleScale'])$(id).addEventListener('input',()=>{
+ const a=Number($('simSpeedMin').value),b=Number($('simSpeedMax').value);
+ $('simSpeedMinNum').textContent=a+' px/s';$('simSpeedMaxNum').textContent=b+' px/s';
+ $('simVehicleScaleNum').textContent=$('simVehicleScale').value+'%';
+ if(id==='simVehicleScale'){simConfig.vehicleScale=Number($('simVehicleScale').value);requestDraw()}
+});
+for(const id of ['trafficGreen','trafficYellow'])$(id).addEventListener('input',()=>{trafficConfig.green=Math.max(2,Math.min(30,Number($('trafficGreen').value)||7));trafficConfig.yellow=Math.max(1,Math.min(10,Number($('trafficYellow').value)||3));updateTrafficUI();requestDraw();saveSoon()});
+$('trafficEnable').onchange=()=>{trafficConfig.enabled=$('trafficEnable').checked;requestDraw();saveSoon()};
+$('simShadows').onchange=()=>{simConfig.shadows=$('simShadows').checked;requestDraw()};
+$('simCount').oninput=e=>$('simCountNum').textContent=e.target.value;
+$('simHand').onchange=e=>{readSimControls();populateBikes(true);notify(simConfig.hand==='right'?'Đang đi sát phải':'Đang đi sát trái')};
+$('simApply').onclick=()=>{readSimControls();populateBikes(true);saveSoon();notify(`Đã tạo ${simBikes.length} xe, mỗi xe có tốc độ riêng`)};
+$('simPause').onclick=()=>{simPaused=!simPaused;$('simPause').textContent=simPaused?'▶ Tiếp tục':'⏸ Tạm dừng';requestDraw()};
+$('simNetwork').onchange=e=>{simShowNetwork=e.target.checked;requestDraw()};
+$('simReset').onclick=()=>{populateBikes(true);notify('Đã khởi tạo lại các xe')};
+window.addEventListener('beforeunload',()=>cancelAnimationFrame(simFrame));
+
+// Persisted control values, without changing the existing map tile schema.
+function restoreShadowSettings(saved){if(!saved||typeof saved!=='object')return;
+ const ranges={sunX:[.02,.98],sunY:[.035,.965],alpha:[0,.75],blur:[0,12],length:[.2,2.3],pivot:[0,.65],inset:[0,.45]};
+ for(const [k,[lo,hi]] of Object.entries(ranges)){
+  if(Number.isFinite(Number(saved[k])))shadowSettings[k]=Math.max(lo,Math.min(hi,Number(saved[k])));
+ }
+ shadowSettings.debug=!!saved.debug;
+}
+function placeSun(){const el=$('sunHandle');el.style.left=(shadowSettings.sunX*100)+'%';el.style.top=(shadowSettings.sunY*100)+'%';el.setAttribute('aria-valuetext',`X ${Math.round(shadowSettings.sunX*100)}%, Y ${Math.round(shadowSettings.sunY*100)}%`)}
+function moveSunPointer(e){const rect=viewport.getBoundingClientRect();shadowSettings.sunX=Math.max(.02,Math.min(.98,(e.clientX-rect.left)/rect.width));shadowSettings.sunY=Math.max(.035,Math.min(.965,(e.clientY-rect.top)/rect.height));placeSun();requestDraw()}
+const sunHandle=$('sunHandle');
+sunHandle.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();sunHandle.setPointerCapture(e.pointerId);sunHandle.classList.add('dragging');moveSunPointer(e)});
+sunHandle.addEventListener('pointermove',e=>{if(sunHandle.hasPointerCapture(e.pointerId)){e.preventDefault();moveSunPointer(e)}});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])sunHandle.addEventListener(event,()=>{sunHandle.classList.remove('dragging');saveSoon()});
+sunHandle.addEventListener('keydown',e=>{const m=e.shiftKey?.05:.02;if(e.key==='ArrowLeft')shadowSettings.sunX-=m;else if(e.key==='ArrowRight')shadowSettings.sunX+=m;else if(e.key==='ArrowUp')shadowSettings.sunY-=m;else if(e.key==='ArrowDown')shadowSettings.sunY+=m;else return;e.stopPropagation();e.preventDefault();shadowSettings.sunX=Math.max(.02,Math.min(.98,shadowSettings.sunX));shadowSettings.sunY=Math.max(.035,Math.min(.965,shadowSettings.sunY));placeSun();requestDraw();saveSoon()});
+const shadowSliders=[['simShadowAlpha','alpha',100,'%'],['simShadowBlur','blur',1,' px'],['simShadowLength','length',100,'%'],['simShadowPivot','pivot',100,'%'],['simShadowInset','inset',100,'%']];
+function updateShadowUI(){for(const [id,k,factor,suffix]of shadowSliders){const value=Math.round(shadowSettings[k]*factor);$(id).value=value;$(id+'Num').textContent=value+suffix}$('simShadowDebug').checked=shadowSettings.debug;placeSun()}
+for(const [id,k,factor,suffix]of shadowSliders)$(id).addEventListener('input',e=>{shadowSettings[k]=Number(e.target.value)/factor;$(id+'Num').textContent=e.target.value+suffix;requestDraw();saveSoon()});
+$('simShadowDebug').onchange=e=>{shadowSettings.debug=e.target.checked;requestDraw();saveSoon()};
+$('simSunReset').onclick=()=>{shadowSettings.sunX=.2;shadowSettings.sunY=.18;placeSun();requestDraw();saveSoon();notify('Đã đặt lại vị trí mặt trời')};
+
+// WORLD CLOCK — a full game day lasts 4 real hours (14400 seconds) at x1.
+const headlights={power:.24,length:62,width:20,glow:12};
+function restoreHeadlights(v){if(!v)return;for(const [k,lo,hi] of [['power',0,1],['length',20,180],['width',6,85],['glow',0,45]])if(Number.isFinite(+v[k]))headlights[k]=Math.max(lo,Math.min(hi,+v[k]));updateHeadlightUI()}
+function updateHeadlightUI(){for(const [id,k,multi,unit]of [['lampPower','power',100,'%'],['lampLength','length',1,' px'],['lampWidth','width',1,' px'],['lampGlow','glow',1,' px']]){const n=Math.round(headlights[k]*multi);$(id).value=n;$(id+'Num').textContent=n+unit;}}
+for(const [id,k,multi]of [['lampPower','power',100],['lampLength','length',1],['lampWidth','width',1],['lampGlow','glow',1]])$(id).oninput=e=>{headlights[k]=Number(e.target.value)/multi;updateHeadlightUI();requestDraw();saveSoon()};
+updateHeadlightUI();
+// Lightweight Canvas weather: particles are pooled and only displayed over visible viewport.
+const weather={mode:'clear',intensity:60,wind:0};
+const weatherParticles=[];
+const weatherRand=()=>Math.random();
+function resetWeatherParticles(){weatherParticles.length=0;const count=Math.ceil(15+weather.intensity*1.55);
+ for(let i=0;i<count;i++)weatherParticles.push({x:weatherRand()*Math.max(1,vw),y:weatherRand()*Math.max(1,vh),speed:.68+weatherRand()*.8,size:.7+weatherRand()*2.2,drift:weatherRand()*Math.PI*2});
+}
+function updateWeatherUI(){const mode=$('weatherMode');if(!mode)return;mode.value=weather.mode;$('weatherIntensity').value=weather.intensity;$('weatherIntensityNum').textContent=weather.intensity+'%';$('weatherWind').value=weather.wind;$('weatherWindNum').textContent=weather.wind>0?'+'+weather.wind:weather.wind;document.querySelectorAll('[data-weather]').forEach(b=>b.classList.toggle('selected',b.dataset.weather===weather.mode))}
+function restoreWeather(saved){if(saved&&typeof saved==='object'){
+ weather.mode=['clear','rain','snow'].includes(saved.mode)?saved.mode:'clear';
+ if(Number.isFinite(+saved.intensity))weather.intensity=Math.max(0,Math.min(100,Number(saved.intensity)));
+ if(Number.isFinite(+saved.wind))weather.wind=Math.max(-100,Math.min(100,Number(saved.wind)));
+ }resetWeatherParticles();updateWeatherUI()}
+function changeWeather(mode){weather.mode=mode;resetWeatherParticles();updateWeatherUI();saveSoon();requestDraw()}
+for(const b of document.querySelectorAll('[data-weather]'))b.onclick=()=>changeWeather(b.dataset.weather);
+$('weatherIntensity').oninput=e=>{weather.intensity=Number(e.target.value);resetWeatherParticles();updateWeatherUI();saveSoon();requestDraw()};
+$('weatherWind').oninput=e=>{weather.wind=Number(e.target.value);updateWeatherUI();saveSoon();requestDraw()};
+$('weatherMode').onchange=e=>changeWeather(e.target.value);
+function advanceWeather(dt){if(weather.mode==='clear'||weather.intensity<=0)return;
+ const snow=weather.mode==='snow',velocity=snow?42:410,wind=weather.wind*(snow?.60:1.35);
+ const W=Math.max(1,vw),H=Math.max(1,vh);
+ for(const p of weatherParticles){p.y+=dt*velocity*p.speed;p.x+=dt*(wind+(snow?Math.sin(p.drift+p.y*.016)*9:0));
+ if(p.y>H+18){p.y=-20;p.x=weatherRand()*W}if(p.x>W+35)p.x=-25;else if(p.x< -35)p.x=W+25;
+ }
+}
+function drawWeather(){if(weather.mode==='clear'||weather.intensity<=0)return;
+ const f=weather.intensity/100,snow=weather.mode==='snow';ctx.save();
+ // Atmospheric wash; no expensive full-screen gradients or per-particle blur.
+ const dim=snow?(0.025+.10*f):(0.035+.17*f);
+ ctx.fillStyle=snow?`rgba(40,54,77,${dim.toFixed(3)})`:`rgba(18,35,54,${dim.toFixed(3)})`;
+ ctx.fillRect(0,0,vw,vh);
+ if(snow){ctx.fillStyle=`rgba(255,255,255,${(.49+.23*f).toFixed(3)})`;ctx.beginPath();
+  for(const p of weatherParticles){const r=p.size*(.65+.45*f);ctx.moveTo(p.x+r,p.y);ctx.arc(p.x,p.y,r,0,Math.PI*2)}ctx.fill();
+ }else{const dx=weather.wind*.11;ctx.lineWidth=Math.max(.7,1.1*f);ctx.strokeStyle=`rgba(216,238,255,${(.17+.22*f).toFixed(3)})`;ctx.beginPath();
+  for(const p of weatherParticles){ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+dx+(p.speed*3),p.y+8+p.speed*10)}ctx.stroke();
+ }
+ ctx.restore();
+}
+resetWeatherParticles();updateWeatherUI();
+
+const dayNight={enabled:false,minute:8*60,speed:1};
+let dayNightLastClock=-1;
+function clockText(minute){const v=((Math.floor(minute)%1440)+1440)%1440;return String(Math.floor(v/60)).padStart(2,'0')+':'+String(v%60).padStart(2,'0')}
+function restoreDayNight(saved){if(!saved||typeof saved!=='object')return;dayNight.enabled=!!saved.enabled;const m=Number(saved.minute),v=Number(saved.speed);if(Number.isFinite(m))dayNight.minute=((m%1440)+1440)%1440;if([1,60,360,1440].includes(v))dayNight.speed=v;}
+function isNightHour(){const h=dayNight.minute/60;return h<6||h>=18}
+// Light from 05:00 to 06:30, full sunlight during the day, sunset 17:30–19:00.
+function daylightFactor(){if(!dayNight.enabled)return 1;const h=dayNight.minute/60;
+ if(h<5||h>=18)return 0;
+ if(h<6)return Math.max(0,Math.min(1,h-5));
+ if(h<17)return 1;
+ return Math.max(0,Math.min(1,18-h));
+}
+function warmSkyTint(){if(!dayNight.enabled)return 0;const h=dayNight.minute/60;
+ // Warmth peaks around 05:40 and 17:30, gently fades into full daylight / night.
+ const sunrise=h>=5&&h<6?Math.sin(Math.PI*(h-5)):0;
+ const sunset=h>=17&&h<18?Math.sin(Math.PI*(h-17)):0;
+ return Math.max(sunrise*.23,sunset*.35);
+}
+function solarPosition(){if(!dayNight.enabled)return{x:shadowSettings.sunX,y:shadowSettings.sunY};
+ const hour=dayNight.minute/60;
+ const t=Math.max(0,Math.min(1,(hour-6)/12));
+ return {x:.08+.84*t,y:.68-.48*Math.sin(Math.PI*t)};
+}
+function drawDayNightLight(){const light=daylightFactor(),dark=1-light;if(dark<.00001)return;
+ ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(10,23,49,${(.66*dark).toFixed(4)})`;ctx.fillRect(0,0,vw,vh);
+ // Dawn and sunset introduce real warm orange light; clear noon remains untinted.
+ const warmth=warmSkyTint();
+ if(warmth>.0001){ctx.fillStyle=`rgba(255,145,64,${warmth.toFixed(4)})`;ctx.fillRect(0,0,vw,vh)}
+ // Headlight beams: wide isosceles wedge, apex is 8px inside the vehicle nose.
+ if(dark>.30){ctx.save();ctx.globalCompositeOperation='screen';const beamList=visibleBikeCache.length?visibleBikeCache:simBikes.map(b=>({bike:b,pos:bikeWorld(b)}));const perfLoad=simBikes.length>=170;for(const item of beamList){const b=item.bike||item,w=item.pos||bikeWorld(b),o=item.info||bikeDrawInfo(b,w);if(!o||o.s.x<-170||o.s.x>vw+170||o.s.y<-170||o.s.y>vh+170)continue;
+   const d=DIRS[b.dir],inset=8*zoom,beam=headlights.length*zoom*(perfLoad?0.86:1),width=headlights.width*zoom*(perfLoad?0.82:1),brightness=headlights.power*(perfLoad?0.88:1);
+   let fx=o.s.x,fy=o.y+o.dh*.55;
+   if(b.dir===1)fx=o.s.x+o.dw*.5-inset;
+   if(b.dir===3)fx=o.s.x-o.dw*.5+inset;
+   if(b.dir===0){fx=o.s.x;fy=o.y+inset}
+   if(b.dir===2){fx=o.s.x;fy=o.y+o.dh-inset}
+   const endX=fx+d.dx*beam,endY=fy+d.dy*beam;
+   const nx=-d.dy,ny=d.dx;
+   const spread=ctx.createLinearGradient(fx,fy,endX,endY);
+   spread.addColorStop(0,`rgba(255,237,177,${(.68*dark*brightness).toFixed(3)})`);
+   spread.addColorStop(.24,`rgba(255,217,132,${(.38*dark*brightness).toFixed(3)})`);
+   spread.addColorStop(.60,`rgba(255,205,120,${(.16*dark*brightness).toFixed(3)})`);
+   spread.addColorStop(1,'rgba(255,205,120,0)');
+   ctx.fillStyle=spread;ctx.beginPath();ctx.moveTo(fx,fy);ctx.lineTo(endX+nx*width,endY+ny*width);ctx.lineTo(endX-nx*width,endY-ny*width);ctx.closePath();ctx.fill();
+   if(!perfLoad){const glow=ctx.createRadialGradient(fx,fy,0,fx,fy,headlights.glow*zoom);glow.addColorStop(0,`rgba(255,250,210,${(.48*dark*brightness).toFixed(3)})`);glow.addColorStop(1,'rgba(255,226,151,0)');
+   ctx.fillStyle=glow;ctx.beginPath();ctx.arc(fx,fy,Math.max(.1,headlights.glow*zoom),0,Math.PI*2);ctx.fill();}
+ }ctx.restore()}
+
+ ctx.restore();
+}
+function syncDayNightUI(force=false){const clock=Math.floor(dayNight.minute);if(!force&&clock===dayNightLastClock)return;dayNightLastClock=clock;
+ $('dayNightEnable').checked=dayNight.enabled;$('hudDayNightEnable').checked=dayNight.enabled;
+ for(const id of ['dayNightTime','hudTime'])$(id).value=String(clock);
+ for(const id of ['dayNightSpeed','hudTimeSpeed'])$(id).value=String(dayNight.speed);
+ $('dayNightClock').textContent=clockText(dayNight.minute);
+ $('hudClock').textContent=(dayNight.enabled?(daylightFactor()<.15?'🌙 ':daylightFactor()<.9?'🌇 ':'☀ '):'☀ ')+clockText(dayNight.minute);
+ document.body.classList.toggle('daynight-cycle-on',dayNight.enabled);
+}
+function advanceDayNight(dt){if(!dayNight.enabled)return;dayNight.minute=(dayNight.minute+dt*1440/14400*dayNight.speed)%1440;syncDayNightUI()}
+function switchDayNight(enabled){dayNight.enabled=!!enabled;syncDayNightUI(true);requestDraw();saveSoon()}
+function changeDayNightMinute(minute){dayNight.minute=Math.max(0,Math.min(1439,Number(minute)||0));syncDayNightUI(true);requestDraw();saveSoon()}
+function changeDayNightSpeed(speed){const v=Number(speed);if(![1,60,360,1440].includes(v))return;dayNight.speed=v;syncDayNightUI(true);saveSoon()}
+for(const id of ['dayNightEnable','hudDayNightEnable'])$(id).onchange=e=>switchDayNight(e.target.checked);
+for(const id of ['dayNightTime','hudTime'])$(id).oninput=e=>changeDayNightMinute(e.target.value);
+for(const id of ['dayNightSpeed','hudTimeSpeed'])$(id).onchange=e=>changeDayNightSpeed(e.target.value);
+$('hudPause').onclick=()=>{$('simPause').click();$('hudPause').textContent=simPaused?'▶ Tiếp tục':'⏸ Tạm dừng'};
+$('hudExit').onclick=()=>{if(document.fullscreenElement===viewport)document.exitFullscreen().catch(()=>{})};
+
+// Fullscreen ONLY the simulation viewport, not the sidebar/editor/header.
+const fullscreenBtn=$('fullscreenBtn');
+function updateFullscreenLabel(){const on=document.fullscreenElement===viewport;
+ fullscreenBtn.textContent=on?'⤢ Thoát toàn màn hình':'⛶ Xem mô phỏng toàn màn hình';
+ fullscreenBtn.setAttribute('aria-pressed',String(on));setTimeout(resize,30);
+}
+fullscreenBtn.addEventListener('click',async()=>{try{
+ if(document.fullscreenElement===viewport){await document.exitFullscreen();return}
+ if(!simMode)toggleSimulation(true);
+ await viewport.requestFullscreen({navigationUI:'hide'});requestDraw();
+ }catch(err){notify('Không mở được toàn màn hình. Hãy thử Chrome/Edge và cho phép Fullscreen.')}});
+document.addEventListener('fullscreenchange',updateFullscreenLabel);
+
+// ================== Asset browser / folder scanner v12 ==================
+function setLibraryView(which){
+ const isAssets=which==='assets';
+ $('materialsView').hidden=isAssets;$('assetsView').hidden=!isAssets;
+ $('libraryMaterials').classList.toggle('active',!isAssets);$('libraryAssets').classList.toggle('active',isAssets);
+ $('libraryMaterials').setAttribute('aria-selected',String(!isAssets));$('libraryAssets').setAttribute('aria-selected',String(isAssets));
+ if(isAssets)renderAssetBrowser();
+}
+function spriteCard(row,group){
+ const div=document.createElement('div');div.className='asset-generic-card';
+ const img=document.createElement('img');img.src=row.path;img.alt=row.id;img.loading='lazy';
+ const name=document.createElement('strong');name.textContent=row.id;
+ const level=document.createElement('span');level.className='asset-badge';level.textContent=`${group} · Level ${row.level}`;
+ div.append(img,name,level);
+ if(group==='Roads'&&row.code){div.title='Click để chọn tile '+row.code;div.style.cursor='pointer';div.onclick=()=>{
+  materialLevel=row.level;$('materialLevel').value=String(row.level);$('levelTitle').textContent=String(row.level);
+  const groupInfo=META_MAP[row.code];if(groupInfo)activeGroup=groupInfo.group;
+  selectTile(row.code);renderPalette();setLibraryView('materials');setTool('paint')};}
+ return div;
+}
+function renderAssetBrowser(){
+ const target=$('assetCards');if(!target)return;
+ document.querySelectorAll('[data-asset-category]').forEach(btn=>btn.classList.toggle('chosen',btn.dataset.assetCategory===assetCategory));
+ $('vehicleTypeWrap').hidden=assetCategory!=='vehicles';$('assetLevelWrap').hidden=assetCategory==='vehicles';
+ $('assetBulkActions').hidden=assetCategory!=='vehicles'||assetVehicleType!=='bikes';
+ $('assetVehicleType').value=assetVehicleType;$('assetLevel').value=String(assetLevel);
+ target.replaceChildren();
+ const errors=$('assetErrors');errors.hidden=true;errors.textContent='';
+ if(assetCategory==='vehicles'&&assetVehicleType==='bikes'){
+  const data=ASSET_MANIFEST.vehicles?.bikes||[];
+  const selected=data.filter(row=>enabledBikeIds.has(row.id)).length;
+  $('assetCount').textContent=`${data.length} xe hợp lệ · ${selected} được phép xuất hiện`;
+  if(!data.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent='Chưa có Bike hợp lệ. Mỗi folder bike_N phải đủ: bike_N_top.png, bike_N_right.png, bike_N_down.png.';target.append(p)}
+  for(const row of data){
+   const lbl=document.createElement('label');lbl.className='asset-bike-card'+(enabledBikeIds.has(row.id)?' enabled':'');lbl.dataset.id=row.id;
+   const top=document.createElement('div');top.className='asset-bike-top';
+   const img=document.createElement('img');img.alt=row.id+' ảnh hướng xe';img.dataset.bikePreview=row.id;img.src=BIKE_SOURCES[row.id]?.right||'';top.append(img);
+   const bottom=document.createElement('div');bottom.className='asset-bike-bottom';
+   const text=document.createElement('div');text.textContent=row.id;const badge=document.createElement('span');badge.className='asset-badge';badge.textContent='3/3 PNG · đúng format';text.append(badge);
+   const check=document.createElement('input');check.type='checkbox';check.checked=enabledBikeIds.has(row.id);check.setAttribute('aria-label','Cho phép '+row.id+' xuất hiện');
+   check.onchange=()=>{if(check.checked)enabledBikeIds.add(row.id);else enabledBikeIds.delete(row.id);
+    lbl.classList.toggle('enabled',check.checked);populateBikes(true);renderAssetBrowser();saveSoon()};
+   bottom.append(text,check);lbl.append(top,bottom);target.append(lbl);
+  }
+  const invalid=ASSET_MANIFEST.invalidBikes||[];
+  if(invalid.length){errors.hidden=false;errors.textContent='⚠ '+invalid.length+' folder không hợp lệ: '+invalid.map(r=>`${r.id}: ${r.reason||''} ${r.missing?.length?'thiếu '+r.missing.join(', '):''} ${r.extra?.length?'dư '+r.extra.join(', '):''}`).join(' | ')}
+ }else if(assetCategory==='vehicles'){
+  const data=ASSET_MANIFEST.vehicles?.cars||[];$('assetCount').textContent=`Ô tô 4+ bánh · ${data.length} mẫu`;
+  if(!data.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent='Chưa có asset ô tô. Đã tạo thư mục Vehicles/Cars để bổ sung sau; chưa tự giả định format của ô tô.';target.append(p)}
+  else for(const row of data)target.append(spriteCard(row,'Cars'));
+ }else{
+  const source=ASSET_MANIFEST[assetCategory]||{};const list=source[String(assetLevel)]||[];
+  $('assetCount').textContent=`${({roads:'Đường',deco:'Deco',constructions:'Công trình'})[assetCategory]} · Level ${assetLevel} · ${list.length} sprite`;
+  if(!list.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent=`Chưa có PNG tại Asset/Sprites/${({roads:'Roads',deco:'Deco',constructions:'Constructions'})[assetCategory]}/Level_${assetLevel}.`;target.append(p)}
+  else for(const row of list)target.append(spriteCard(row,({roads:'Roads',deco:'Deco',constructions:'Constructions'})[assetCategory]));
+ }
+}
+// A single timer updates all previews, preventing one interval per bike card.
+function advanceBikePreviews(){if($('assetsView').hidden||assetCategory!=='vehicles'||assetVehicleType!=='bikes')return;
+ assetPreviewIndex=(assetPreviewIndex+1)%3;const states=['top','right','down'];
+ document.querySelectorAll('[data-bike-preview]').forEach(img=>{const sources=BIKE_SOURCES[img.dataset.bikePreview];if(sources){const uri=sources[states[assetPreviewIndex]];if(img.src!==uri)img.src=uri}});
+}
+function installAssetBrowser(){
+ $('libraryMaterials').onclick=()=>setLibraryView('materials');$('libraryAssets').onclick=()=>setLibraryView('assets');
+ document.querySelectorAll('[data-asset-category]').forEach(btn=>btn.onclick=()=>{assetCategory=btn.dataset.assetCategory;renderAssetBrowser()});
+ $('assetVehicleType').onchange=e=>{assetVehicleType=e.target.value;renderAssetBrowser()};
+ $('assetLevel').onchange=e=>{assetLevel=Number(e.target.value);renderAssetBrowser()};
+ $('enableAllBikes').onclick=()=>{enabledBikeIds=new Set(Object.keys(BIKE_SOURCES));populateBikes(true);renderAssetBrowser();saveSoon()};
+ $('disableAllBikes').onclick=()=>{enabledBikeIds.clear();populateBikes(true);renderAssetBrowser();saveSoon()};
+ $('scanAssetFolder').addEventListener('change',async e=>{
+  const files=[...e.target.files];if(!files.length)return;
+  try{const next=manifestFromBrowserFolder(files);for(const u of blobAssetURLs)URL.revokeObjectURL(u);blobAssetURLs=next.urls;
+   ASSET_MANIFEST=next.manifest;applyTileSources();applyBikeSources();
+   addManifestLevelMetadata();for(const m of META)META_MAP[m[0]]={name:m[1],group:m[2]};
+   for(const k of Object.keys(LIGHT_SOURCES))delete LIGHT_SOURCES[k];Object.assign(LIGHT_SOURCES,ASSET_MANIFEST.trafficLights);
+   enabledBikeIds=new Set(Object.keys(BIKE_SOURCES));
+   loadTileImages();initBikes();initTrafficLights();renderAssetBrowser();renderPalette();updateSelected();
+   if(simMode)populateBikes(true);requestDraw();saveSoon();
+   notify(`Quét xong: ${Object.keys(BIKE_SOURCES).length} bikes hợp lệ; ${ASSET_MANIFEST.invalidBikes.length} lỗi format.`);
+  }catch(error){alert('Quét Asset/Sprites lỗi: '+error.message)}finally{e.target.value=''}
+ });
+ setInterval(advanceBikePreviews,800);renderAssetBrowser();
+}
+function manifestFromBrowserFolder(files){
+ const m={version:1,root:'Asset/Sprites',vehicles:{bikes:[],cars:[]},invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{}};
+ for(const group of ['roads','deco','constructions'])for(let i=1;i<=5;i++)m[group][String(i)]=[];
+ const byPath=new Map(),urls=[];
+ function resolvePath(f){const path=(f.webkitRelativePath||f.name).replaceAll('\\','/');
+  const pos=path.indexOf('Asset/Sprites/');if(pos>=0)return path.slice(pos+'Asset/Sprites/'.length);
+  const pos2=path.indexOf('Sprites/');if(pos2>=0)return path.slice(pos2+'Sprites/'.length);
+  const match=path.match(/(?:^|\/)(Vehicles|Roads|Deco|Constructions)\/(.*)$/i);return match?match[1]+'/'+match[2]:null;
+ }
+ for(const file of files){const path=resolvePath(file);if(!path||!path.toLowerCase().endsWith('.png'))continue;
+  const blob=URL.createObjectURL(file);urls.push(blob);byPath.set(path,{file,blob});}
+ if(!byPath.size){for(const u of urls)URL.revokeObjectURL(u);throw new Error('Không tìm thấy PNG trong Vehicles / Roads / Deco / Constructions. Hãy chọn đúng thư mục Sprites.')}
+ const bikes=new Map();
+ for(const [path,info] of byPath){
+  const veh=path.match(/^Vehicles\/Bikes\/([^/]+)\/([^/]+)$/i);
+  if(veh){const id=veh[1],name=veh[2];if(!bikes.has(id))bikes.set(id,new Map());bikes.get(id).set(name.toLowerCase(),info.blob);continue;}
+  const other=path.match(/^(Roads|Deco|Constructions)\/Level_([1-5])\/(.+)\.png$/i);
+  if(other){const kind=other[1].toLowerCase(),level=Number(other[2]),id=other[3].split('/').pop(),record={id,path:info.blob,level};
+   if(kind==='roads'){if(!/^\d{3}$/.test(id)||Number(id[0])!==level-1)continue;record.code=id;}
+   m[kind][String(level)].push(record);
+   if(kind==='deco'&&/^traffic_light_(red|green|yellow)$/i.test(id))m.trafficLights[id.split('_').pop().toLowerCase()]=info.blob;
+  }
+ }
+ for(const [id,parts]of [...bikes].sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true}))){
+  if(!/^bike_[1-9][0-9]*$/.test(id)){m.invalidBikes.push({id,reason:'Tên folder không theo bike_N'});continue}
+  const validNames=['top','right','down'].map(dir=>`${id}_${dir}.png`);
+  const missing=validNames.filter(name=>!parts.has(name.toLowerCase()));const extra=[...parts.keys()].filter(name=>!validNames.includes(name));
+  if(missing.length||extra.length){m.invalidBikes.push({id,missing,extra,reason:'Tên file sai/thiếu hoặc dư frame'});continue}
+  m.vehicles.bikes.push({id,category:'bike',top:parts.get(validNames[0]),right:parts.get(validNames[1]),down:parts.get(validNames[2])});
+ }
+ return {manifest:m,urls};
+}
+// ================== End Asset browser ==================
+
+installAssetBrowser();initialLoad();initBikes();initTrafficLights();updateSimUI();updateShadowUI();syncDayNightUI(true);
+</script>
+</body>
+</html>
