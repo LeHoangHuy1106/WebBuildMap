@@ -73,3 +73,6 @@ Các mã sprite dùng quy ước `xab`, trong đó `x = level-1`; ví dụ Level
 - Tick/bỏ tick một mẫu làm cho mẫu đó được phép/bị cấm sinh trong mô phỏng.
 - **Chọn tất cả** và **Bỏ chọn tất cả** hoạt động ngay. JSON map lưu `simulation.enabledBikes` để mở lại đúng lựa chọn.
 - Cars, Deco và Công trình hiện có cấu trúc folder và danh sách asset; **chưa có gameplay mô phỏng ô tô hoặc công cụ đặt đồ trang trí lên bản đồ**. Không tự tạo asset giả.
+
+### Sửa preview hướng Top (v12.1)
+Trong runtime, ảnh Top được ánh xạ vào khóa `up` cho mô phỏng. Preview dùng khóa `up` thay vì `top` để tránh link ảnh `undefined`. Tên PNG trên đĩa vẫn là `bike_N_top.png`; không cần đổi tên.

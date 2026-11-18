@@ -978,8 +978,8 @@ function renderAssetBrowser(){
 }
 // A single timer updates all previews, preventing one interval per bike card.
 function advanceBikePreviews(){if($('assetsView').hidden||assetCategory!=='vehicles'||assetVehicleType!=='bikes')return;
- assetPreviewIndex=(assetPreviewIndex+1)%3;const states=['top','right','down'];
- document.querySelectorAll('[data-bike-preview]').forEach(img=>{const sources=BIKE_SOURCES[img.dataset.bikePreview];if(sources){const uri=sources[states[assetPreviewIndex]];if(img.src!==uri)img.src=uri}});
+ assetPreviewIndex=(assetPreviewIndex+1)%3;const states=['up','right','down'];
+ document.querySelectorAll('[data-bike-preview]').forEach(img=>{const sources=BIKE_SOURCES[img.dataset.bikePreview];if(!sources)return;const uri=sources[states[assetPreviewIndex]]||sources.right;if(uri&&img.getAttribute('src')!==uri)img.src=uri});
 }
 function installAssetBrowser(){
  $('libraryMaterials').onclick=()=>setLibraryView('materials');$('libraryAssets').onclick=()=>setLibraryView('assets');
