@@ -76,6 +76,32 @@
     ],
     "cars": []
   },
+  "pedestrians": [
+    {
+      "id": "girl_1",
+      "frames": {
+        "down": [
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_down_frame_1.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_down_frame_2.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_down_frame_3.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_down_frame_4.png"
+        ],
+        "right": [
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_right_frame_1.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_right_frame_2.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_right_frame_3.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_right_frame_4.png"
+        ],
+        "up": [
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_up_frame_1.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_up_frame_2.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_up_frame_3.png",
+          "Asset/Sprites/Pedestrians/girl_1/girl_1_up_frame_4.png"
+        ]
+      }
+    }
+  ],
+  "invalidPedestrians": [],
   "invalidBikes": [],
   "roads": {
     "1": [],

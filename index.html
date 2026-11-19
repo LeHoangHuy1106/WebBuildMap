@@ -94,7 +94,7 @@
 <div class="level-picker"><label for="materialLevel">Cấp độ vật liệu</label><select id="materialLevel"><option value="1">Level 1 · Đường đất</option><option value="2">Level 2 · Đường cát</option><option value="3">Level 3 · Đường đá</option><option value="4" selected>Level 4 · Đường nhựa</option><option value="5">Level 5 · Đường hiện đại</option></select><small id="levelHint">Đang hiển thị bộ sprite cấp 4.</small></div><div class="tabs"><button class="tab active" data-group="road">🛣 Đường bộ</button><button class="tab" data-group="river">🌊 Đường sông</button><button class="tab" data-group="sidewalk">▦ Vỉa hè</button><button class="tab" data-group="bridge">🌉 Cầu</button></div></div><div class="palette-head"><strong id="paletteTitle">Đường bộ</strong><span class="pill" id="tileCount">20 tile</span></div><div class="palette" id="palette"></div><div class="sidebottom"><div><b>Quy ước xab:</b> x = cấp đường - 1, ab = loại ô (00–12).</div><div>Roads được chia riêng <b>Level_1 ... Level_5</b>.</div></div></div>
 <div id="assetsView" class="sidebar-view" hidden>
  <div class="asset-top"><div class="eyebrow">ASSET / SPRITE LIBRARY</div><div class="side-title">Danh sách Asset</div><p class="side-desc">Tự quét thư mục và kiểm tra tên frame. Chỉ những Bike được tick mới có trong mô phỏng.</p>
- <div class="asset-category-pills" role="group" aria-label="Loại asset"><button data-asset-category="vehicles" class="chosen">🛵 Vehicles</button><button data-asset-category="deco">🌳 Deco</button><button data-asset-category="roads">🛣 Roads</button><button data-asset-category="constructions">🏠 Buildings</button></div>
+ <div class="asset-category-pills" role="group" aria-label="Loại asset"><button data-asset-category="vehicles" class="chosen">🛵 Vehicles</button><button data-asset-category="pedestrians">🚶 Pedestrians</button><button data-asset-category="deco">🌳 Deco</button><button data-asset-category="roads">🛣 Roads</button><button data-asset-category="constructions">🏠 Buildings</button></div>
  <div class="asset-options"><label id="vehicleTypeWrap">Loại phương tiện<select id="assetVehicleType"><option value="bikes">Bikes</option><option value="cars">Ô tô 4+ bánh</option></select></label><label id="assetLevelWrap" hidden>Level<select id="assetLevel"><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4" selected>Level 4</option><option value="5">Level 5</option></select></label></div>
  <div id="assetBulkActions" class="asset-bulk"><button type="button" id="enableAllBikes">✓ Chọn tất cả</button><button type="button" id="disableAllBikes">✕ Bỏ chọn tất cả</button></div>
  <div id="assetCount" class="asset-count">Chưa tải registry</div>
@@ -115,11 +115,11 @@
 <div class="ins-card"><div class="ins-title">Thống kê map</div><div class="countgrid"><div class="stat"><strong id="totalPlaced">0</strong><small>Ô đã đặt</small></div><div class="stat"><strong id="roadPlaced">0</strong><small>Đường bộ</small></div><div class="stat"><strong id="riverPlaced">0</strong><small>Đường sông</small></div><div class="stat"><strong id="walkPlaced">0</strong><small>Vỉa hè</small></div></div><div class="minirow"><button id="centerBtn">◎ Về tọa độ 0</button><button id="clearBtn">🗑 Xóa map</button></div><p class="note">Map không giới hạn chiều ngang/dọc, cho phép đặt ô tại tọa độ âm. Các ô trống không được lưu vào JSON.</p></div>
 <div class="ins-card"><div class="ins-title">File & dữ liệu</div><div class="kv"><span>Tile size</span><strong>120 px</strong><span>Phiên bản JSON</span><strong>4</strong><span>Asset hiện có</span><strong>Level 4</strong><span>Khoảng mã</span><strong>300–312</strong></div><p class="note">Map JSON v4 lưu đường/sông/cầu và loại đất vỉa hè 0/1/2. House Mask và nhà đã xây xuất riêng houses.json, buildings.json.</p></div></div>
 <div class="sim-panel">
-  <div class="settings-hero"><div class="eyebrow">SIMULATION SETTINGS</div><h2>⚙️ Điều khiển mô phỏng</h2><p>Chọn từng hạng mục để điều chỉnh. Bấm vào tiêu đề để thu gọn.</p><div class="setting-chips"><span>🚥 Giao thông</span><span>🌗 Thời gian</span><span>🌧️ Thời tiết</span></div></div>
+  <div class="settings-hero"><div class="eyebrow">SIMULATION SETTINGS</div><h2>⚙️ Điều khiển mô phỏng</h2><p>Chọn từng hạng mục để điều chỉnh. Bấm vào tiêu đề để thu gọn.</p><div class="setting-chips"><span>🚶 Người đi bộ</span><span>🚥 Giao thông</span><span>🌗 Thời gian</span><span>🌧️ Thời tiết</span></div></div>
   <div class="setting-stack">
     <details class="setting-group" open id="panelVehicles"><summary>🛵 Xe & làn đường <small>Số lượng, tốc độ, kích thước</small></summary><div class="setting-body">
       <div class="sim-field"><label for="simCount">Số xe mô phỏng <output id="simCountNum">24</output></label><input id="simCount" type="range" min="0" max="300" value="24" step="1"/></div>
-      <div class="sim-field" style="padding:9px 0"><strong>🕒 Mật độ xe theo giờ</strong><p class="sim-mini">Số xe thực tế = tổng xe × tỷ lệ khung giờ. Xe được thêm/bớt ngẫu nhiên và từ từ.</p><div id="trafficPeriodFields"></div><div class="sim-mini" id="trafficPeriodStatus">Khung hiện tại: —</div></div>
+      <div class="sim-field" style="padding:9px 0"><strong>🕒 Mật độ xe & người đi bộ theo giờ</strong><p class="sim-mini">Xe và người thực tế = tổng riêng từng loại × cùng tỷ lệ khung giờ. Cả hai tăng/giảm ngẫu nhiên, từ từ.</p><div id="trafficPeriodFields"></div><div class="sim-mini" id="trafficPeriodStatus">Khung hiện tại: —</div></div>
       <div class="sim-field"><label for="simHand">Luật đi đường</label><select id="simHand"><option value="right">🇻🇳 Đi sát phải (Việt Nam)</option><option value="left">Đi sát trái</option></select></div>
       <div class="sim-field"><label for="simSpeedMin">Tốc độ tối thiểu <output id="simSpeedMinNum">35 px/s</output></label><input id="simSpeedMin" type="range" min="10" max="180" value="35"/></div>
       <div class="sim-field"><label for="simSpeedMax">Tốc độ tối đa <output id="simSpeedMaxNum">105 px/s</output></label><input id="simSpeedMax" type="range" min="10" max="210" value="105"/></div>
@@ -127,13 +127,21 @@
       <div class="sim-actions"><button id="simApply" class="sim-action main">↻ Áp dụng & tạo xe</button><button id="simPause" class="sim-action">⏸ Tạm dừng</button><button id="simReset" class="sim-action muted">🎲 Tạo lại vị trí ngẫu nhiên</button></div>
       <p class="sim-mini">Xe dùng 2 nửa làn, giữ 10% lề mỗi bên và có độ lệch tự nhiên theo từng xe.</p>
     </div></details>
+    <details class="setting-group" open id="panelPedestrians"><summary>🚶 Người đi bộ <small>Đi bộ tự do, qua đường đúng vạch</small></summary><div class="setting-body">
+      <div class="sim-field"><label for="pedestrianCount">Tổng người đi bộ tối đa <output id="pedestrianCountNum">25</output></label><input id="pedestrianCount" type="range" min="0" max="300" step="1" value="25"/></div>
+      <div class="sim-field"><label for="pedestrianSpeed">Tốc độ đi bộ <output id="pedestrianSpeedNum">36 px/s</output></label><input id="pedestrianSpeed" type="range" min="10" max="90" value="36"/></div>
+      <div class="sim-field"><label for="pedestrianHeight">Chiều cao nhân vật <output id="pedestrianHeightNum">54 px</output></label><input id="pedestrianHeight" type="range" min="25" max="110" value="54"/></div>
+      <label class="sim-check"><input type="checkbox" id="pedestrianEnabled" checked/> Bật mô phỏng người đi bộ</label>
+      <div class="sim-actions"><button type="button" class="sim-action main" id="resetPedestrians">🎲 Phát sinh người đi bộ</button></div>
+      <div class="sim-mini">Hiện có <b id="pedestrianLiveCount">0</b> người · Dùng chung % mật độ giao thông theo 5 giờ (số tối đa riêng). Vùng đi: vỉa hè thường; viền ngoài cụm công trình; dải 30% vạch qua đường 304; cầu 311/312; dải ven sông 10px tại cạnh bit 0. Hướng trái lật từ sprite phải.</div>
+    </div></details>
     <details class="setting-group" id="panelTraffic"><summary>🚥 Đèn giao thông <small>Chu kỳ & giao lộ</small></summary><div class="setting-body">
       <label class="sim-check"><input id="trafficEnable" type="checkbox" checked/> Bật đèn giao thông tại ngã tư</label>
       <div class="sim-field"><label for="trafficGreen">Thời gian xanh <output id="trafficGreenNum">7 giây</output></label><input id="trafficGreen" type="range" min="2" max="30" value="7"/></div>
       <div class="sim-field"><label for="trafficYellow">Thời gian vàng <output id="trafficYellowNum">3 giây</output></label><input id="trafficYellow" type="range" min="1" max="10" value="3"/></div>
       <div class="setting-readonly">🔴 Đỏ <strong id="trafficRedNum">10 giây</strong></div>
       <label class="sim-check"><input id="simNetwork" type="checkbox"/> Hiện các đầu nối đường (debug)</label>
-      <p class="sim-mini">Xe chỉ kiểm tra đèn trước khi vào ô ngã tư. Đã vượt vạch dừng hoặc đã vào ngã tư thì đi tiếp.</p>
+      <p class="sim-mini">Chỉ 4 ô đường kề ngã tư có đèn mới được phép dừng. Xe đứng tại tọa độ X/Y ngẫu nhiên trong đúng ô kề, không giới hạn số xe trong ô.</p>
     </div></details>
     <details class="setting-group" open id="panelTime"><summary>🌅 Ngày, đêm & hoàng hôn <small>Giờ, tốc độ, ánh sáng</small></summary><div class="setting-body daynight-controls">
       <label class="sim-check"><input id="dayNightEnable" type="checkbox"/> Bật chu kỳ ngày đêm</label>
@@ -199,7 +207,7 @@
 <script>
 'use strict';
 // Asset paths below are replaced with data URIs for the standalone HTML build.
-let ASSET_MANIFEST=window.__ASSET_MANIFEST__||{version:1,vehicles:{bikes:[],cars:[]},invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{}};
+let ASSET_MANIFEST=window.__ASSET_MANIFEST__||{version:1,vehicles:{bikes:[],cars:[]},pedestrians:[],invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{}};
 let assetCategory='vehicles',assetVehicleType='bikes',assetLevel=4,assetPreviewIndex=0,blobAssetURLs=[];
 const TILE_SOURCES={};
 function applyTileSources(){for(const key of Object.keys(TILE_SOURCES))delete TILE_SOURCES[key];for(const files of Object.values(ASSET_MANIFEST.roads||{}))for(const tile of files){if(tile.code&&tile.path)TILE_SOURCES[tile.code]=tile.path}if(TILE_SOURCES['305'])TILE_SOURCES['314']=TILE_SOURCES['305']}
@@ -348,10 +356,10 @@ $('undoBtn').onclick=()=>undoRedo(history,future,true);$('redoBtn').onclick=()=>
 function replaceMap(newMap,bounds=null){const beforeBounds=generatedBounds;generatedBounds=bounds;const before=[...map].map(([k,v])=>[k,clone(v)]),after=[...newMap].map(([k,v])=>[k,clone(v)]);const beforeBuildings=typeof constructionObjects!=='undefined'?[...constructionObjects]:[];if(typeof constructionObjects!=='undefined')constructionObjects.clear();history.push({type:'snapshot',before,after,beforeBounds,afterBounds:bounds,beforeBuildings,afterBuildings:[]});if(history.length>80)history.shift();future=[];map=newMap;updateStats();saveSoon()}
 $('clearBtn').onclick=()=>{if(!map.size)return;if(confirm('Xóa toàn bộ ô trên map hiện tại? Có thể hoàn tác bằng Ctrl+Z.')){replaceMap(new Map());notify('Đã xóa map')}};
 $('centerBtn').onclick=()=>{cam={x:0,y:0};zoom=1;$('zoomLabel').textContent='100%';requestDraw()};
-function serializeMap(){const tiles=[...map.entries()].map(([k,v])=>{const [x,y]=k.split(',').map(Number);return{x,y,code:v.code,rotation:v.rotation,landType:v.code==='305'?(v.landType||0):undefined}}).sort((a,b)=>a.y-b.y||a.x-b.x);return {format:'thất-nghiệp-về-quê-map',schemaVersion:4,landTypeLegend:{0:'sidewalk',1:'construction',2:'administrative'},generatedBounds:generatedBounds?{...generatedBounds}:null,mapName:$('mapName').value.trim()||'Map mới',tileSize:120,origin:'signed-grid',levelIndex:3,sourceAsset:'Asset/Sprites/Roads/Level_4',codeScheme:'xab: x=level-1, ab=tile-type 00..12; rotation=90*n',simulation:{headlights:{...headlights},trafficLights:{enabled:trafficConfig.enabled,green:trafficConfig.green,yellow:trafficConfig.yellow},weather:{mode:weather.mode,intensity:weather.intensity,wind:weather.wind},vehicleCount:simConfig.count,trafficDensity:[...trafficDensity],hand:simConfig.hand,speedMin:simConfig.speedMin,speedMax:simConfig.speedMax,vehicleScale:simConfig.vehicleScale,shadows:simConfig.shadows,enabledBikes:[...enabledBikeIds],shadowSettings:{...shadowSettings},dayNight:{enabled:dayNight.enabled,minute:Math.floor(dayNight.minute),speed:dayNight.speed}},tiles}}
+function serializeMap(){const tiles=[...map.entries()].map(([k,v])=>{const [x,y]=k.split(',').map(Number);return{x,y,code:v.code,rotation:v.rotation,landType:v.code==='305'?(v.landType||0):undefined}}).sort((a,b)=>a.y-b.y||a.x-b.x);return {format:'thất-nghiệp-về-quê-map',schemaVersion:4,landTypeLegend:{0:'sidewalk',1:'construction',2:'administrative'},generatedBounds:generatedBounds?{...generatedBounds}:null,mapName:$('mapName').value.trim()||'Map mới',tileSize:120,origin:'signed-grid',levelIndex:3,sourceAsset:'Asset/Sprites/Roads/Level_4',codeScheme:'xab: x=level-1, ab=tile-type 00..12; rotation=90*n',simulation:{headlights:{...headlights},trafficLights:{enabled:trafficConfig.enabled,green:trafficConfig.green,yellow:trafficConfig.yellow},weather:{mode:weather.mode,intensity:weather.intensity,wind:weather.wind},vehicleCount:simConfig.count,trafficDensity:[...trafficDensity],pedestrians:{...pedestrianConfig,enabledIds:[...enabledPedestrianIds]},hand:simConfig.hand,speedMin:simConfig.speedMin,speedMax:simConfig.speedMax,vehicleScale:simConfig.vehicleScale,shadows:simConfig.shadows,enabledBikes:[...enabledBikeIds],shadowSettings:{...shadowSettings},dayNight:{enabled:dayNight.enabled,minute:Math.floor(dayNight.minute),speed:dayNight.speed}},tiles}}
 function download(filename,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 $('exportBtn').onclick=()=>{const data=serializeMap();download((data.mapName.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'_')||'map')+'.json',JSON.stringify(data,null,2));notify(`Đã xuất JSON: ${data.tiles.length} ô`)};
-$('fileImport').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(obj.tileSize!==120)throw new Error('JSON có tileSize khác 120 px.');if(!Array.isArray(obj.tiles))throw new Error('JSON không có danh sách tiles.');if(Number(obj.schemaVersion||1)<2)throw new Error('JSON v1 dùng bảng mã tile cũ. Hãy dùng file JSON v2 vì mã 300–312 đã được cấp lại cho ZIP mới.');const m=new Map();for(const v of obj.tiles){const x=Number(v.x),y=Number(v.y),code=normalizeCode(v.code),rotation=safeRotation(v.rotation||0);if(!Number.isInteger(x)||!Number.isInteger(y)||Math.abs(x)>500000||Math.abs(y)>500000)throw new Error('Tọa độ ô không hợp lệ');if(!/^\d{3}$/.test(code))throw new Error('Mã ô không đúng cấu trúc xab');m.set(key(x,y),{code:code==='313'||code==='314'?'305':code,rotation,landType:code==='313'?1:code==='314'?2:Math.max(0,Math.min(2,Number(v.landType)||0))})}if(map.size&&!confirm(`Nạp ${m.size} ô từ JSON và thay thế map hiện tại?`))return;replaceMap(m,obj.generatedBounds||null);if(obj.simulation){restoreHeadlights(obj.simulation.headlights);restoreTrafficConfig(obj.simulation.trafficLights);restoreWeather(obj.simulation.weather);simConfig.count=Math.max(0,Math.min(300,Number(obj.simulation.vehicleCount)||0));restoreTrafficDensity(obj.simulation.trafficDensity);simConfig.hand=obj.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(obj.simulation.speedMin??(obj.simulation.speed?Number(obj.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(obj.simulation.speedMax??(obj.simulation.speed?Number(obj.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(obj.simulation.vehicleScale??30)));simConfig.shadows=obj.simulation.shadows!==false;restoreShadowSettings(obj.simulation.shadowSettings);restoreDayNight(obj.simulation.dayNight);restoreEnabledBikes(obj.simulation.enabledBikes);updateSimUI();syncDayNightUI(true)}$('mapName').value=obj.mapName||'Map nhập từ JSON';saveSoon();fitMap();const misses=[...new Set([...m.values()].map(t=>t.code))].filter(c=>!TILE_SOURCES[c]);notify(`Đã nhập ${m.size} ô${misses.length?'; thiếu sprite cho: '+misses.join(', '):''}`)}catch(err){alert('Không thể nhập file JSON: '+err.message)}finally{e.target.value=''}});
+$('fileImport').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(obj.tileSize!==120)throw new Error('JSON có tileSize khác 120 px.');if(!Array.isArray(obj.tiles))throw new Error('JSON không có danh sách tiles.');if(Number(obj.schemaVersion||1)<2)throw new Error('JSON v1 dùng bảng mã tile cũ. Hãy dùng file JSON v2 vì mã 300–312 đã được cấp lại cho ZIP mới.');const m=new Map();for(const v of obj.tiles){const x=Number(v.x),y=Number(v.y),code=normalizeCode(v.code),rotation=safeRotation(v.rotation||0);if(!Number.isInteger(x)||!Number.isInteger(y)||Math.abs(x)>500000||Math.abs(y)>500000)throw new Error('Tọa độ ô không hợp lệ');if(!/^\d{3}$/.test(code))throw new Error('Mã ô không đúng cấu trúc xab');m.set(key(x,y),{code:code==='313'||code==='314'?'305':code,rotation,landType:code==='313'?1:code==='314'?2:Math.max(0,Math.min(2,Number(v.landType)||0))})}if(map.size&&!confirm(`Nạp ${m.size} ô từ JSON và thay thế map hiện tại?`))return;replaceMap(m,obj.generatedBounds||null);if(obj.simulation){restoreHeadlights(obj.simulation.headlights);restoreTrafficConfig(obj.simulation.trafficLights);restoreWeather(obj.simulation.weather);simConfig.count=Math.max(0,Math.min(300,Number(obj.simulation.vehicleCount)||0));restoreTrafficDensity(obj.simulation.trafficDensity);simConfig.hand=obj.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(obj.simulation.speedMin??(obj.simulation.speed?Number(obj.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(obj.simulation.speedMax??(obj.simulation.speed?Number(obj.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(obj.simulation.vehicleScale??30)));simConfig.shadows=obj.simulation.shadows!==false;restoreShadowSettings(obj.simulation.shadowSettings);restoreDayNight(obj.simulation.dayNight);restoreEnabledBikes(obj.simulation.enabledBikes);restorePedestrianConfig(obj.simulation.pedestrians);updateSimUI();syncDayNightUI(true)}$('mapName').value=obj.mapName||'Map nhập từ JSON';saveSoon();fitMap();const misses=[...new Set([...m.values()].map(t=>t.code))].filter(c=>!TILE_SOURCES[c]);notify(`Đã nhập ${m.size} ô${misses.length?'; thiếu sprite cho: '+misses.join(', '):''}`)}catch(err){alert('Không thể nhập file JSON: '+err.message)}finally{e.target.value=''}});
 $('mapName').addEventListener('input',saveSoon);
 
 // ---------- CONNECTIVITY / RECTANGLE VALIDATION ----------
@@ -518,7 +526,7 @@ $('demoBtn').onclick=()=>{if(map.size&&!confirm('Thay map hiện tại bằng ma
 window.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(simMode){if(e.key==='Escape'&&!document.fullscreenElement)toggleSimulation(false);return;}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undoBtn').click();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();$('redoBtn').click();return}if(e.code==='Space'){pressedSpace=true;viewport.classList.add('pan');e.preventDefault();return}const k=e.key.toLowerCase();if(k==='b')setTool('paint');else if(k==='e')setTool('erase');else if(k==='h')setTool('pan');else if(k==='l')setTool('line');else if(k==='i')setTool('pick');else if(k==='r')rotate(90);else if(k==='g')$('gridBtn').click()});
 window.addEventListener('keyup',e=>{if(e.code==='Space'){pressedSpace=false;viewport.classList.toggle('pan',tool==='pan')}});
 window.addEventListener('blur',()=>{pressedSpace=false;endPointer()});
-function initialLoad(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem('tnvq_world_builder_v12')||'null');if(data&&data.tileSize===120&&Array.isArray(data.tiles)){for(const v of data.tiles){const x=Number(v.x),y=Number(v.y);if(Number.isInteger(x)&&Number.isInteger(y))map.set(key(x,y),{code:['313','314'].includes(normalizeCode(v.code))?'305':normalizeCode(v.code),rotation:safeRotation(v.rotation),landType:normalizeCode(v.code)==='313'?1:normalizeCode(v.code)==='314'?2:Math.max(0,Math.min(2,Number(v.landType)||0))})}generatedBounds=data.generatedBounds||null;$('mapName').value=data.mapName||$('mapName').value;if(data.simulation){restoreHeadlights(data.simulation.headlights);restoreTrafficConfig(data.simulation.trafficLights);restoreWeather(data.simulation.weather);simConfig.count=Math.max(0,Math.min(300,Number(data.simulation.vehicleCount)||0));restoreTrafficDensity(data.simulation.trafficDensity);simConfig.hand=data.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(data.simulation.speedMin??(data.simulation.speed?Number(data.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(data.simulation.speedMax??(data.simulation.speed?Number(data.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(data.simulation.vehicleScale??30)));simConfig.shadows=data.simulation.shadows!==false;restoreShadowSettings(data.simulation.shadowSettings);restoreDayNight(data.simulation.dayNight);restoreEnabledBikes(data.simulation.enabledBikes)}if(map.size){notify('Đã khôi phục bản đồ lưu tạm');setTimeout(fitMap,70)}}}catch(err){console.warn('Could not read saved map',err)}renderPalette();updateSelected();updateStats();resize();loadTileImages();}// Vehicle simulation – top-down, 120px grid, connected roads only.
+function initialLoad(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem('tnvq_world_builder_v12')||'null');if(data&&data.tileSize===120&&Array.isArray(data.tiles)){for(const v of data.tiles){const x=Number(v.x),y=Number(v.y);if(Number.isInteger(x)&&Number.isInteger(y))map.set(key(x,y),{code:['313','314'].includes(normalizeCode(v.code))?'305':normalizeCode(v.code),rotation:safeRotation(v.rotation),landType:normalizeCode(v.code)==='313'?1:normalizeCode(v.code)==='314'?2:Math.max(0,Math.min(2,Number(v.landType)||0))})}generatedBounds=data.generatedBounds||null;$('mapName').value=data.mapName||$('mapName').value;if(data.simulation){restoreHeadlights(data.simulation.headlights);restoreTrafficConfig(data.simulation.trafficLights);restoreWeather(data.simulation.weather);simConfig.count=Math.max(0,Math.min(300,Number(data.simulation.vehicleCount)||0));restoreTrafficDensity(data.simulation.trafficDensity);simConfig.hand=data.simulation.hand==='left'?'left':'right';simConfig.speedMin=Math.max(10,Math.min(180,Number(data.simulation.speedMin??(data.simulation.speed?Number(data.simulation.speed)*.7:35))));simConfig.speedMax=Math.max(simConfig.speedMin,Math.min(210,Number(data.simulation.speedMax??(data.simulation.speed?Number(data.simulation.speed)*1.3:105))));simConfig.vehicleScale=Math.max(15,Math.min(120,Number(data.simulation.vehicleScale??30)));simConfig.shadows=data.simulation.shadows!==false;restoreShadowSettings(data.simulation.shadowSettings);restoreDayNight(data.simulation.dayNight);restoreEnabledBikes(data.simulation.enabledBikes);restorePedestrianConfig(data.simulation.pedestrians)}if(map.size){notify('Đã khôi phục bản đồ lưu tạm');setTimeout(fitMap,70)}}}catch(err){console.warn('Could not read saved map',err)}renderPalette();updateSelected();updateStats();resize();loadTileImages();}// Vehicle simulation – top-down, 120px grid, connected roads only.
 const BIKE_SOURCES={};
 let enabledBikeIds=new Set();
 function applyBikeSources(){for(const id of Object.keys(BIKE_SOURCES))delete BIKE_SOURCES[id];for(const row of ASSET_MANIFEST.vehicles?.bikes||[])BIKE_SOURCES[row.id]={right:row.right,up:row.top,down:row.down};}
@@ -535,20 +543,23 @@ const trafficPeriods=[{start:6,end:10,label:'06:00–10:00 • Sáng'},{start:10
 let trafficDensity=[80,60,40,100,20],trafficDensityAccumulator=0;
 function restoreTrafficDensity(saved){if(!Array.isArray(saved)||saved.length!==5)return;trafficDensity=saved.map(v=>Math.max(0,Math.min(100,Number(v)||0)))}
 function trafficPeriodIndex(){const hour=dayNight.minute/60;return trafficPeriods.findIndex(p=>hour>=p.start&&hour<p.end)}
-function desiredBikeCount(){const index=dayNight.enabled?trafficPeriodIndex():0;return Math.round(simConfig.count*trafficDensity[Math.max(0,index)]/100)}
+function trafficDensityFraction(){const index=dayNight.enabled?trafficPeriodIndex():0;return trafficDensity[Math.max(0,index)]/100}
+function desiredBikeCount(){return Math.round(simConfig.count*trafficDensityFraction())}
+function desiredPedestrianCount(){return pedestrianConfig.enabled?Math.round(pedestrianConfig.count*trafficDensityFraction()):0}
 function updateTrafficDensityUI(){
  const el=$('trafficPeriodFields');if(!el)return;
  if(!el.children.length){el.innerHTML=trafficPeriods.map((p,i)=>`<div class="sim-field"><label for="trafficDensity${i}">${p.label} <output id="trafficDensityNum${i}"></output></label><input type="range" min="0" max="100" step="1" id="trafficDensity${i}"/></div>`).join('');
  for(let i=0;i<5;i++)$('trafficDensity'+i).addEventListener('input',e=>{trafficDensity[i]=Number(e.target.value);updateTrafficDensityUI();saveSoon()})}
  for(let i=0;i<5;i++){$('trafficDensity'+i).value=trafficDensity[i];$('trafficDensityNum'+i).textContent=trafficDensity[i]+'%'}
  const i=dayNight.enabled?trafficPeriodIndex():0;
- $('trafficPeriodStatus').textContent='Hiện tại: '+trafficPeriods[Math.max(0,i)].label+' · mục tiêu '+desiredBikeCount()+'/'+simConfig.count+' xe'+(!dayNight.enabled?' (bật Ngày/đêm để đổi khung giờ)':'');
+ $('trafficPeriodStatus').textContent='Hiện tại: '+trafficPeriods[Math.max(0,i)].label+' · '+desiredBikeCount()+'/'+simConfig.count+' xe · '+desiredPedestrianCount()+'/'+pedestrianConfig.count+' người'+(!dayNight.enabled?' (bật Ngày/đêm để đổi khung giờ)':'');
 }
 function spawnBikeSafely(pool){
  for(let i=0;i<28;i++){
   const b=newBike(pool);if(!b)return null;
   // Tránh xuất hiện chồng xe, và tránh spawn trong ô giao lộ.
   if(isJunction(map.get(key(b.x,b.y))))continue;
+  if(trafficApproach(b))continue;
   const p=bikeWorld(b),d=DIRS[b.dir],side={x:-d.dy,y:d.dx};
   if(simBikes.some(o=>{const q=bikeWorld(o);return Math.abs((p.x-q.x)*side.x+(p.y-q.y)*side.y)<35&&Math.abs((p.x-q.x)*d.dx+(p.y-q.y)*d.dy)<65}))continue;
   return b;
@@ -561,13 +572,15 @@ function adjustTrafficDensity(dt){
  trafficDensityAccumulator=0;
  const target=desiredBikeCount();
  if(simBikes.length>target){
-  // Giảm ngẫu nhiên, ưu tiên xe không đứng chờ đèn.
-  const candidates=simBikes.filter(b=>!b.waitSignal);
+  // Giảm ngẫu nhiên ở các ô đường xa ngã tư; không làm xe chờ biến mất.
+  const candidates=simBikes.filter(b=>!b.waitSignal&&!b.holdSpot&&!trafficApproach(b));
   if(candidates.length){const b=candidates[Math.floor(Math.random()*candidates.length)];simBikes.splice(simBikes.indexOf(b),1)}
  }else if(simBikes.length<target){
   const b=spawnBikeSafely(validSegments());if(b)simBikes.push(b);
  }
- updateSimStats();updateTrafficDensityUI();
+  // Cùng một đồng hồ và cùng bộ % mật độ xe/người; mục tiêu tổng riêng.
+  adjustPedestrianDensity();
+  updateSimStats();updateTrafficDensityUI();
 }
 
 let visibleBikeCache=[];
@@ -604,7 +617,7 @@ function chooseHeading(x,y,entryDir){const all=legalConnections(x,y);if(!all.len
  return opts[Math.floor(Math.random()*opts.length)];
 }
 function validSegments(){const result=[];for(const [k,t]of map){if(!isRoad(t)||invalidCells.has(k))continue;const [x,y]=k.split(',').map(Number),dirs=legalConnections(x,y);if(dirs.length)result.push({x,y,dirs})}return result}
-function newBike(pool){const active=activeBikeTypes();if(!pool.length||!active.length)return null;const p=pool[Math.floor(Math.random()*pool.length)];return {id:++simId,type:active[Math.floor(Math.random()*active.length)],x:p.x,y:p.y,dir:p.dirs[Math.floor(Math.random()*p.dirs.length)],t:Math.random()*.8,speedPx:simConfig.speedMin+Math.random()*(simConfig.speedMax-simConfig.speedMin),shift:null,stuck:0,laneBias:(Math.random()*2-1)*10,waitSignal:false,signalCommit:null}}
+function newBike(pool){const active=activeBikeTypes();if(!pool.length||!active.length)return null;const p=pool[Math.floor(Math.random()*pool.length)];const dir=p.dirs[Math.floor(Math.random()*p.dirs.length)];return {id:++simId,type:active[Math.floor(Math.random()*active.length)],x:p.x,y:p.y,dir,enterDir:dir,t:Math.random()*.75,speedPx:simConfig.speedMin+Math.random()*(simConfig.speedMax-simConfig.speedMin),shift:null,stuck:0,laneBias:(Math.random()*2-1)*11,waitSignal:false,signalCommit:null,holdSpot:null}}
 function populateBikes(force=false){
  const pool=validSegments();if(force)simBikes=[];
  simBikes=simBikes.filter(b=>enabledBikeIds.has(b.type));
@@ -623,112 +636,135 @@ function advanceTrafficClock(dt){if(!trafficConfig.enabled)return;trafficClock=(
 function trafficPhaseInfo(){const green=trafficConfig.green,yellow=trafficConfig.yellow,cycle=Math.max(1,trafficCycleSeconds());let t=((trafficClock%cycle)+cycle)%cycle;if(t<green)return{ns:'green',ew:'red'};t-=green;if(t<yellow)return{ns:'yellow',ew:'red'};t-=yellow;if(t<green)return{ns:'red',ew:'green'};return{ns:'red',ew:'yellow'}}
 function signalStateForApproachDir(dir){const phase=trafficPhaseInfo();return (dir===0||dir===2)?phase.ns:phase.ew}
 function controlledIntersectionAt(x,y){const tile=map.get(key(x,y));return trafficConfig.enabled&&Number(tile?.code)%100===2}
-// A bike's b.t moves from CENTER of approach tile to CENTER of the next tile.
-// The true tile border is at t = 0.5, not 1.0. An old stopT=.73 placed
-// its *center* inside the intersection. Stop early enough for the whole sprite.
-function signalStopT(b){
- // The bike artwork is NOT centered on its wheels: sprite front may extend
- // up to 76% of its height past the simulated anchor when moving north.
- const scale=simConfig.vehicleScale/100;
- const forwardPx=(b?.dir===0?92*.76:b?.dir===2?92*.24:82*.50)*scale;
- return Math.max(.035,Math.min(.29,.5-(forwardPx+10)/TS));
-}
-function shouldStopAtSignal(b,left){
+// v20: Đèn chỉ điều khiển CHÍNH XÁC ô đường giáp trực tiếp ô ngã tư.
+// Không giới hạn số xe đợi và không xóa xe vì "ô đợi đầy".
+// Mỗi xe nhận một điểm dừng X,Y ngẫu nhiên trong ô đó, đúng phía làn xe.
+function trafficApproach(b){
  if(!trafficConfig.enabled)return null;
- const current=map.get(key(b.x,b.y));
- // Crossing the junction already: ignore every light until safely clear.
- if(isJunction(current))return null;
- const d=DIRS[b.dir],nx=b.x+d.dx,ny=b.y+d.dy,signalKey=key(nx,ny);
+ const d=DIRS[b.dir],nx=b.x+d.dx,ny=b.y+d.dy;
  if(!controlledIntersectionAt(nx,ny))return null;
- // Chỉ ô (x,y) sát trực tiếp ô giao lộ (nx,ny) và có cổng nối mới nhận tín hiệu.
  if(!connections(b.x,b.y).includes(b.dir))return null;
- const stopT=signalStopT(b);
- // A green-light admission is permanent for this crossing even if red changes
- // between frames. Any bike already over the stop line is committed too.
- if(b.signalCommit===signalKey)return null;
- if(b.t>stopT+1e-5 && !b.waitSignal){b.signalCommit=signalKey;return null;}
- if(signalStateForApproachDir(b.dir)==='green'){
-  if(b.waitSignal || b.t+left>=stopT-1e-5)b.signalCommit=signalKey;
-  b.waitSignal=false;
-  return null;
- }
- // Hold at the pre-intersection stop line only; never move backwards.
- if(b.waitSignal && b.t>=stopT-1e-5)return stopT;
- if(b.t>=stopT-1e-5 || b.t+left>=stopT-1e-5)return stopT;
- return null;
+ return {x:nx,y:ny,key:key(nx,ny),state:signalStateForApproachDir(b.dir)};
 }
-
-// Giãn cách xe theo hướng chạy và theo làn, kể cả khi xe đang ở hai ô liên tiếp.
-// Khoảng cách được tính bằng đơn vị thế giới (px), không phụ thuộc mức zoom.
-function vehicleQueueLimit(b, wanted){
- const p=bikeWorld(b), d=DIRS[b.dir], lateral={x:-d.dy,y:d.dx};
- const myLane=p.x*lateral.x+p.y*lateral.y;
+function signalStopT(b){
+ // Tính theo tâm phương tiện, tính từ mép vào (t=0) đến mép ra (t=1).
  const scale=simConfig.vehicleScale/100;
- const minGap=Math.max(13,92*scale+11);
- let cap=wanted;
- for(const other of simBikes){
-  if(other===b||other.dir!==b.dir)continue;
-  const q=bikeWorld(other);
-  const side=Math.abs(q.x*lateral.x+q.y*lateral.y-myLane);
-  // Các xe ở làn đối diện hoặc làn bên cạnh không cản nhau.
-  if(side>Math.max(14,30*scale))continue;
-  const ahead=(q.x-p.x)*d.dx+(q.y-p.y)*d.dy;
-  if(ahead<=0||ahead>Math.max(150,wanted+minGap+TS))continue;
-  cap=Math.min(cap,Math.max(0,ahead-minGap));
- }
- return cap;
+ const forwardPx=(b.dir===0?92*.76:b.dir===2?92*.24:82*.50)*scale;
+ return Math.max(.16,Math.min(.82,1-(forwardPx+9)/TS));
 }
+function holdingBias(b){
+ const h=b.holdSpot;
+ if(!h||h.x!==b.x||h.y!==b.y||h.dir!==b.dir)return b.laneBias||0;
+ const k=h.t>h.startT+.01?Math.max(0,Math.min(1,(b.t-h.startT)/(h.t-h.startT))):1;
+ return h.fromBias+(h.laneBias-h.fromBias)*k;
+}
+function clearHoldSpot(b){
+ if(!b.holdSpot)return;
+ // Giữ nguyên vị trí ngang của xe lúc hết đèn đỏ; không giật sprite sang làn khác.
+ b.laneBias=holdingBias(b);
+ b.holdSpot=null;
+}
+function chooseHoldSpot(b,a){
+ // Thử nhiều điểm ngẫu nhiên, chọn điểm ít đè lên các xe chờ hiện có nhất.
+ // Đây là thuật toán *ưu tiên* khoảng cách, không phải giới hạn số xe/đặt chỗ.
+ const maxT=signalStopT(b),fromT=Math.min(maxT,Math.max(0,b.t));
+ const minT=Math.min(maxT,Math.max(fromT,.09));
+ const dir=DIRS[b.dir],right={x:-dir.dy,y:dir.dx};
+ const laneSide=simConfig.hand==='right'?1:-1;
+ const baseX=(b.x+.5)*TS,baseY=(b.y+.5)*TS;
+ const existing=simBikes.filter(o=>o!==b&&!o.retired&&o.x===b.x&&o.y===b.y&&o.dir===b.dir);
+ let best=null,bestScore=-Infinity;
+ for(let i=0;i<36;i++){
+  const stopT=minT+(maxT-minT)*Math.random();
+  const bias=(Math.random()*2-1)*11;
+  const lane=laneSide*(24+bias);
+  const px=baseX+dir.dx*(stopT-.5)*TS+right.x*lane;
+  const py=baseY+dir.dy*(stopT-.5)*TS+right.y*lane;
+  let closest=Infinity;
+  for(const o of existing){
+   const h=o.holdSpot;
+   const otherT=h&&h.x===o.x&&h.y===o.y?h.t:o.t;
+   const otherBias=h&&h.x===o.x&&h.y===o.y?h.laneBias:o.laneBias||0;
+   const olane=laneSide*(24+otherBias);
+   const ox=(o.x+.5)*TS+dir.dx*(otherT-.5)*TS+right.x*olane;
+   const oy=(o.y+.5)*TS+dir.dy*(otherT-.5)*TS+right.y*olane;
+   closest=Math.min(closest,(px-ox)**2+(py-oy)**2);
+  }
+  // Nếu chưa có xe nào thì cũng chọn điểm ngẫu nhiên.
+  const score=(existing.length?closest:0)+Math.random()*1e-3;
+  if(score>bestScore){bestScore=score;best={x:b.x,y:b.y,dir:b.dir,key:a.key,startT:b.t,t:stopT,fromBias:b.laneBias||0,laneBias:bias}}
+ }
+ return best;
+}
+function isTrafficHoldingCell(b){
+ const a=trafficApproach(b);
+ return !!(a&&a.state!=='green'&&b.signalCommit!==a.key&&b.t<=signalStopT(b)+1e-5);
+}
+function visualBikeDirection(b){return (b.enterDir!==undefined&&b.enterDir!==b.dir&&b.t<.5)?b.enterDir:b.dir;}
 function tickBikes(dt){
- // Chia frame thành bước nhỏ để xe phía sau không nhảy xuyên qua xe trước.
  const steps=Math.max(1,Math.min(12,Math.ceil(dt/.035))),step=dt/steps;
  for(let frame=0;frame<steps;frame++){
-  // Xử lý xe ở phía trước trước, cho hàng xe giải phóng tuần tự khi đèn xanh.
-  const ordered=[...simBikes].sort((a,b)=>{
-   const da=DIRS[a.dir],db=DIRS[b.dir],pa=bikeWorld(a),pb=bikeWorld(b);
-   return (pb.x*db.dx+pb.y*db.dy)-(pa.x*da.dx+pa.y*da.dy);
-  });
+  const ordered=[...simBikes].filter(b=>!b.retired).sort((a,b)=>b.t-a.t);
   for(const b of ordered){
-   if(b.shift)b.shift.elapsed=Math.min(1,b.shift.elapsed+step);
-   let left=vehicleQueueLimit(b,step*b.speedPx)/TS,iter=0;
-   while(left>1e-7&&iter++<4){
-    const all=legalConnections(b.x,b.y);
-    if(!all.includes(b.dir)){
-     const next=chooseHeading(b.x,b.y,b.dir);
-     if(next===null){b.stuck++;break}
-     b.dir=next;b.t=0;b.signalCommit=null;b.waitSignal=false;
+   if(b.retired)continue;
+   let move=step*b.speedPx/TS,loops=0;
+   while(move>1e-7&&loops++<4){
+    const legal=legalConnections(b.x,b.y);
+    if(!legal.includes(b.dir)){
+     const turn=chooseHeading(b.x,b.y,b.enterDir??b.dir);
+     if(turn===null){b.retired=true;break;}
+     clearHoldSpot(b);b.dir=turn;b.signalCommit=null;b.waitSignal=false;
     }
-    const stopT=shouldStopAtSignal(b,left);
-    if(stopT!==null){
-     b.waitSignal=true;
-     // Không ép mọi xe vào một tọa độ; xe sau dừng theo khoảng cách xe trước.
-     b.t=Math.max(b.t,Math.min(stopT,b.t+left));
-     left=0;break;
-    }else b.waitSignal=false;
-    const remain=1-b.t;
-    if(left<remain){b.t+=left;left=0;break}
-    left-=remain;
-    const delta=DIRS[b.dir],nx=b.x+delta.dx,ny=b.y+delta.dy;
-    if(!isRoad(map.get(key(nx,ny)))){b.stuck++;break}
-    const oldDir=b.dir;b.x=nx;b.y=ny;b.t=0;b.signalCommit=null;b.waitSignal=false;
-    const turn=chooseHeading(nx,ny,oldDir);
-    const newDir=turn===null?(oldDir+2)%4:turn;
-    if(newDir!==oldDir){
-     const a=laneOffset(nx,ny,oldDir,b),z=laneOffset(nx,ny,newDir,b);
-     b.shift={from:a,to:z,elapsed:0,duration:1};
+    const a=trafficApproach(b);
+    if(a&&a.state!=='green'&&b.signalCommit!==a.key&&b.t<=signalStopT(b)+1e-5){
+     // Xe có thể dừng tại BẤT KỲ X,Y nào trong chính ô đường sát giao lộ.
+     // Không đếm chỗ, không ép xe đỗ sát vạch, tuyệt đối không xóa xe do đầy ô.
+     if(!b.holdSpot||b.holdSpot.key!==a.key||b.holdSpot.dir!==b.dir||b.holdSpot.x!==b.x||b.holdSpot.y!==b.y){
+      clearHoldSpot(b);b.holdSpot=chooseHoldSpot(b,a);
+     }
+     const cap=Math.max(b.t,Math.min(signalStopT(b),b.holdSpot.t));
+     b.t=Math.min(cap,b.t+move);
+     b.waitSignal=b.t>=cap-1e-5;
+     move=0;break;
     }
-    b.dir=newDir;if(turn===null)b.stuck++;
+    clearHoldSpot(b);b.waitSignal=false;
+    if(a&&b.signalCommit!==a.key&&(a.state==='green'||b.t>signalStopT(b)))b.signalCommit=a.key;
+    const remaining=1-b.t;
+    if(move<remaining){b.t+=move;move=0;break;}
+    move-=remaining;
+    const oldDir=b.dir,d=DIRS[oldDir],nx=b.x+d.dx,ny=b.y+d.dy;
+    if(!isRoad(map.get(key(nx,ny)))||!connections(b.x,b.y).includes(oldDir)){
+     // Chỉ xóa khi đường cụt/không hợp lệ, KHÔNG liên quan đến đèn đỏ.
+     b.retired=true;break;
+    }
+    // Không giới hạn xe vào ô giáp ngã tư (đây là yêu cầu gameplay).
+    b.x=nx;b.y=ny;b.t=0;b.enterDir=oldDir;b.signalCommit=null;b.waitSignal=false;b.holdSpot=null;
+    const chosen=chooseHeading(nx,ny,oldDir);
+    if(chosen===null){b.retired=true;break;}
+    b.dir=chosen;
    }
   }
+  if(simBikes.some(b=>b.retired))simBikes=simBikes.filter(b=>!b.retired);
  }
 }
-function laneOffset(x,y,dir,bike=null){const t=map.get(key(x,y));if(!t)return{x:0,y:0};const laneHalf=24;const laneShift=laneHalf+(bike?.laneBias||0);
+function laneOffset(x,y,dir,bike=null){const t=map.get(key(x,y));if(!t)return{x:0,y:0};const laneHalf=24;const laneShift=laneHalf+(bike?holdingBias(bike):0);
  const sign=simConfig.hand==='right'?1:-1,d=DIRS[dir];return{x:-d.dy*laneShift*sign,y:d.dx*laneShift*sign};
 }
 function bikeWorld(b){
- const d=DIRS[b.dir],a=laneOffset(b.x,b.y,b.dir,b),target=laneOffset(b.x+d.dx,b.y+d.dy,b.dir,b);
- let off={x:a.x*(1-b.t)+target.x*b.t,y:a.y*(1-b.t)+target.y*b.t};
- if(b.shift&&b.shift.elapsed<1){const r=b.shift.elapsed/b.shift.duration;const q=r*r*(3-2*r);off={x:b.shift.from.x+(b.shift.to.x-b.shift.from.x)*q,y:b.shift.from.y+(b.shift.to.y-b.shift.from.y)*q}}
- return {x:(b.x+.5+d.dx*b.t)*TS+off.x,y:(b.y+.5+d.dy*b.t)*TS+off.y};
+ // t tính theo toàn chiều dài của ô: t=0 là mép vào; .5 là tâm; 1 là mép ra.
+ // Cách này cho phép xếp 2-3 xe có khoảng cách bên trong đúng 1 ô 120px.
+ const entering=DIRS[b.enterDir??b.dir],outgoing=DIRS[b.dir];
+ const p=(b.t<=.5)?entering:outgoing;
+ const tileCenter={x:(b.x+.5)*TS,y:(b.y+.5)*TS};
+ const baseX=tileCenter.x+p.dx*(b.t-.5)*TS;
+ const baseY=tileCenter.y+p.dy*(b.t-.5)*TS;
+ const start=laneOffset(b.x,b.y,b.enterDir??b.dir,b);
+ const end=laneOffset(b.x,b.y,b.dir,b);
+ if((b.enterDir??b.dir)===b.dir)return{x:baseX+end.x,y:baseY+end.y};
+ // Bán kính rẽ mềm: hai đoạn gặp nhau tại tâm ngã tư, không nhảy sprite.
+ if(b.t<=.5){const k=Math.min(1,b.t*2);return{x:baseX+start.x*(1-k),y:baseY+start.y*(1-k)};}
+ const k=Math.max(0,(b.t-.5)*2);
+ return{x:baseX+end.x*k,y:baseY+end.y*k};
 }
 function makeShadow(img){const c=document.createElement('canvas');c.width=img.naturalWidth||img.width;c.height=img.naturalHeight||img.height;const g=c.getContext('2d');g.drawImage(img,0,0);g.globalCompositeOperation='source-in';g.fillStyle='#202d37';g.fillRect(0,0,c.width,c.height);return c}
 function initBikes(){for(const n of Object.keys(bikeImages)){delete bikeImages[n];delete bikeShadows[n]};for(const [n,variants]of Object.entries(BIKE_SOURCES)){bikeImages[n]={};bikeShadows[n]={};for(const [dir,src]of Object.entries(variants)){const image=new Image();image.onload=()=>{
@@ -806,6 +842,12 @@ function renderWorldObjects(){
  const objects=sceneObjects.map(o=>({worldY:o.worldY,kind:'world',object:o}));
  if(typeof constructionSceneItems==='function')for(const o of constructionSceneItems())objects.push({worldY:o.worldY,kind:'world',object:o});
  for(const o of trafficLightObjects())objects.push({worldY:o.worldY,kind:'world',object:o});
+ // Người đi bộ đi chung Y-sort với xe, cột đèn và House.
+ for(const ped of simPedestrians){
+  const screen=toScreen(ped.wx,ped.wy);
+  if(screen.x<-140||screen.x>vw+140||screen.y<-140||screen.y>vh+140)continue;
+  objects.push({worldY:ped.wy,kind:'pedestrian',ped});
+ }
  const margin=simBikes.length>=170?150:240;
  for(const b of simBikes){
   const pos=bikeWorld(b),info=bikeDrawInfo(b,pos);
@@ -817,17 +859,18 @@ function renderWorldObjects(){
  }
  objects.sort((a,b)=>a.worldY-b.worldY || (a.kind==='world'?-1:1));
  if(simConfig.shadows&&daylightFactor()>.001){for(const item of objects){
-  if(item.kind==='bike')drawBikeShadow(item);
+  if(item.kind==='bike')drawBikeShadow(item);else if(item.kind==='pedestrian')drawPedestrianShadow(item.ped);
   else drawSceneObjectShadow(item.object);
  }}
- for(const item of objects){if(item.kind==='bike')drawOneBike(item);else item.object.draw(ctx)}
+ for(const item of objects){if(item.kind==='bike')drawOneBike(item);else if(item.kind==='pedestrian')drawPedestrian(item.ped);else item.object.draw(ctx)}
 }
 function bikeDrawInfo(b,w){
  const s=toScreen(w.x,w.y);
- const facing=b.dir===0?'up':b.dir===2?'down':'right';
+ const faceDir=visualBikeDirection(b);
+ const facing=faceDir===0?'up':faceDir===2?'down':'right';
  const img=bikeImages[b.type]?.[facing];
  if(!img?.complete||!img.naturalWidth)return null;
- const side=b.dir%2===1,scale=simConfig.vehicleScale/100;
+ const side=faceDir%2===1,scale=simConfig.vehicleScale/100;
  const dw=(side?82:49)*scale*zoom,dh=(side?81:92)*scale*zoom;
  return {s,facing,img,dw,dh,x:s.x-dw/2,y:s.y-dh*.76};
 }
@@ -836,7 +879,7 @@ function drawOneBike(item,w){
  const o=item?.info||bikeDrawInfo(b,w);if(!o)return;
  const {img,dw,dh,x,y}=o;
  ctx.save();
- if(b.dir===3){ctx.translate(x+dw,y);ctx.scale(-1,1);ctx.drawImage(img,0,0,dw,dh)}
+ if(visualBikeDirection(b)===3){ctx.translate(x+dw,y);ctx.scale(-1,1);ctx.drawImage(img,0,0,dw,dh)}
  else ctx.drawImage(img,x,y,dw,dh);
  ctx.restore();
 }
@@ -894,19 +937,19 @@ function drawBikeShadow(item,w){
  }
 }
 function drawTrafficNetwork(){ctx.save();for(const [k,t]of map){if(!isRoad(t))continue;const [x,y]=k.split(',').map(Number);const p=toScreen((x+.5)*TS,(y+.5)*TS);if(p.x<0||p.x>vw||p.y<0||p.y>vh)continue;const ds=connections(x,y);for(const di of ds){const d=DIRS[di];ctx.strokeStyle='#13a464bb';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+d.dx*TS*zoom*.35,p.y+d.dy*TS*zoom*.35);ctx.stroke()}ctx.fillStyle=isJunction(t)?'#ee7d2a':'#198b76';ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill()}ctx.restore()}
-function loopSimulation(timestamp){if(!simMode)return;const dt=simLast?Math.min((timestamp-simLast)/1000,.06):0;simLast=timestamp;if(!simPaused){advanceTrafficClock(dt);advanceDayNight(dt);adjustTrafficDensity(dt);tickBikes(dt);advanceWeather(dt)}requestDraw();simFrame=requestAnimationFrame(loopSimulation)}
-function updateSimStats(){const a=$('simLiveCount');if(a)a.textContent=simBikes.length;const b=$('simRoadCount');if(b)b.textContent=validSegments().length;const c=$('simJunctionCount');if(c)c.textContent=[...map.values()].filter(isJunction).length;const d=$('simNoPath');if(d)d.textContent=simBikes.filter(b=>b.stuck>0).length}
+function loopSimulation(timestamp){if(!simMode)return;const dt=simLast?Math.min((timestamp-simLast)/1000,.06):0;simLast=timestamp;if(!simPaused){advanceTrafficClock(dt);advanceDayNight(dt);adjustTrafficDensity(dt);tickBikes(dt);tickPedestrians(dt);advanceWeather(dt)}requestDraw();simFrame=requestAnimationFrame(loopSimulation)}
+function updateSimStats(){const a=$('simLiveCount');if(a)a.textContent=simBikes.length;const b=$('simRoadCount');if(b)b.textContent=validSegments().length;const c=$('simJunctionCount');if(c)c.textContent=[...map.values()].filter(isJunction).length;const d=$('simNoPath');if(d)d.textContent=simBikes.filter(b=>b.stuck>0).length;const pedCount=$('pedestrianLiveCount');if(pedCount)pedCount.textContent=simPedestrians.length}
 function updateTrafficUI(){const red=trafficRedSeconds();$('trafficEnable').checked=trafficConfig.enabled;$('trafficGreen').value=trafficConfig.green;$('trafficYellow').value=trafficConfig.yellow;$('trafficGreenNum').textContent=trafficConfig.green+' giây';$('trafficYellowNum').textContent=trafficConfig.yellow+' giây';$('trafficRedNum').textContent=red+' giây'}
 function restoreTrafficConfig(saved){if(!saved||typeof saved!=='object')return;trafficConfig.enabled=saved.enabled!==false;const g=Number(saved.green),y=Number(saved.yellow);if(Number.isFinite(g))trafficConfig.green=Math.max(2,Math.min(30,g));if(Number.isFinite(y))trafficConfig.yellow=Math.max(1,Math.min(10,y));updateTrafficUI()}
 function updateSimUI(){
  updateTrafficDensityUI();$('simCount').value=simConfig.count;$('simCountNum').textContent=simConfig.count;
- $('simHand').value=simConfig.hand;
+ updatePedestrianUI();$('simHand').value=simConfig.hand;
  $('simSpeedMin').value=simConfig.speedMin;$('simSpeedMax').value=simConfig.speedMax;
  $('simSpeedMinNum').textContent=simConfig.speedMin+' px/s';$('simSpeedMaxNum').textContent=simConfig.speedMax+' px/s';
  $('simVehicleScale').value=simConfig.vehicleScale;$('simVehicleScaleNum').textContent=simConfig.vehicleScale+'%';
  $('simShadows').checked=simConfig.shadows;$('simNetwork').checked=simShowNetwork;updateTrafficUI();updateSimStats();
 }
-function toggleSimulation(to){if(to===simMode)return;if(to){rebuildValidation();if(invalidCells.size){const a=[...invalidCells.entries()].slice(0,5).map(([pos,msg])=>pos+': '+msg).join('\n');alert('Bản đồ còn '+invalidCells.size+' ô lỗi (đánh dấu đỏ). Hãy sửa trước khi mô phỏng.\n\n'+a);focusFirstInvalid();return;}savedEditorTool=tool;savedGrid=showGrid;simMode=true;simPaused=false;simLast=0;trafficClock=0;document.body.classList.add('simulation-active');$('simToggle').textContent='■ Thoát mô phỏng';$('simToggle').classList.add('sim-on');$('simPause').textContent='⏸ Tạm dừng';setTool('pan');showGrid=false;populateBikes(true);updateSimUI();document.querySelector('.inspector').scrollTop=0;notify('Đang mô phỏng xe chạy • kéo map và zoom để quan sát');simFrame=requestAnimationFrame(loopSimulation)}else{if(document.fullscreenElement===viewport)document.exitFullscreen().catch(()=>{});simMode=false;cancelAnimationFrame(simFrame);document.body.classList.remove('simulation-active');$('simToggle').textContent='▶ Mô phỏng xe';$('simToggle').classList.remove('sim-on');showGrid=savedGrid;setTool(savedEditorTool);simBikes=[];requestDraw();notify('Đã trở về chế độ chỉnh sửa bản đồ')} }
+function toggleSimulation(to){if(to===simMode)return;if(to){rebuildValidation();if(invalidCells.size){const a=[...invalidCells.entries()].slice(0,5).map(([pos,msg])=>pos+': '+msg).join('\n');alert('Bản đồ còn '+invalidCells.size+' ô lỗi (đánh dấu đỏ). Hãy sửa trước khi mô phỏng.\n\n'+a);focusFirstInvalid();return;}savedEditorTool=tool;savedGrid=showGrid;simMode=true;simPaused=false;simLast=0;trafficClock=0;document.body.classList.add('simulation-active');$('simToggle').textContent='■ Thoát mô phỏng';$('simToggle').classList.add('sim-on');$('simPause').textContent='⏸ Tạm dừng';setTool('pan');showGrid=false;populateBikes(true);populatePedestrians(true);updateSimUI();document.querySelector('.inspector').scrollTop=0;notify('Đang mô phỏng xe chạy • kéo map và zoom để quan sát');simFrame=requestAnimationFrame(loopSimulation)}else{if(document.fullscreenElement===viewport)document.exitFullscreen().catch(()=>{});simMode=false;cancelAnimationFrame(simFrame);document.body.classList.remove('simulation-active');$('simToggle').textContent='▶ Mô phỏng xe';$('simToggle').classList.remove('sim-on');showGrid=savedGrid;setTool(savedEditorTool);simBikes=[];simPedestrians=[];requestDraw();notify('Đã trở về chế độ chỉnh sửa bản đồ')} }
 $('simToggle').onclick=()=>toggleSimulation(!simMode);
 
 function readSimControls(){
@@ -915,7 +958,7 @@ function readSimControls(){
  simConfig.speedMin=Number($('simSpeedMin').value);
  simConfig.speedMax=Math.max(simConfig.speedMin,Number($('simSpeedMax').value));
  simConfig.vehicleScale=Number($('simVehicleScale').value);
- simConfig.shadows=$('simShadows').checked;
+ simConfig.shadows=$('simShadows').checked;readPedestrianControls();
  trafficConfig.enabled=$('trafficEnable').checked;
  trafficConfig.green=Math.max(2,Math.min(30,Number($('trafficGreen').value)||7));
  trafficConfig.yellow=Math.max(1,Math.min(10,Number($('trafficYellow').value)||3));
@@ -932,10 +975,10 @@ $('trafficEnable').onchange=()=>{trafficConfig.enabled=$('trafficEnable').checke
 $('simShadows').onchange=()=>{simConfig.shadows=$('simShadows').checked;requestDraw()};
 $('simCount').oninput=e=>{$('simCountNum').textContent=e.target.value;simConfig.count=Number(e.target.value);updateTrafficDensityUI()};
 $('simHand').onchange=e=>{readSimControls();populateBikes(true);notify(simConfig.hand==='right'?'Đang đi sát phải':'Đang đi sát trái')};
-$('simApply').onclick=()=>{readSimControls();populateBikes(true);saveSoon();notify(`Đã tạo ${simBikes.length} xe, mỗi xe có tốc độ riêng`)};
+$('simApply').onclick=()=>{readSimControls();populateBikes(true);populatePedestrians(true);saveSoon();notify(`Đã tạo ${simBikes.length} xe và ${simPedestrians.length} người đi bộ`)};
 $('simPause').onclick=()=>{simPaused=!simPaused;$('simPause').textContent=simPaused?'▶ Tiếp tục':'⏸ Tạm dừng';requestDraw()};
 $('simNetwork').onchange=e=>{simShowNetwork=e.target.checked;requestDraw()};
-$('simReset').onclick=()=>{populateBikes(true);notify('Đã khởi tạo lại các xe')};
+$('simReset').onclick=()=>{populateBikes(true);populatePedestrians(true);notify('Đã khởi tạo lại xe và người đi bộ')};
 window.addEventListener('beforeunload',()=>cancelAnimationFrame(simFrame));
 
 // Persisted control values, without changing the existing map tile schema.
@@ -1048,12 +1091,12 @@ function drawDayNightLight(){const light=daylightFactor(),dark=1-light;if(dark<.
  if(warmth>.0001){ctx.fillStyle=`rgba(255,145,64,${warmth.toFixed(4)})`;ctx.fillRect(0,0,vw,vh)}
  // Headlight beams: wide isosceles wedge, apex is 8px inside the vehicle nose.
  if(dark>.30){ctx.save();ctx.globalCompositeOperation='screen';const beamList=visibleBikeCache.length?visibleBikeCache:simBikes.map(b=>({bike:b,pos:bikeWorld(b)}));const perfLoad=simBikes.length>=170;for(const item of beamList){const b=item.bike||item,w=item.pos||bikeWorld(b),o=item.info||bikeDrawInfo(b,w);if(!o||o.s.x<-170||o.s.x>vw+170||o.s.y<-170||o.s.y>vh+170)continue;
-   const d=DIRS[b.dir],inset=8*zoom,beam=headlights.length*zoom*(perfLoad?0.86:1),width=headlights.width*zoom*(perfLoad?0.82:1),brightness=headlights.power*(perfLoad?0.88:1);
+   const faceDir=visualBikeDirection(b),d=DIRS[faceDir],inset=8*zoom,beam=headlights.length*zoom*(perfLoad?0.86:1),width=headlights.width*zoom*(perfLoad?0.82:1),brightness=headlights.power*(perfLoad?0.88:1);
    let fx=o.s.x,fy=o.y+o.dh*.55;
    if(b.dir===1)fx=o.s.x+o.dw*.5-inset;
    if(b.dir===3)fx=o.s.x-o.dw*.5+inset;
-   if(b.dir===0){fx=o.s.x;fy=o.y+inset}
-   if(b.dir===2){fx=o.s.x;fy=o.y+o.dh-inset}
+   if(faceDir===0){fx=o.s.x;fy=o.y+inset}
+   if(faceDir===2){fx=o.s.x;fy=o.y+o.dh-inset}
    const endX=fx+d.dx*beam,endY=fy+d.dy*beam;
    const nx=-d.dy,ny=d.dx;
    const spread=ctx.createLinearGradient(fx,fy,endX,endY);
@@ -1122,7 +1165,7 @@ function spriteCard(row,group){
 function renderAssetBrowser(){
  const target=$('assetCards');if(!target)return;
  document.querySelectorAll('[data-asset-category]').forEach(btn=>btn.classList.toggle('chosen',btn.dataset.assetCategory===assetCategory));
- $('vehicleTypeWrap').hidden=assetCategory!=='vehicles';$('assetLevelWrap').hidden=assetCategory==='vehicles';
+ $('vehicleTypeWrap').hidden=assetCategory!=='vehicles';$('assetLevelWrap').hidden=assetCategory==='vehicles'||assetCategory==='pedestrians';
  $('assetBulkActions').hidden=assetCategory!=='vehicles'||assetVehicleType!=='bikes';
  $('assetVehicleType').value=assetVehicleType;$('assetLevel').value=String(assetLevel);
  target.replaceChildren();
@@ -1149,6 +1192,23 @@ function renderAssetBrowser(){
   const data=ASSET_MANIFEST.vehicles?.cars||[];$('assetCount').textContent=`Ô tô 4+ bánh · ${data.length} mẫu`;
   if(!data.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent='Chưa có asset ô tô. Đã tạo thư mục Vehicles/Cars để bổ sung sau; chưa tự giả định format của ô tô.';target.append(p)}
   else for(const row of data)target.append(spriteCard(row,'Cars'));
+ }else if(assetCategory==='pedestrians'){
+  const data=ASSET_MANIFEST.pedestrians||[];
+  const selected=data.filter(row=>enabledPedestrianIds.has(row.id)).length;
+  $('assetCount').textContent=`${data.length} người đi bộ hợp lệ · ${selected} được phép xuất hiện`;
+  if(!data.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent='Thêm folder Pedestrians/girl_1 với 12 PNG: girl_1_[down|right|up]_frame_[1-4].png';target.append(p)}
+  for(const row of data){
+   const lbl=document.createElement('label');lbl.className='asset-bike-card'+(enabledPedestrianIds.has(row.id)?' enabled':'');
+   const top=document.createElement('div');top.className='asset-bike-top';
+   const img=document.createElement('img');img.alt=row.id+' animation';img.dataset.pedPreview=row.id;
+   img.src=PEDESTRIAN_SOURCES[row.id]?.down?.[0]||'';top.append(img);
+   const bottom=document.createElement('div');const title=document.createElement('span');title.textContent=row.id+' · 12 frame (4 × 3 hướng)';
+   const check=document.createElement('input');check.type='checkbox';check.checked=enabledPedestrianIds.has(row.id);
+   check.onchange=()=>{if(check.checked)enabledPedestrianIds.add(row.id);else enabledPedestrianIds.delete(row.id);lbl.classList.toggle('enabled',check.checked);populatePedestrians(true);saveSoon()};
+   bottom.className='asset-bike-bottom';bottom.append(title,check);lbl.append(top,bottom);target.append(lbl);
+  }
+  const invalid=ASSET_MANIFEST.invalidPedestrians||[];
+  if(invalid.length){errors.hidden=false;errors.textContent='⚠ '+invalid.map(x=>x.id+': '+x.reason).join(' | ')}
  }else if(assetCategory==='constructions'){renderConstructionAssetsBrowser(target)}else{
   const source=ASSET_MANIFEST[assetCategory]||{};const list=source[String(assetLevel)]||[];
   $('assetCount').textContent=`${({roads:'Đường',deco:'Deco',constructions:'Công trình'})[assetCategory]} · Level ${assetLevel} · ${list.length} sprite`;
@@ -1157,8 +1217,8 @@ function renderAssetBrowser(){
  }
 }
 // A single timer updates all previews, preventing one interval per bike card.
-function advanceBikePreviews(){if($('assetsView').hidden||assetCategory!=='vehicles'||assetVehicleType!=='bikes')return;
- assetPreviewIndex=(assetPreviewIndex+1)%3;const states=['up','right','down'];
+function advanceBikePreviews(){if($('assetsView').hidden)return;if(assetCategory==='pedestrians'){assetPreviewIndex=(assetPreviewIndex+1)%12;const d=['down','right','up'][Math.floor(assetPreviewIndex/4)];const f=assetPreviewIndex%4;document.querySelectorAll('[data-ped-preview]').forEach(img=>{const src=PEDESTRIAN_SOURCES[img.dataset.pedPreview]?.[d]?.[f];if(src)img.src=src});return;}if(assetCategory!=='vehicles'||assetVehicleType!=='bikes')return;
+ assetPreviewIndex=(assetPreviewIndex+1)%4;const states=['up','right','down'];
  document.querySelectorAll('[data-bike-preview]').forEach(img=>{const sources=BIKE_SOURCES[img.dataset.bikePreview];if(!sources)return;const uri=sources[states[assetPreviewIndex]]||sources.right;if(uri&&img.getAttribute('src')!==uri)img.src=uri});
 }
 function installAssetBrowser(){
@@ -1174,28 +1234,30 @@ function installAssetBrowser(){
    ASSET_MANIFEST=next.manifest;applyTileSources();applyBikeSources();if(typeof loadConstructionRegistry==='function')loadConstructionRegistry(ASSET_MANIFEST);
    addManifestLevelMetadata();for(const m of META)META_MAP[m[0]]={name:m[1],group:m[2]};
    for(const k of Object.keys(LIGHT_SOURCES))delete LIGHT_SOURCES[k];Object.assign(LIGHT_SOURCES,ASSET_MANIFEST.trafficLights);
-   enabledBikeIds=new Set(Object.keys(BIKE_SOURCES));
+   enabledBikeIds=new Set(Object.keys(BIKE_SOURCES));applyPedestrianSources();enabledPedestrianIds=new Set(Object.keys(PEDESTRIAN_SOURCES));initPedestrianSprites();
    loadTileImages();initBikes();initTrafficLights();renderAssetBrowser();renderPalette();updateSelected();
-   if(simMode)populateBikes(true);requestDraw();saveSoon();
+   if(simMode){populateBikes(true);populatePedestrians(true)}requestDraw();saveSoon();
    notify(`Quét xong: ${Object.keys(BIKE_SOURCES).length} bikes hợp lệ; ${ASSET_MANIFEST.invalidBikes.length} lỗi format.`);
   }catch(error){alert('Quét Asset/Sprites lỗi: '+error.message)}finally{e.target.value=''}
  });
  setInterval(advanceBikePreviews,800);renderAssetBrowser();
 }
 function manifestFromBrowserFolder(files){
- const m={version:1,root:'Asset/Sprites',vehicles:{bikes:[],cars:[]},invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{},constructionAssets:{houses:[],interiors:[],doors:[]},houseConfigs:{}};
+ const m={version:1,root:'Asset/Sprites',vehicles:{bikes:[],cars:[]},pedestrians:[],invalidPedestrians:[],invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{},constructionAssets:{houses:[],interiors:[],doors:[]},houseConfigs:{}};
  for(const group of ['roads','deco','constructions'])for(let i=1;i<=5;i++)m[group][String(i)]=[];
  const byPath=new Map(),urls=[];
  function resolvePath(f){const path=(f.webkitRelativePath||f.name).replaceAll('\\','/');
   const pos=path.indexOf('Asset/Sprites/');if(pos>=0)return path.slice(pos+'Asset/Sprites/'.length);
   const pos2=path.indexOf('Sprites/');if(pos2>=0)return path.slice(pos2+'Sprites/'.length);
-  const match=path.match(/(?:^|\/)(Vehicles|Roads|Deco|Constructions)\/(.*)$/i);return match?match[1]+'/'+match[2]:null;
+  const match=path.match(/(?:^|\/)(Vehicles|Roads|Deco|Constructions|Pedestrians)\/(.*)$/i);return match?match[1]+'/'+match[2]:null;
  }
  for(const file of files){const path=resolvePath(file);if(!path||!path.toLowerCase().endsWith('.png'))continue;
   const blob=URL.createObjectURL(file);urls.push(blob);byPath.set(path,{file,blob});}
- if(!byPath.size){for(const u of urls)URL.revokeObjectURL(u);throw new Error('Không tìm thấy PNG trong Vehicles / Roads / Deco / Constructions. Hãy chọn đúng thư mục Sprites.')}
- const bikes=new Map();
+ if(!byPath.size){for(const u of urls)URL.revokeObjectURL(u);throw new Error('Không tìm thấy PNG trong Vehicles / Pedestrians / Roads / Deco / Constructions. Hãy chọn đúng thư mục Sprites.')}
+ const bikes=new Map(),people=new Map();
  for(const [path,info] of byPath){
+  const person=path.match(/^Pedestrians\/([^/]+)\/([^/]+)$/i);
+  if(person){const id=person[1];if(!people.has(id))people.set(id,new Map());people.get(id).set(person[2].toLowerCase(),info.blob);continue;}
   const veh=path.match(/^Vehicles\/Bikes\/([^/]+)\/([^/]+)$/i);
   if(veh){const id=veh[1],name=veh[2];if(!bikes.has(id))bikes.set(id,new Map());bikes.get(id).set(name.toLowerCase(),info.blob);continue;}
   const other=path.match(/^(Roads|Deco|Constructions)\/Level_([1-5])\/(.+)\.png$/i);
@@ -1212,9 +1274,234 @@ function manifestFromBrowserFolder(files){
   if(missing.length||extra.length){m.invalidBikes.push({id,missing,extra,reason:'Tên file sai/thiếu hoặc dư frame'});continue}
   m.vehicles.bikes.push({id,category:'bike',top:parts.get(validNames[0]),right:parts.get(validNames[1]),down:parts.get(validNames[2])});
  }
+ for(const [id,parts] of [...people].sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true}))){
+  const files=[];for(const dir of ['down','right','up'])for(let f=1;f<=4;f++)files.push(`${id}_${dir}_frame_${f}.png`);
+  const missing=files.filter(f=>!parts.has(f));
+  if(missing.length||parts.size!==12){m.invalidPedestrians.push({id,reason:'Thiếu/sai frame: '+missing.join(', ')});continue;}
+  m.pedestrians.push({id,frames:Object.fromEntries(['down','right','up'].map(d=>[d,[1,2,3,4].map(f=>parts.get(`${id}_${d}_frame_${f}.png`))]))});
+ }
  return {manifest:m,urls};
 }
 // ================== End Asset browser ==================
+
+
+// ================== WALKING NPCs (v21) ==================
+// Sprite folder: Asset/Sprites/Pedestrians/<id>/<id>_{down,right,up}_frame_{1..4}.png
+// Moving on land: sidewalk 0=free; construction/admin 1/2=perimeter strip; existing buildings
+// also restrict despite landType having been reset to 0 during construction.
+const PEDESTRIAN_SOURCES={},pedestrianImages={};
+let enabledPedestrianIds=new Set(),simPedestrians=[],pedestrianSerial=0;
+const pedestrianConfig={enabled:true,count:25,speed:36,height:54};
+function applyPedestrianSources(){
+ for(const k of Object.keys(PEDESTRIAN_SOURCES))delete PEDESTRIAN_SOURCES[k];
+ for(const p of ASSET_MANIFEST.pedestrians||[])PEDESTRIAN_SOURCES[p.id]=p.frames;
+}
+function initPedestrianSprites(){
+ for(const k of Object.keys(pedestrianImages))delete pedestrianImages[k];
+ for(const [id,frames] of Object.entries(PEDESTRIAN_SOURCES)){
+  pedestrianImages[id]={};
+  for(const dir of ['down','right','up']){
+   pedestrianImages[id][dir]=(frames[dir]||[]).map(src=>{const im=new Image();im.onload=requestDraw;im.onerror=()=>console.warn('Pedestrian PNG:',src);im.src=src;return im;});
+  }
+ }
+}
+function restorePedestrianConfig(raw){
+ if(raw&&typeof raw==='object'){
+  pedestrianConfig.enabled=raw.enabled!==false;
+  pedestrianConfig.count=Math.max(0,Math.min(300,Math.round(Number(raw.count)||0)));
+  pedestrianConfig.speed=Math.max(10,Math.min(90,Number(raw.speed)||36));
+  pedestrianConfig.height=Math.max(25,Math.min(110,Number(raw.height)||54));
+  enabledPedestrianIds=new Set(Array.isArray(raw.enabledIds)?raw.enabledIds.filter(id=>PEDESTRIAN_SOURCES[id]):Object.keys(PEDESTRIAN_SOURCES));
+ }else enabledPedestrianIds=new Set(Object.keys(PEDESTRIAN_SOURCES));
+ updatePedestrianUI();
+}
+function updatePedestrianUI(){
+ for(const [id,value] of [['pedestrianCount',pedestrianConfig.count],['pedestrianSpeed',pedestrianConfig.speed],['pedestrianHeight',pedestrianConfig.height]]){
+  if($(id))$(id).value=value;
+  if($(id+'Num'))$(id+'Num').textContent=value+(id==='pedestrianCount'?'':id==='pedestrianHeight'?' px':' px/s');
+ }
+ if($('pedestrianEnabled'))$('pedestrianEnabled').checked=pedestrianConfig.enabled;
+ if($('pedestrianLiveCount'))$('pedestrianLiveCount').textContent=simPedestrians.length;
+}
+function readPedestrianControls(){
+ pedestrianConfig.enabled=$('pedestrianEnabled').checked;
+ pedestrianConfig.count=Number($('pedestrianCount').value);
+ pedestrianConfig.speed=Number($('pedestrianSpeed').value);
+ pedestrianConfig.height=Number($('pedestrianHeight').value);
+ updatePedestrianUI();
+}
+function pedBuildDepth(){return Math.max(0,Math.min(TS,Number(typeof constructionSettings!=='undefined'?constructionSettings.offsetY:$('houseYOffset')?.value)||0));}
+function pedestrianTileKind(cx,cy){
+ const t=map.get(key(cx,cy));if(!t)return 'blocked';
+ if(tileGroup(t)==='sidewalk'){
+  if(Number(t.landType||0)===1||Number(t.landType||0)===2)return 'edge';
+  // Nhà đã xây được reset landType=0; vẫn là vùng công trình có cấm đi xuyên.
+  if(typeof constructionObjects!=='undefined'&&constructionObjects.has(key(cx,cy)))return 'edge';
+  return 'free';
+ }
+ if(isBridge(t))return 'bridge';
+ if(tileGroup(t)==='road'&&Number(t.code)%100===4)return 'crosswalk';
+ if(isRiver(t))return 'riverbank';
+ return 'blocked';
+}
+function pedestrianWalkAxis(kind,cx,cy){
+ const t=map.get(key(cx,cy));if(!t)return null;
+ const base=Number(t.code)%100;
+ if(kind==='crosswalk'){
+  // Crossing 304: hướng gốc của đường E/W => người đi bộ N/S.
+  return ((safeRotation(t.rotation)/90)%2===0)?'vertical':'horizontal';
+ }
+ if(kind==='bridge'){
+  // Cầu 311: dọc N/S, 312: ngang E/W; xoay theo tile.
+  let vertical=base===11;
+  if((safeRotation(t.rotation)/90)%2)vertical=!vertical;
+  return vertical?'vertical':'horizontal';
+ }
+ return null;
+}
+function pedestrianCanStand(wx,wy){
+ if(!Number.isFinite(wx)||!Number.isFinite(wy))return false;
+ const cx=Math.floor(wx/TS),cy=Math.floor(wy/TS);
+ const kind=pedestrianTileKind(cx,cy);
+ if(kind==='blocked')return false;
+ const localX=wx-cx*TS,localY=wy-cy*TS;
+ const epsilon=.05; // Dung sai float, không mở rộng hành lang thực tế.
+ if(kind==='edge'){
+  // CHỈ viền ngoài của CỤM đất xây dựng/hành chính/nhà đã xây.
+  // Cạnh giáp một ô công trình khác là cạnh trong, không phải lối đi.
+  const depth=pedBuildDepth(),side=depth/2;
+  return (localY<=depth+epsilon&&pedestrianTileKind(cx,cy-1)!=='edge')
+   ||(localY>=TS-depth-epsilon&&pedestrianTileKind(cx,cy+1)!=='edge')
+   ||(localX<=side+epsilon&&pedestrianTileKind(cx-1,cy)!=='edge')
+   ||(localX>=TS-side-epsilon&&pedestrianTileKind(cx+1,cy)!=='edge');
+ }
+ if(kind==='crosswalk'){
+  // 30% bề ngang của ô, luôn nằm chính giữa (36px với tile 120px).
+  // Quay 90/270° thì đổi trục giới hạn theo góc tile.
+  const axis=pedestrianWalkAxis(kind,cx,cy),halfWidth=TS*.15;
+  return axis==='vertical'?Math.abs(localX-TS/2)<=halfWidth+epsilon:
+   Math.abs(localY-TS/2)<=halfWidth+epsilon;
+ }
+ if(kind==='riverbank'){
+  // Bit kết nối = 0 => bờ sông có hành lang 10px. Bit 1 => nước, cấm đi.
+  // baseDirs() đã tính rotation của tile theo N/E/S/W.
+  const river=map.get(key(cx,cy)),connected=baseDirs(river),depth=10;
+  return (localY<=depth+epsilon&&!connected.includes(0))
+   ||(localX>=TS-depth-epsilon&&!connected.includes(1))
+   ||(localY>=TS-depth-epsilon&&!connected.includes(2))
+   ||(localX<=depth+epsilon&&!connected.includes(3));
+ }
+ return true; // ô thường và cầu (cầu có giới hạn hướng ở pedestrianCanStep).
+}
+function pedestrianCanStep(wx,wy,dir,dist){
+ const d=DIRS[dir],targetX=wx+d.dx*dist,targetY=wy+d.dy*dist;
+ const segments=Math.max(1,Math.ceil(dist/2));
+ // Kiểm tra mỗi 2px và cả đoạn chuyển tile, không teleport qua mép cấm.
+ for(let s=0;s<=segments;s++){
+  const x=wx+d.dx*dist*s/segments,y=wy+d.dy*dist*s/segments;
+  if(!pedestrianCanStand(x,y))return false;
+  const cx=Math.floor(x/TS),cy=Math.floor(y/TS),kind=pedestrianTileKind(cx,cy);
+  const axis=pedestrianWalkAxis(kind,cx,cy);
+  if(axis==='vertical'&&d.dx!==0||axis==='horizontal'&&d.dy!==0)return false;
+ }
+ return pedestrianCanStand(targetX,targetY);
+}
+function pedestriansSpawnPool(){
+ const pool=[];
+ for(const [k,t] of map){if(tileGroup(t)!=='sidewalk')continue;
+  const [x,y]=k.split(',').map(Number);
+  if(pedestrianTileKind(x,y)==='free')pool.push({x,y});
+ }
+ return pool;
+}
+function createPedestrian(pool){
+ const ids=[...enabledPedestrianIds].filter(id=>pedestrianImages[id]?.down?.length===4);
+ if(!ids.length||!pool.length)return null;
+ for(let attempt=0;attempt<50;attempt++){
+  const tile=pool[Math.floor(Math.random()*pool.length)];
+  const wx=tile.x*TS+9+Math.random()*(TS-18),wy=tile.y*TS+9+Math.random()*(TS-18);
+  if(!pedestrianCanStand(wx,wy))continue;
+  const can=[0,1,2,3].filter(dir=>pedestrianCanStep(wx,wy,dir,5));
+  if(!can.length)continue;
+  return {id:++pedestrianSerial,type:ids[Math.floor(Math.random()*ids.length)],wx,wy,dir:can[Math.floor(Math.random()*can.length)],speed:pedestrianConfig.speed*(.72+Math.random()*.55),frameOffset:Math.random()*4,clock:Math.random()*10,untilTurn:18+Math.random()*75,stuck:0};
+ }
+ return null;
+}
+function populatePedestrians(reset=false){
+ if(reset)simPedestrians=[];
+ if(!pedestrianConfig.enabled){simPedestrians=[];updatePedestrianUI();requestDraw();return}
+ simPedestrians=simPedestrians.filter(p=>enabledPedestrianIds.has(p.type));
+ const target=desiredPedestrianCount(),pool=pedestriansSpawnPool();
+ while(simPedestrians.length>target)simPedestrians.splice(Math.floor(Math.random()*simPedestrians.length),1);
+ for(let i=0;i<target*3&&simPedestrians.length<target;i++){
+  const p=createPedestrian(pool);if(!p)break;simPedestrians.push(p);
+ }
+ updatePedestrianUI();requestDraw();
+}
+function adjustPedestrianDensity(){
+ if(!pedestrianConfig.enabled){if(simPedestrians.length)simPedestrians=[];updatePedestrianUI();return;}
+ const target=desiredPedestrianCount();
+ if(simPedestrians.length>target){
+  // Tạm thời người ngẫu nhiên rời mô phỏng, không reset những NPC còn lại.
+  simPedestrians.splice(Math.floor(Math.random()*simPedestrians.length),1);
+ }else if(simPedestrians.length<target){
+  const p=createPedestrian(pedestriansSpawnPool());if(p)simPedestrians.push(p);
+ }
+ updatePedestrianUI();
+}
+function pedestrianTurn(p){
+ // Prefer to keep moving, but at intersections choose a turn at random.
+ const ordered=[p.dir,(p.dir+1)%4,(p.dir+3)%4,(p.dir+2)%4];
+ if(Math.random()<.72)ordered.sort(()=>Math.random()-.5);
+ const valid=ordered.filter(d=>pedestrianCanStep(p.wx,p.wy,d,Math.max(3,Math.min(8,p.speed*.12))));
+ if(!valid.length)return false;
+ p.dir=valid[Math.floor(Math.random()*valid.length)];p.untilTurn=28+Math.random()*125;return true;
+}
+function tickPedestrians(dt){
+ if(!pedestrianConfig.enabled||!simPedestrians.length)return;
+ const fixedStep=Math.max(1,Math.ceil(dt/.036)),step=dt/fixedStep;
+ for(let sub=0;sub<fixedStep;sub++)for(const p of simPedestrians){
+  p.clock+=step;p.untilTurn-=p.speed*step;
+  if(p.untilTurn<=0)pedestrianTurn(p);
+  const move=p.speed*step;
+  if(!pedestrianCanStep(p.wx,p.wy,p.dir,move)){
+   if(!pedestrianTurn(p)){p.stuck+=step;continue;}
+   if(!pedestrianCanStep(p.wx,p.wy,p.dir,move))continue;
+  }
+  const d=DIRS[p.dir];p.wx+=d.dx*move;p.wy+=d.dy*move;p.stuck=0;
+ }
+}
+function pedestrianDrawInfo(p){
+ const direction=p.dir===0?'up':p.dir===2?'down':'right';
+ const frames=pedestrianImages[p.type]?.[direction];if(!frames?.length)return null;
+ const frame=Math.floor((p.clock*7+p.frameOffset)%4);
+ const img=frames[frame];if(!img?.complete||!img.naturalWidth)return null;
+ const h=pedestrianConfig.height*zoom,w=h*img.naturalWidth/img.naturalHeight;
+ const s=toScreen(p.wx,p.wy);
+ return{img,h,w,x:s.x-w*.5,y:s.y-h*.97,flip:p.dir===3};
+}
+function drawPedestrian(p){
+ const info=pedestrianDrawInfo(p);if(!info)return;
+ const {img,x,y,w,h,flip}=info;
+ ctx.save();
+ // Smooth sprite filtering even if map Tile is set to Pixel Sharp.
+ ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+ if(flip){ctx.translate(x+w,y);ctx.scale(-1,1);ctx.drawImage(img,0,0,w,h)}
+ else ctx.drawImage(img,x,y,w,h);
+ ctx.restore();
+}
+function drawPedestrianShadow(p){
+ const info=pedestrianDrawInfo(p);if(!info)return;
+ castFullSpriteShadow(info.img,p.wx,p.wy,info.w,info.h,.5,.97,info.flip,.65);
+}
+applyPedestrianSources();restorePedestrianConfig(null);initPedestrianSprites();
+for(const id of ['pedestrianCount','pedestrianSpeed','pedestrianHeight'])$(id).addEventListener('input',e=>{
+ pedestrianConfig[id==='pedestrianCount'?'count':id==='pedestrianSpeed'?'speed':'height']=Number(e.target.value);
+ updatePedestrianUI();if(simMode&&id==='pedestrianCount')adjustPedestrianDensity();updateTrafficDensityUI();requestDraw();saveSoon();
+});
+$('pedestrianEnabled').addEventListener('change',e=>{pedestrianConfig.enabled=e.target.checked;if(simMode)populatePedestrians(true);updateTrafficDensityUI();saveSoon()});
+$('resetPedestrians').onclick=()=>{readPedestrianControls();populatePedestrians(true);notify('Đã tạo lại người đi bộ theo vùng cho phép');saveSoon()};
+// ================== End WALKING NPCs ==================
 
 installAssetBrowser();initialLoad();initBikes();initTrafficLights();updateSimUI();updateShadowUI();syncDayNightUI(true);
 </script>
