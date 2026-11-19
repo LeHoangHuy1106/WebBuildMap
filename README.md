@@ -56,3 +56,14 @@ Mục tiêu sản xuất: giữ code map/ngành độc lập, không gộp vào 
 - Bảng Inspector có nút **Random lại mẫu nhà trên toàn map** (xác nhận trước khi thực hiện), chỉ đổi House ID trong cùng Level và giữ tọa độ, Interior, Door, Level.
 - `map.json` chỉ ghi loại đất 0/1/2; `houses.json` và `buildings.json` xuất độc lập.
 - Source dùng localStorage key v13 để bảo toàn dữ liệu map/house đã chỉnh trong trình duyệt.
+
+
+## v17: Traffic Queue
+Xe xếp hàng theo làn, giãn cách theo kích thước xe, dừng trước ngã tư không chồng sprite. Xử lý theo bước thời gian nhỏ.
+
+
+## v18 — Đèn giao thông và mật độ theo giờ
+- Chỉ ô đường kề trực tiếp ngã tư có tín hiệu được kiểm tra đèn; xe không dừng do đèn trên các ô xa. Xe giữ làn và khoảng cách, xe vào ngã tư được đi tiếp.
+- 5 khung: 06–10 80%, 10–17 60%, 17–22 40%, 22–00 100%, 00–06 20%; có slider riêng trong mục Xe.
+- Tổng xe tối đa 300; spawn/despawn ngẫu nhiên từ từ, ưu tiên không xóa xe đang chờ đèn; lưu cấu hình trong JSON.
+- Bật chế độ Ngày/đêm để mật độ tự thay đổi theo đồng hồ.
