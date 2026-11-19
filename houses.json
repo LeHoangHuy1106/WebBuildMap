@@ -1,0 +1,73 @@
+{
+  "format": "tnvq-house-masks",
+  "schemaVersion": 1,
+  "coordinateSystem": "image-local-top-left-px",
+  "houses": {
+    "house_04_01": {
+      "rect": {
+        "x": 43.9,
+        "y": 126.5,
+        "width": 205.1,
+        "height": 86.6
+      },
+      "imageWidth": 293,
+      "imageHeight": 222,
+      "calibrated": false
+    },
+    "house_04_02": {
+      "rect": {
+        "x": 42.6,
+        "y": 161.3,
+        "width": 198.8,
+        "height": 110.4
+      },
+      "imageWidth": 284,
+      "imageHeight": 283,
+      "calibrated": false
+    },
+    "house_04_03": {
+      "rect": {
+        "x": 43.9,
+        "y": 163.0,
+        "width": 205.1,
+        "height": 111.5
+      },
+      "imageWidth": 293,
+      "imageHeight": 286,
+      "calibrated": false
+    },
+    "house_04_04": {
+      "rect": {
+        "x": 42.0,
+        "y": 154.5,
+        "width": 196.0,
+        "height": 105.7
+      },
+      "imageWidth": 280,
+      "imageHeight": 271,
+      "calibrated": false
+    },
+    "house_04_05": {
+      "rect": {
+        "x": 41.7,
+        "y": 157.3,
+        "width": 194.6,
+        "height": 107.6
+      },
+      "imageWidth": 278,
+      "imageHeight": 276,
+      "calibrated": false
+    },
+    "house_04_06": {
+      "rect": {
+        "x": 43.5,
+        "y": 155.6,
+        "width": 203.0,
+        "height": 106.5
+      },
+      "imageWidth": 290,
+      "imageHeight": 273,
+      "calibrated": false
+    }
+  }
+}
