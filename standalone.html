@@ -386,9 +386,13 @@ function rebuildValidation(){if(!validationDirty)return invalidCells;validationD
   }
  }
  if(group==='road'&&Number(t.code)!==302){
-   const sidewalks=DIRS.filter((di,d)=>!ports.includes(d)&&tileGroup(map.get(key(x+di.dx,y+di.dy)))==='sidewalk').length;
-   // Perimeter is a cropped expandable world: a T/corner can have its sidewalk on a future neighbor tile.
-   if(!sidewalks&&!isBoundaryCell(x,y))markInvalid(k,'Đường cần giáp ít nhất một ô vỉa hè');
+   // A road is supported by either a sidewalk OR a river in any of its four neighboring cells.
+   // Do not exclude road-port directions: a T-junction may touch a river/sidewalk on any side.
+   const adjacentGroups=DIRS.map(di=>tileGroup(map.get(key(x+di.dx,y+di.dy))));
+   const sidewalks=adjacentGroups.filter(g=>g==='sidewalk').length;
+   const rivers=adjacentGroups.filter(g=>g==='river').length;
+   // Perimeter remains exempt because a neighboring tile may be painted later.
+   if(!sidewalks&&!rivers&&!isBoundaryCell(x,y))markInvalid(k,'Đường cần giáp ít nhất một ô vỉa hè hoặc sông');
    if(sidewalks>3)markInvalid(k,'Đường không được giáp quá ba ô vỉa hè');
  }
  }

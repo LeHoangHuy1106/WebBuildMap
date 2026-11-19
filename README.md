@@ -1,3 +1,9 @@
+# v16 – FIX VALIDATION ĐƯỜNG SÁT SÔNG
+
+- Ô đường hợp lệ khi tiếp giáp ít nhất một ô **vỉa hè hoặc sông** ở bất kỳ hướng nào trong bốn hướng.
+- Giữ nguyên ngoại lệ ô ranh giới map, quy tắc nối hướng đường/cầu/sông và các kiểm tra khác.
+- Đã cập nhật `index.html` và `standalone.html` (chạy trực tiếp offline).
+
 # v15 – HOUSE NIGHT LIGHTS + WORLD-ANCHORED SUN
 
 - House Editor includes **Interior Rect** and **Ánh sáng đêm** tabs.
