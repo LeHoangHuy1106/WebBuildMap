@@ -96,10 +96,10 @@ function tryOpenConstructionAt(point,cell){
  // House sprites extend well above their anchor tile. Hit test them first from front to back.
  const items=constructionSceneItems().reverse();
  for(const o of items){const box=o.bounds();if(point.x>=box.x&&point.x<=box.x+box.w&&point.y>=box.y&&point.y<=box.y+box.h){
-  editCell={x:o.building.x,y:o.building.y};openBuildingEditor(editCell);return true;
+  editCell={x:o.building.x,y:o.building.y};if(typeof showTileActions==='function')showTileActions(editCell);else openBuildingEditor(editCell);return true;
  }}
  const k=key(cell.x,cell.y),tile=map.get(k);
- if(constructionObjects.has(k)||tile?.code==='305'&&tile.landType===1){editCell={...cell};openBuildingEditor(cell);return true}
+ if(constructionObjects.has(k)||tile?.code==='305'&&tile.landType===1){editCell={...cell};if(typeof showTileActions==='function')showTileActions(cell);else openBuildingEditor(cell);return true}
  return false;
 }
 function openBuildingEditor(c){
@@ -164,34 +164,45 @@ function rgbNight(hex){const raw=String(hex||'#ffcc88');return /^#[0-9a-f]{6}$/i
 function normalizeHouseLights(list,w,h){if(!Array.isArray(list))return [];return list.filter(e=>e&&['circle','rect'].includes(e.shape)).map((e,i)=>({
  id:String(e.id||'light_'+i),shape:e.shape,x:Math.max(0,Math.min(w,Number(e.x)||0)),y:Math.max(0,Math.min(h,Number(e.y)||0)),
  width:Math.max(3,Math.min(w*2,Number(e.width)||42)),height:Math.max(3,Math.min(h*2,Number(e.height)||24)),
- radius:Math.max(3,Math.min(Math.max(w,h),Number(e.radius)||35)),color:rgbNight(e.color),intensity:Math.max(0,Math.min(1,Number(e.intensity)||0))}));}
+ radius:Math.max(3,Math.min(Math.max(w,h),Number(e.radius)||35)),color:rgbNight(e.color),intensity:Math.max(0,Math.min(3,Number(e.intensity)||0))}));}
 function getHouseLights(item){return item?(houseRects.get(item.id)?.lights||[]):[]}
-// Fast 2D gradients, no Canvas blur or per-frame allocated textures; many lamps are permitted.
-function paintHouseLight(g,light,x,y,sx,sy,dark){const intensity=Math.min(1,Math.max(0,(Number(light.intensity)||0)*dark));if(intensity<=.005)return;
- const px=x+light.x*sx,py=y+light.y*sy,col=rgbNight(light.color),rad=Math.max(1,light.radius*sx);
+// v27: Three-tier light. Ambient halo + warm hotspot + almost-white emitter core.
+// 0..300% is valid; screen blending makes high intensity genuinely brighter.
+// Shared by House AND Deco, with image-local pixel coordinates.
+function paintHouseLight(g,light,x,y,sx,sy,dark){
+ const intensity=Math.max(0,Math.min(3,Number(light.intensity)||0))*Math.max(0,Math.min(1,dark));
+ if(intensity<=.005)return;
+ const px=x+light.x*sx,py=y+light.y*sy,col=rgbNight(light.color),c=hexToRgb(col);
+ const alpha=(v)=>Math.min(.99,Math.max(0,v));
  g.save();g.globalCompositeOperation='screen';
  if(light.shape==='circle'){
-  const halo=g.createRadialGradient(px,py,0,px,py,rad*1.35);
-  halo.addColorStop(0,col);halo.addColorStop(.17,col);halo.addColorStop(1,'#000000');
-  // transparent fade with a non-opaque custom gradient, avoiding hard-edged circles
-  const c=hexToRgb(col),f=g.createRadialGradient(px,py,0,px,py,rad*1.4);
-  f.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${(intensity*.74).toFixed(3)})`);
-  f.addColorStop(.35,`rgba(${c.r},${c.g},${c.b},${(intensity*.38).toFixed(3)})`);
-  f.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);
-  g.fillStyle=f;g.beginPath();g.arc(px,py,rad*1.4,0,Math.PI*2);g.fill();
+  const r=Math.max(1,Math.abs((Number(light.radius)||35)*sx));
+  const spread=g.createRadialGradient(px,py,0,px,py,r*1.85);
+  spread.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.68)})`);
+  spread.addColorStop(.27,`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.36)})`);
+  spread.addColorStop(.65,`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.11)})`);
+  spread.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);
+  g.fillStyle=spread;g.beginPath();g.arc(px,py,r*1.85,0,2*Math.PI);g.fill();
+  const hotspot=g.createRadialGradient(px,py,0,px,py,r*.57);
+  hotspot.addColorStop(0,`rgba(255,252,228,${alpha(intensity*.43)})`);
+  hotspot.addColorStop(.35,`rgba(255,243,188,${alpha(intensity*.23)})`);
+  hotspot.addColorStop(1,'rgba(255,243,188,0)');
+  g.fillStyle=hotspot;g.beginPath();g.arc(px,py,r*.57,0,2*Math.PI);g.fill();
  }else{
-  const ww=Math.max(2,light.width*sx),hh=Math.max(2,light.height*sy),c=hexToRgb(col);
-  const rx=Math.max(ww*.73,4),ry=Math.max(hh*.9,5);
-  g.save();g.translate(px,py);g.scale(rx,ry);
+  const ww=Math.max(2,Math.abs((Number(light.width)||42)*sx)),hh=Math.max(2,Math.abs((Number(light.height)||24)*sy));
+  g.save();g.translate(px,py);g.scale(Math.max(ww*.93,4),Math.max(hh*1.22,4));
   const halo=g.createRadialGradient(0,0,0,0,0,1.9);
-  halo.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${(intensity*.40).toFixed(3)})`);
-  halo.addColorStop(.48,`rgba(${c.r},${c.g},${c.b},${(intensity*.24).toFixed(3)})`);
+  halo.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.53)})`);
+  halo.addColorStop(.48,`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.27)})`);
   halo.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);
   g.fillStyle=halo;g.fillRect(-1.9,-1.9,3.8,3.8);g.restore();
-  g.fillStyle=`rgba(${c.r},${c.g},${c.b},${(intensity*.37).toFixed(3)})`;
+  g.fillStyle=`rgba(${c.r},${c.g},${c.b},${alpha(intensity*.50)})`;
   g.fillRect(px-ww/2,py-hh/2,ww,hh);
+  g.fillStyle=`rgba(255,248,210,${alpha(intensity*.29)})`;
+  g.fillRect(px-ww*.42,py-hh*.38,ww*.84,hh*.76);
  }
- g.restore();}
+ g.restore();
+}
 function hexToRgb(s){const n=parseInt(rgbNight(s).slice(1),16);return{r:n>>16,g:(n>>8)&255,b:n&255}}
 function drawConstructionNightLights(){
  const dark=1-daylightFactor();if(!simMode||dark<=.02)return;
@@ -210,7 +221,7 @@ function constructionSceneItems(){
   const pos=constructionPlacement(building);if(!pos)continue;
   const s=toScreen(pos.left,pos.top),dw=pos.width*zoom,dh=pos.height*zoom;
   if(s.x>vw+100||s.x+dw<-100||s.y>vh+100||s.y+dh<-100)continue;
-  list.push({worldY:pos.worldY,building,
+  list.push({worldY:pos.worldY+(assetSortY(`Constructions/Level_${building.level}/Houses/${building.houseId}`,1)-1)*pos.height,building,
    bounds(){return{x:s.x,y:s.y,w:dw,h:dh}},
    draw(c){drawConstructionComposite(c,building,s.x,s.y,dw,dh,!shopIsOpen())},
    drawShadow(){const shadowSprite=constructionShadowSprite(building)||pos.img;
@@ -354,17 +365,31 @@ function lightGestureMove(e){if(!lightPointer||!maskGeometry?.layout)return;e.pr
  else{l.width=Math.max(3,a.width+2*dx);l.height=Math.max(3,a.height+2*dy)}
  refreshLightFields();renderMaskCanvas();}
 
+// v26: dedicated library tab for interior sprites, Settings still per asset.
+function renderInteriorAssetsBrowser(target){
+ const entries=constructionRegistry.interiors.filter(e=>e.level===assetLevel);
+ $('assetCount').textContent=`${entries.length} sprite Nội thất · Level ${assetLevel}`;
+ if(!entries.length){const hint=document.createElement('div');hint.className='asset-placeholder';hint.textContent=`Chưa có nội thất ở Level ${assetLevel}.`;target.append(hint);return}
+ for(const item of entries){
+  const card=document.createElement('div');card.className='asset-generic-card construction-asset-card';
+  const img=document.createElement('img');img.src=item.path;img.alt=item.id;img.loading='lazy';
+  const name=document.createElement('strong');name.textContent=`Ngành ${String(item.industry).padStart(2,'0')}`;
+  const label=document.createElement('span');label.className='asset-badge';label.textContent=`${item.id} · Level ${item.level}`;
+  card.append(img,name,label,assetSettingsButton('Constructions/Level_'+item.level+'/Interiors',item));target.append(card);
+ }
+}
 function renderConstructionAssetsBrowser(target){
  const houses=constructionRegistry.houses.filter(e=>e.level===assetLevel),interiors=constructionRegistry.interiors.filter(e=>e.level===assetLevel),doors=constructionRegistry.doors.filter(e=>e.level===assetLevel);
  $('assetCount').textContent=`House ${houses.length} · Interior ${interiors.length} · Door ${doors.length} · Level ${assetLevel}`;
  if(!houses.length&&!interiors.length&&!doors.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent='Chưa có House/Interior/Door cho Level '+assetLevel;target.append(p);return}
  for(const [group,entries] of [['HOUSES',houses],['INTERIORS',interiors],['DOORS',doors]]){
   const heading=document.createElement('div');heading.className='construction-card-title';heading.textContent=group;target.append(heading);
-  for(const item of entries){const card=document.createElement('button');card.type='button';card.className='asset-generic-card construction-asset-card';
+  for(const item of entries){const card=document.createElement('div');card.className='asset-generic-card construction-asset-card';
    const img=document.createElement('img');img.src=item.path;img.alt=item.id;img.loading='lazy';card.append(img);
    const name=document.createElement('strong');name.textContent=group==='INTERIORS'?`Ngành ${String(item.industry).padStart(2,'0')} · L${item.level}`:item.id;card.append(name);
    if(group==='HOUSES'){const small=document.createElement('span');small.className='asset-badge';small.textContent=houseRects.get(item.id)?.calibrated?'✓ Đã setup Mask':'▣ Chỉnh Interior Rect';card.append(small);card.onclick=()=>openMaskEditor(item.id)}
-   else card.onclick=()=>notify(item.id+' · sẽ được ghép vào House trong panel xây dựng');target.append(card)
+   else card.onclick=()=>notify(item.id+' · sẽ được ghép vào House trong panel xây dựng');
+   card.append(assetSettingsButton('Constructions/Level_'+item.level+'/'+({HOUSES:'Houses',INTERIORS:'Interiors',DOORS:'ClosedDoors'}[group]),item));target.append(card)
   }
  }
 }

@@ -1,69 +1,54 @@
-# v16 – FIX VALIDATION ĐƯỜNG SÁT SÔNG
+# Thất Nghiệp Về Quê | Map Builder v26 - HiDPI / Asset Library / Sort Y
 
-- Ô đường hợp lệ khi tiếp giáp ít nhất một ô **vỉa hè hoặc sông** ở bất kỳ hướng nào trong bốn hướng.
-- Giữ nguyên ngoại lệ ô ranh giới map, quy tắc nối hướng đường/cầu/sông và các kiểm tra khác.
-- Đã cập nhật `index.html` và `standalone.html` (chạy trực tiếp offline).
+**Build từ source v24**, giữ tất cả chức năng Deco, Buildings, NPC, Vehicles, Road.
 
-# v15 – HOUSE NIGHT LIGHTS + WORLD-ANCHORED SUN
+## Sort Layer mới
 
-- House Editor includes **Interior Rect** and **Ánh sáng đêm** tabs.
-- Add unlimited independent **circular** or **rectangular** local lights per house model; set color, brightness max (0–100%), position, width/height/radius; drag in preview; dark-mode preview.
-- Light definitions are stored in `houses.json` under each house record's `lights` array. All instances of the same House reuse the config. Night glows render after ambient darkening in simulation; fade in/out with time of day.
-- Sun position is now anchored in world coordinates (`sunWorldX`,`sunWorldY` inside simulation shadowSettings), so panning the map no longer makes the sun handle follow the camera. Drag sun or use arrows to reposition; the sun may leave the visible viewport as the map pans.
-- Keeps v14 building system, lane simulation, weather, cast shadows, random house models, terrain `map.json` only.
+- Truy cập **Asset > Deco** (hoặc Vehicles / Pedestrians / Buildings / Roads).
+- Mỗi thẻ asset có nút **⚙ Settings** riêng nằm dưới ảnh.
+- Với Deco, Houses, Vehicles và Pedestrians: kéo **chấm vàng** theo trục Y trong cửa sổ Settings (X cố định giữa ảnh, hiển thị `X = 0`).
+- Sort Y mặc định: Deco 100%, Houses 100%, Bike 76%, Pedestrian 97% để giữ nguyên vị trí sắp lớp trước đây. Không đổi vị trí/vùng va chạm của asset.
+- Road tiles luôn nằm ở lớp nền; Interior/ClosedDoor là phần ghép House, vì vậy các nhóm này có nút Settings để xem ảnh nhưng không chỉnh Sort Y độc lập.
+- Chọn **Áp dụng cho asset** cập nhật mọi bản sao ngay và tự lưu trong localStorage phiên bản v25.
+- Nút **Xuất cấu hình chung** xuất file `asset_sort_y.json` chứa *tất cả* cài đặt sort Y.
+- Để lưu cho source/gửi cho người khác, đặt file vào `Asset/Sprites/asset_sort_y.json` rồi chạy `python scan_assets.py` + `python build_standalone.py`.
+- Chỉ sửa Sort ở thư viện Asset. Popup **Trang trí theo ô** chỉ chỉnh vị trí, kích thước, góc xoay và bản sao, không còn form Sort X/Y.
+- File `decorations.json` giữ schema cũ, tất cả đối tượng đã đặt tiếp tục dùng chung sort Y theo asset.
 
-## Launch
-Open `standalone.html` offline, or use `index.html` with its accompanying assets; run `python scan_assets.py && python build_standalone.py` after changing sprites.
+## Chạy dự án
 
-# Thất Nghiệp Về Quê • World Map Builder v14
+```sh
+python scan_assets.py
+python build_standalone.py
+```
 
-## Chạy
+Mở `index.html` thông qua HTTP server trong thư mục source (`python -m http.server 8000`), hoặc `standalone.html` offline. Bản standalone đóng gói asset trực tiếp vào HTML. Chỉnh thay đổi rồi rebuild bằng hai lệnh trên.
 
-- **Mở trực tiếp** `standalone.html` trong Chrome/Edge: toàn bộ PNG đã nhúng vào HTML, không cần server.
-- **Làm việc với folder source**: chạy `python scan_assets.py && python build_standalone.py`, sau đó mở `standalone.html`. Nếu chạy trực tiếp `index.html` với quyền tải asset bình thường, file `asset_manifest.js` phải nằm cùng cấp.
-- Toàn bộ hình mới nằm tại `Asset/Sprites/Constructions/Level_4/{Houses,Interiors,ClosedDoors}`, và `Asset/Sprites/Roads/Level_4/313.png` là **đất xây dựng**, đổi tên từ **image 78.png** của ZIP gốc.
+## Asset hình ảnh
 
-## Đặt nhà và thiết lập mask
+Giữ nguyên các ảnh PNG có sẵn (không làm giảm chất lượng art). Xem `ASSET_OPTIMIZATION_PLAN.md` cho phân tích pipeline tối ưu tiếp theo.
 
-1. Tab **Vật liệu → Vỉa hè** có ba loại: thường (0), đất xây dựng (1), hành chính (2). Bảng mã tile Level4 vẫn dùng `305` cho nền vỉa hè; số 313 và 314 trên palette chỉ là **công cụ vẽ subtype**. Khi lưu map, code của cả ba là `305` và trạng thái lưu bằng số `landType`.
-2. Dùng **ô đất xây dựng** để tô lên map, có thể kéo chuột hoặc Shift+kéo. Click vào ô đất xây dựng để mở **Thiết lập công trình**. Chọn Level, House, ngành và Door, xem trước mở/đóng rồi bấm Xây.
-3. Nếu muốn căn nội thất vào từng mẫu House, bấm **Chỉnh Interior Rect từng House** ở panel phải hoặc bấm nút từ panel xây dựng. Kéo 4 nút xanh hoặc kéo giữa Rect, có thể nhập chính xác tọa độ X, Y, W, H (local pixel từ góc trên-trái PNG gốc); sau đó Lưu.
-4. Nhà đã xây là một object nằm **ngoài bản đồ tile**. Khi xây, tile nền chuyển sang vỉa hè thường `landType=0`. Gỡ nhà khôi phục đất xây dựng `landType=1`.
-5. Khi mô phỏng: **07:00 ≤ giờ < 20:00** cho thấy Interior; các thời điểm khác Door được phủ lên Interior. Khi không mô phỏng, luôn hiển thị Interior để dễ chỉnh sửa. Bóng lấy **silhouette ghép House + Interior** để vùng cửa không bị hở; không đổ hai lớp bóng chồng nhau. Canvas sắp xếp các vật thể theo chân Y như các object khác.
-6. Settings: chiều rộng House theo % tile (mặc định `110%` = `132px`); chiều cao theo tỷ lệ gốc. House được căn **tâm ngang ô đất**: mở rộng đều qua hai mép; chân sprite được nâng lên `30px` so với đáy tile. Cả hai cho phép chỉnh trong Inspector.
+## Tương thích
 
-## JSON TÁCH BIỆT
-
-- `map.json`: `tiles[]` chứa `x,y,code,rotation`; **chỉ ô vỉa hè** cần thêm số `landType` (0=thường,1=xây dựng,2=hành chính). Vẫn giữ `simulation` (đèn, xe, thời tiết) vì đã thuộc Map Builder cũ; không ghi object nhà vào `map.json`.
-- `houses.json`: `houses` có `rect.{x,y,width,height}` trong **tọa độ pixel local của House PNG**, cùng `imageWidth,imageHeight,calibrated`. Sáu Rect đầu là **vị trí gợi ý**; người thiết kế phải chỉnh tay rồi export.
-- `buildings.json`: `buildings[]` có `x,y,houseId,level,industry,doorId`, cộng settings toàn cục cho House. Hai tập dữ liệu phải **export/import riêng** để không ghi công trình vào map tiles. Nạp `map.json` trước, sau đó `buildings.json`, cuối cùng tùy chọn `houses.json`. Khi import buildings, nền vỉa hè ở ô có nhà tự chuyển về subtype 0.
-
-Mục tiêu sản xuất: giữ code map/ngành độc lập, không gộp vào một JSON khó bảo trì. Các ngành ngoài `04_01..04_06` hoặc level khác **chưa có Interior**, panel sẽ báo thiếu asset và không cho dựng để tránh ghép nhầm.
-
-## Source code
-
-- `index.html`: World Map Builder nâng cấp qua v13/v14, dùng `construction_extension.js` cho hệ thống công trình.
-- `construction_extension.js`: panel công trình, editor mask, render nhiều lớp, thời gian đóng/mở, lưu/tải JSON riêng.
-- `scan_assets.py`: quét lại registry assets từ folder và nạp `houses.json`.
-- `build_standalone.py`: nhúng manifest + sprite và mã construction vào `standalone.html` để chạy offline.
+`scan_assets.py` có thể đọc file v24 `Asset/Sprites/Deco/deco_sort_points.json` làm fallback khi không tồn tại `asset_sort_y.json`, chuyển Y vào registry v25. File mới là nguồn cấu hình duy nhất; X không chỉnh.
 
 
-## v14 - House center, shadow composite, random House
-
-- Chiều ngang House mở rộng đối xứng từ **tâm tile xây dựng**, `left=(tileX+0.5)*120-width/2` (thay vì lấy mép trái). Chiều cao giữ đúng tỷ lệ PNG.
-- Bóng House sử dụng **alpha gộp House + Interior đã clip theo `interiorRect`**. Canvas silhouette được cache theo House, Level, Ngành và Rect; không cộng bóng hai lần.
-- Panel công trình có nút **Random mẫu House** theo Level. Tùy chọn **Tự random khi xây mới** không thay đổi nhà hiện có; công tắc được lưu cùng `buildings.json`.
-- Bảng Inspector có nút **Random lại mẫu nhà trên toàn map** (xác nhận trước khi thực hiện), chỉ đổi House ID trong cùng Level và giữ tọa độ, Interior, Door, Level.
-- `map.json` chỉ ghi loại đất 0/1/2; `houses.json` và `buildings.json` xuất độc lập.
-- Source dùng localStorage key v13 để bảo toàn dữ liệu map/house đã chỉnh trong trình duyệt.
-
-
-## v17: Traffic Queue
-Xe xếp hàng theo làn, giãn cách theo kích thước xe, dừng trước ngã tư không chồng sprite. Xử lý theo bước thời gian nhỏ.
+## v26: UI + Camera HiDPI (20/11/2026)
+- Thẻ Vật liệu / Asset chuyển lên thanh đầu trang; Asset mặc định mở mục Deco; có tab Nội thất riêng. Trên màn Asset, ẩn Inspector để nhường không gian cho map, chuyển về Vật liệu để hiện lại.
+- Giao diện Asset theo bản thiết kế với thẻ 2 cột, icon Settings, nền xanh đậm và điểm nhấn vàng. Giữ nguyên toàn bộ công cụ map cũ.
+- Popup Asset Settings hiển thị ảnh và điểm Sort Y kéo dọc; Sort X cố định giữa sprite; dùng chung file `Asset/Sprites/asset_sort_y.json`.
+- Render Camera vẫn sử dụng world coords và Canvas 2D; mọi lần zoom render trực tiếp từ PNG gốc (KHÔNG CSS scale canvas).
+- Bộ lọc ảnh mặc định Smooth để tránh răng cưa đối với art vẽ tay; nút Pixel dành cho pixel-art.
+- Nút HQ tại toolbar: Eco <=1x, Auto <=2x, Ultra <=3x DPR với giới hạn bộ nhớ 12 megapixel / cạnh <=8192. Lựa chọn lưu localStorage.
+- Cải thiện DPR không khôi phục chi tiết không có trong sprite gốc. Muốn giữ nét tại 500% cần nguồn PNG/WebP đủ độ phân giải hoặc vector.
+- Build: `python scan_assets.py && python build_standalone.py`, mở `index.html` trên localhost hoặc `standalone.html` offline.
 
 
-## v18 — Đèn giao thông và mật độ theo giờ
-- Chỉ ô đường kề trực tiếp ngã tư có tín hiệu được kiểm tra đèn; xe không dừng do đèn trên các ô xa. Xe giữ làn và khoảng cách, xe vào ngã tư được đi tiếp.
-- 5 khung: 06–10 80%, 10–17 60%, 17–22 40%, 22–00 100%, 00–06 20%; có slider riêng trong mục Xe.
-- Tổng xe tối đa 300; spawn/despawn ngẫu nhiên từ từ, ưu tiên không xóa xe đang chờ đèn; lưu cấu hình trong JSON.
-- Bật chế độ Ngày/đêm để mật độ tự thay đổi theo đồng hồ.
+## v27 – Ánh sáng Deco, đèn mạnh 300% và bóng đêm 50%
+
+- House Night Light: thanh Cường độ tăng đến **300%**, hiệu ứng 3 lớp sáng (halo + hotspot + emitter). Dữ liệu `houses.json` cũ tương thích, intensity tiếp tục có giá trị 0.0–1.0; giá trị mới có thể lên đến 3.0.
+- Deco: vào **Asset > Deco > ⚙ Settings > ☀ Cài đặt ánh sáng cho Deco này**. Thêm nhiều nguồn sáng tròn/chữ nhật, kéo trên ảnh, nhập X/Y, kích thước, màu, cường độ tối đa 300%, bấm **Lưu ánh sáng Deco**. Tất cả bản sao của cùng sprite dùng chung cấu hình, cả khi quay Deco.
+- LocalStorage key: `tnvq_deco_lights_v27`. Bấm **Xuất deco_lights.json** và đặt file vào `Asset/Sprites/deco_lights.json` để cập nhật bản build. Sau đó chạy `python scan_assets.py` và `python build_standalone.py`.
+- Lighting chỉ hoạt động khi mô phỏng có bật Ngày/Đêm và trời đủ tối; preview trong editor có chế độ xem đêm.
+- **Bóng 2D:** `Pivot từ đáy` giờ gập bản chiếu silhouette ở Y tương ứng, `Dịch chân bóng` chuyển điểm chạm đất theo tỷ lệ chiều cao sprite. Áp dụng chung cho Nhà, Deco, người đi bộ, xe, cột đèn và cầu. Bóng còn **50% độ đậm thiết lập** tại ban đêm hoàn toàn, chuyển mượt theo mức ánh sáng ban ngày.
+- Tương thích: `decorations.json` không đổi schema; `houses.json` vẫn giữ các trường lights cũ. `deco_lights.json` là cấu hình theo *loại asset*, không theo ô.

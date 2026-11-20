@@ -218,6 +218,20 @@
     ],
     "5": []
   },
+  "decoGroups": {
+    "Trees": [
+      {
+        "id": "tree_01",
+        "group": "Trees",
+        "path": "Asset/Sprites/Deco/Trees/tree_01.png"
+      }
+    ]
+  },
+  "decoSortPoints": {},
+  "decoLights": {},
+  "assetSortY": {
+    "Deco/Trees/tree_01": 1.0
+  },
   "constructions": {
     "1": [],
     "2": [],

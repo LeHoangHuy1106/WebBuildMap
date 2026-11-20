@@ -84,28 +84,140 @@
 #lightSelectedFields[hidden],#maskFieldsSection[hidden],#lightFieldsSection[hidden]{display:none}
 #houseLightColor{padding:2px;width:100%;height:36px;border:1px solid #cbd5df;background:#fff;border-radius:6px}
 @media(max-width:750px){.construction-mask-body{grid-template-columns:1fr}.mask-right{display:flex;max-height:none}}
+
+/* v23: Deco placement bound to a map tile */
+.deco-modal{position:fixed;inset:0;background:#08121b99;z-index:170;display:grid;place-items:center;padding:12px}
+.deco-dialog{width:min(1170px,96vw);max-height:95vh;background:#faf6ef;border-radius:14px;overflow:hidden;box-shadow:0 24px 90px #111a22a0;display:flex;flex-direction:column}
+.deco-head{background:#162942;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:13px 19px;font-size:15px}
+.deco-head button{border:1px solid #789;background:#28405d;border-radius:7px;color:white;cursor:pointer;padding:6px 11px}
+.deco-body{display:grid;grid-template-columns:265px minmax(330px,1fr) 224px;min-height:0;overflow:auto;gap:13px;padding:13px}
+.deco-panel{border:1px solid #d9d7d0;background:#fff;border-radius:9px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0;max-height:72vh;overflow-y:auto}
+.deco-panel label{display:grid;gap:4px;font-size:11px;color:#4d5c6b;font-weight:800}
+.deco-panel input,.deco-panel select{width:100%;min-width:0;padding:7px;border:1px solid #bdcbd1;border-radius:6px;color:#344358;background:#fff}
+.deco-panel button,.deco-actions button,.tile-action-buttons button{border:1px solid #c5ccd4;background:#f4f4f3;color:#334456;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:750}
+.deco-panel button:hover,.deco-actions button:hover{background:#e8f0f6}
+.deco-sprites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.deco-sprite{display:grid;justify-items:center;gap:3px;padding:5px!important;min-width:0}.deco-sprite img{width:80px;height:70px;object-fit:contain}.deco-sprite small{font-size:10px;overflow-wrap:anywhere}
+.deco-stage{min-width:0;display:flex;align-items:center;justify-content:center;background:#e9decf;border:1px solid #d5c5ad;border-radius:10px;overflow:hidden}
+.deco-stage canvas{width:min(100%,560px);height:auto;touch-action:none;cursor:grab}
+.deco-stage canvas.dragging{cursor:grabbing}
+.deco-fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.deco-fieldgrid input{font-variant-numeric:tabular-nums}
+.deco-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;border-top:1px solid #d8d4c9;padding:11px 14px;background:#fff}
+.deco-actions .primary,.tile-action-buttons .primary{background:#eabd86;border-color:#e0a766;color:#392d20}
+.deco-hint{color:#697782;font-size:10px;line-height:1.5}
+.tile-action-buttons{display:flex;gap:11px;justify-content:center;padding:22px;flex-wrap:wrap}
+@media(max-width:860px){.deco-body{grid-template-columns:1fr 1fr}.deco-stage{grid-column:span 2;grid-row:1}.deco-dialog{max-height:98vh}.deco-stage canvas{max-height:40vh;width:auto}}
+
+/* v25: shared sprite settings live in the Asset Library, never in per-tile Deco. */
+.asset-settings-btn{display:block;width:100%;margin-top:8px;border:1px solid #68809f;border-radius:6px;padding:7px 5px;background:#2f4866;color:#f3e5cf;font-size:11px;font-weight:800;cursor:pointer;text-align:center}
+.asset-settings-btn:hover{background:#49617c;border-color:#ebc591}
+.asset-generic-card .asset-settings-btn{margin-top:7px}
+.asset-settings-modal .deco-dialog{width:min(760px,95vw);max-height:95vh}
+.asset-settings-body{display:grid;grid-template-columns:minmax(275px,1.4fr) minmax(210px,1fr);gap:16px;padding:16px;background:#f2f4f5;overflow:auto}
+.asset-settings-preview{border:1px solid #cdd5de;border-radius:12px;min-width:0;background:#e9edf0;display:flex;align-items:center;justify-content:center;padding:8px}
+.asset-settings-preview canvas{max-width:100%;height:auto;width:480px;touch-action:none;cursor:ns-resize}
+.asset-settings-preview canvas:focus{outline:2px solid #2d9cb3;outline-offset:2px}
+.asset-settings-details{display:flex;flex-direction:column;gap:12px;color:#34465b;font-size:12px;min-width:0}
+.asset-settings-details h3{margin:0;font-size:14px}.asset-settings-details p{line-height:1.6;color:#5d6d7e;margin:0}
+.asset-settings-path{font-size:11px;overflow-wrap:anywhere;padding:10px;border-radius:7px;background:#e1e8ed}
+.asset-settings-field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800}
+.asset-settings-field input{width:100%;padding:9px 10px;border-radius:7px;border:1px solid #aebdc8;font:inherit;color:#334459}
+.asset-settings-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;border-top:1px solid #d6dce2;background:#fff;padding:12px 15px}
+.asset-settings-actions button{border:1px solid #bcc7d0;background:#f4f7f8;border-radius:7px;padding:10px 12px;color:#34465b;font-weight:750;cursor:pointer}
+.asset-settings-actions button.primary{background:#e9bd84;border-color:#dcaa65;color:#332819}
+.asset-settings-actions button:disabled{opacity:.43;cursor:not-allowed}
+.asset-settings-hint{font-size:11px;color:#657a90;line-height:1.55}
+@media(max-width:670px){.asset-settings-body{grid-template-columns:1fr}.asset-settings-preview canvas{width:min(100%,350px)}}
+
+/* v26 VISUAL UPDATE: Map Builder navy / gold asset library, responsive editor */
+:root{--bg:#0e192b;--nav:#111d31;--navsoft:#213754;--line:#344963;--accent:#f0c389}
+.topbar{height:78px;background:linear-gradient(110deg,#101d32,#182945);padding:0 16px;gap:13px}
+.brand{min-width:226px}.brandmark{background:transparent;box-shadow:none;color:#f5bc68;font-size:34px;width:42px;height:42px}
+.brand small{color:#a5bad3;letter-spacing:.35px;font-size:10px}.brand strong{font-size:17px;letter-spacing:0}
+.topbar .library-switch{display:flex;flex:0 0 auto;border:0;padding:0;gap:8px}
+.topbar .library-switch button{padding:13px 22px;min-width:115px;border-radius:12px;font-size:13px;background:#1b304d;color:#dae4f0;border-color:#35516f;box-shadow:0 2px 8px #07131e30}
+.topbar .library-switch button.active{background:#edbe82;color:#34251c;border-color:#edbe82}
+.topbar .maptitle{min-width:0;align-items:center;gap:5px}.topbar .maptitle span{font-size:10px}
+.topbar .nameinput{font-size:12px;width:152px;max-width:15vw}.topbar .topright{gap:5px}
+.topbar .topright .btn{font-size:11px;padding:8px 9px}
+.sidebar{width:356px;min-width:356px;background:linear-gradient(160deg,#142239,#101b2f 70%);border-right-color:#324865}
+.asset-library-mode:not(.simulation-active) .inspector{display:none}
+.asset-top{padding:22px 18px 12px}.asset-top .eyebrow{color:#f2bf76;font-size:12px}.asset-top .side-title{font-size:20px;margin:12px 0 10px}
+.asset-top .side-desc{font-size:12px;line-height:1.65;color:#a9bed8}
+.asset-category-pills{gap:9px;margin:16px 0}.asset-category-pills button{border-radius:10px;padding:12px 4px;background:#1e314d;font-size:12px;border-color:#3c536f;color:#d9e6f6}
+.asset-category-pills button:hover{background:#2e4665}.asset-category-pills button.chosen{background:#e9b776;color:#30251b;border-color:#ecbe7f}
+.asset-count{font-size:12px;padding-top:3px;color:#a6c3e6}
+.asset-cards{gap:13px;padding:18px 16px}.asset-generic-card{position:relative;border-radius:12px;background:#233855;padding:9px 9px 13px;box-shadow:0 4px 12px #07131f26;overflow:hidden}
+.asset-generic-card:hover{border-color:#e7b579}.asset-generic-card img{background:linear-gradient(135deg,#d9dee1,#f2ece1);border-radius:8px;aspect-ratio:1/1;image-rendering:auto}
+.asset-generic-card strong{font-size:13px;font-weight:800;line-height:1.5;margin-top:8px;padding-right:36px}
+.asset-generic-card .asset-badge{font-size:10px;color:#b6cde5;margin-top:3px;padding-right:38px}
+.asset-generic-card .asset-settings-btn{position:absolute;right:9px;bottom:11px;width:35px;height:34px;margin:0;padding:0;border-radius:9px;font-size:0;background:#2d496c}
+.asset-generic-card .asset-settings-btn::before{content:'⚙';font-size:21px;display:grid;place-items:center;height:100%}
+.asset-bike-card{position:relative}.asset-bike-card .asset-settings-btn{position:absolute;right:8px;top:75px;width:35px;height:34px;margin:0;padding:0;font-size:0}
+.asset-bike-card .asset-settings-btn::before{content:'⚙';font-size:20px}
+.asset-footer{padding:14px 17px}.asset-import-btn{font-size:12px;padding:13px;border-radius:10px;background:#345674}
+.asset-settings-modal .deco-dialog{width:min(810px,96vw);background:#132139;color:#ecf5ff;border:1px solid #90a5be;border-radius:18px;box-shadow:0 25px 80px #020711d0}
+.asset-settings-modal .deco-head{padding:18px 20px;background:#132139;border-bottom:1px solid #3a506c;font-size:19px;color:#f1f6ff}
+.asset-settings-modal .deco-head small{font-size:11px;color:#b7cbe6!important}
+.asset-settings-modal .deco-head button{border:0;background:#17283f;font-size:18px}
+.asset-settings-modal .asset-settings-body{background:#132139;gap:20px;padding:19px}
+.asset-settings-modal .asset-settings-preview{background:#202f47;border-color:#3c5575;padding:5px}
+.asset-settings-modal .asset-settings-details{color:#e4f0fe;gap:13px;font-size:12px}
+.asset-settings-modal .asset-settings-details h3{font-size:17px;color:#f8ead2}
+.asset-settings-modal .asset-settings-details p{color:#afc1d9}
+.asset-settings-modal .asset-settings-path{background:#1c304c;color:#dfd1ae;font-size:11px}
+.asset-settings-modal .asset-settings-field{color:#ebf4ff;font-size:12px}
+.asset-settings-modal .asset-settings-field input{background:#203653;border-color:#6b83a4;color:#f8f6f0;font-size:14px}
+.asset-settings-modal .asset-settings-actions{background:#14243d;border-top-color:#3b5673}
+.asset-settings-modal .asset-settings-actions button{background:#253c5a;border-color:#536e8b;color:#e6f0ff}
+.asset-settings-modal .asset-settings-actions button.primary{background:#f0bf80;border-color:#f0bf80;color:#241d14}
+.asset-settings-modal .asset-settings-hint{color:#9eb6d3!important}
+.toolsbar{background:#f9f8f4;height:56px;padding:0 10px}.toolbtn{font-size:11px;padding:9px 8px;border-radius:9px}.toolbtn.active{background:#253c5b}
+.axislabel{font-size:11px;background:#f6f9fbec;border-color:#dce3ec;box-shadow:0 3px 12px #18283a22}
+.zoomctl{border-radius:16px;background:#14243ff0;color:#edf4ff;border-color:#5c7594;padding:7px;box-shadow:0 7px 22px #091e3d55}
+.zoomctl button{color:#f1f7fc;background:#2c476a;border:1px solid #507499}.zoomctl label{min-width:56px;color:#fff}
+.viewport{background:#e9d8ca}
+#renderQualityBtn{color:#205b72;border-color:#b9d0d9;background:#f0f8fa}#renderQualityBtn:hover{background:#dcebf2}
+@media(max-width:1650px){.topbar .maptitle{display:none}.brand{min-width:215px}.topbar .topright .btn{padding:8px 6px}}
+@media(max-width:1220px){.sidebar{width:310px;min-width:310px}.topbar{gap:7px;padding:0 9px}.topbar .library-switch button{min-width:80px;padding:10px 10px;font-size:11px}.topbar .topright .btn{font-size:10px}.brand{min-width:196px}}
+@media(max-width:900px){.sidebar{width:264px;min-width:264px}.topbar{height:62px}.topbar .topright{max-width:54vw;overflow:auto}.topbar .brand small{display:none}.brand{min-width:145px}.brand strong{font-size:12px}.topbar .library-switch button{padding:9px 5px;min-width:56px;font-size:10px}.asset-top{padding:12px}.asset-cards{padding:10px;gap:7px}.asset-generic-card{padding:6px}.asset-generic-card strong{font-size:11px}}
+@media(max-width:680px){.sidebar{width:176px;min-width:176px}.asset-category-pills{grid-template-columns:1fr 1fr;gap:4px}.asset-category-pills button{font-size:10px;padding:8px 2px}.asset-cards{grid-template-columns:1fr}.brand{min-width:80px}.brandmark{display:none}.topbar .topright{max-width:30vw}.topbar .topright .btn{white-space:nowrap}.topbar .library-switch button{min-width:52px}.asset-settings-modal .asset-settings-body{grid-template-columns:1fr}.toolsbar{overflow-x:auto}.toolgroup{flex:0 0 auto}}
+
+/* v27: shared Deco lighting panel, intentionally not part of the tile decorator */
+.asset-deco-light-button{display:block;width:100%;padding:11px 12px;border-radius:10px;border:1px solid #c58f47;background:#b87c2e;color:#fff5de;font-weight:750;cursor:pointer}
+.asset-deco-light-button[hidden]{display:none}
+.deco-light-dialog{width:min(1090px,96vw)}
+.deco-light-dialog .construction-mask-body{display:grid;grid-template-columns:minmax(400px,1.35fr) minmax(300px,.9fr);gap:12px;overflow:auto;max-height:calc(90vh - 70px)}
+.deco-light-dialog .mask-canvas-wrap{min-width:0;overflow:auto}
+.deco-light-dialog #decoLightCanvas{max-width:100%;height:auto;touch-action:none;cursor:crosshair;background:#162940;border-radius:8px}
+.deco-light-controls{min-width:0;overflow-y:auto}
+.deco-light-controls .deco-light-actions{display:grid;gap:7px;margin-top:15px}
+.deco-light-import{display:block;cursor:pointer;text-align:center}
+.deco-light-controls input[type=range]{width:100%}
+@media(max-width:800px){.deco-light-dialog .construction-mask-body{grid-template-columns:1fr;max-height:75vh}.deco-light-dialog .mask-canvas-wrap{max-height:420px}}
+
 </style>
 </head>
 <body>
 <div class="app">
-<header class="topbar"><div class="brand"><span class="brandmark">▦</span><div><small>THẤT NGHIỆP VỀ QUÊ</small><strong>WORLD MAP BUILDER</strong></div></div><div class="topdivider"></div><div class="maptitle"><span>Tên bản đồ</span><input id="mapName" class="nameinput" value="Thị trấn ven sông" spellcheck="false"/></div><div class="topright"><button class="btn" id="demoBtn">✦ Map mẫu</button><button class="btn" id="fullscreenBtn" title="Chỉ mở toàn màn hình mô phỏng, ẩn các bảng công cụ">⛶ Xem mô phỏng toàn màn hình</button><button class="btn" id="simToggle" title="Bật/tắt mô phỏng giao thông">▶ Mô phỏng xe</button><button class="btn filebtn" id="importBtn">↥ Import JSON<input id="fileImport" type="file" accept=".json,application/json" aria-label="Import JSON"/></button><button class="btn primary" id="exportBtn">↧ Export JSON</button></div></header>
+<header class="topbar"><div class="brand"><span class="brandmark">▦</span><div><small>THẤT NGHIỆP VỀ QUÊ</small><strong>WORLD MAP BUILDER</strong></div></div><div class="topdivider"></div><div class="library-switch" role="tablist" aria-label="Bảng bên trái"><button id="libraryMaterials" type="button" role="tab" aria-selected="true" class="active">▦ Vật liệu</button><button id="libraryAssets" type="button" role="tab" aria-selected="false">◈ Asset</button></div><div class="maptitle"><span>Tên bản đồ</span><input id="mapName" class="nameinput" value="Thị trấn ven sông" spellcheck="false"/></div><div class="topright"><button class="btn" id="demoBtn">✦ Map mẫu</button><button class="btn" id="fullscreenBtn" title="Chỉ mở toàn màn hình mô phỏng, ẩn các bảng công cụ">⛶ Xem mô phỏng toàn màn hình</button><button class="btn" id="simToggle" title="Bật/tắt mô phỏng giao thông">▶ Mô phỏng xe</button><button class="btn filebtn" id="importBtn">↥ Import JSON<input id="fileImport" type="file" accept=".json,application/json" aria-label="Import JSON"/></button><button class="btn primary" id="exportBtn">↧ Export JSON</button></div></header>
 <main class="body">
-<aside class="sidebar"><div class="library-switch" role="tablist" aria-label="Bảng bên trái"><button id="libraryMaterials" type="button" role="tab" aria-selected="true" class="active">▦ Vật liệu</button><button id="libraryAssets" type="button" role="tab" aria-selected="false">◈ Asset</button></div><div id="materialsView" class="sidebar-view"><div class="section-head"><span class="eyebrow">TILE LIBRARY / ROAD LEVEL <span id="levelTitle">4</span></span><div class="side-title">Bảng vật liệu</div><div class="side-desc">Chọn ô để tô hoặc kéo ảnh thả vào map. Mỗi ô logic <b>120 × 120 px</b>, mọi cấp đường.</div>
+<aside class="sidebar"><div id="materialsView" class="sidebar-view"><div class="section-head"><span class="eyebrow">TILE LIBRARY / ROAD LEVEL <span id="levelTitle">4</span></span><div class="side-title">Bảng vật liệu</div><div class="side-desc">Chọn ô để tô hoặc kéo ảnh thả vào map. Mỗi ô logic <b>120 × 120 px</b>, mọi cấp đường.</div>
 <div class="level-picker"><label for="materialLevel">Cấp độ vật liệu</label><select id="materialLevel"><option value="1">Level 1 · Đường đất</option><option value="2">Level 2 · Đường cát</option><option value="3">Level 3 · Đường đá</option><option value="4" selected>Level 4 · Đường nhựa</option><option value="5">Level 5 · Đường hiện đại</option></select><small id="levelHint">Đang hiển thị bộ sprite cấp 4.</small></div><div class="tabs"><button class="tab active" data-group="road">🛣 Đường bộ</button><button class="tab" data-group="river">🌊 Đường sông</button><button class="tab" data-group="sidewalk">▦ Vỉa hè</button><button class="tab" data-group="bridge">🌉 Cầu</button></div></div><div class="palette-head"><strong id="paletteTitle">Đường bộ</strong><span class="pill" id="tileCount">20 tile</span></div><div class="palette" id="palette"></div><div class="sidebottom"><div><b>Quy ước xab:</b> x = cấp đường - 1, ab = loại ô (00–12).</div><div>Roads được chia riêng <b>Level_1 ... Level_5</b>.</div></div></div>
 <div id="assetsView" class="sidebar-view" hidden>
  <div class="asset-top"><div class="eyebrow">ASSET / SPRITE LIBRARY</div><div class="side-title">Danh sách Asset</div><p class="side-desc">Tự quét thư mục và kiểm tra tên frame. Chỉ những Bike được tick mới có trong mô phỏng.</p>
- <div class="asset-category-pills" role="group" aria-label="Loại asset"><button data-asset-category="vehicles" class="chosen">🛵 Vehicles</button><button data-asset-category="pedestrians">🚶 Pedestrians</button><button data-asset-category="deco">🌳 Deco</button><button data-asset-category="roads">🛣 Roads</button><button data-asset-category="constructions">🏠 Buildings</button></div>
+ <div class="asset-category-pills" role="group" aria-label="Loại asset"><button data-asset-category="vehicles" class="chosen">🛵 Vehicles</button><button data-asset-category="pedestrians">🚶 Pedestrians</button><button data-asset-category="deco">🌳 Deco</button><button data-asset-category="roads">🛣 Roads</button><button data-asset-category="constructions">🏠 Buildings</button><button data-asset-category="interiors">🧱 Nội thất</button></div>
  <div class="asset-options"><label id="vehicleTypeWrap">Loại phương tiện<select id="assetVehicleType"><option value="bikes">Bikes</option><option value="cars">Ô tô 4+ bánh</option></select></label><label id="assetLevelWrap" hidden>Level<select id="assetLevel"><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4" selected>Level 4</option><option value="5">Level 5</option></select></label></div>
  <div id="assetBulkActions" class="asset-bulk"><button type="button" id="enableAllBikes">✓ Chọn tất cả</button><button type="button" id="disableAllBikes">✕ Bỏ chọn tất cả</button></div>
  <div id="assetCount" class="asset-count">Chưa tải registry</div>
  </div>
  <div id="assetCards" class="asset-cards"></div>
  <div id="assetErrors" class="asset-errors" hidden></div>
- <div class="asset-footer"><label class="asset-import-btn">📂 Quét thư mục Sprites<input id="scanAssetFolder" type="file" webkitdirectory directory multiple/></label><small>Chọn thư mục <code>Asset/Sprites</code>. Quét trực tiếp chỉ áp dụng trong phiên mở này; để lưu danh sách vào source, chạy <code>python scan_assets.py</code>.</small></div>
+ <div class="asset-footer"><button class="asset-settings-btn" id="assetSettingsExportFooter" type="button" style="margin:0 0 9px">⇩ Xuất cấu hình Sort Y</button><label class="asset-import-btn">📂 Quét thư mục Sprites<input id="scanAssetFolder" type="file" webkitdirectory directory multiple/></label><small>Chọn thư mục <code>Asset/Sprites</code>. Quét trực tiếp chỉ áp dụng trong phiên mở này; để lưu danh sách vào source, chạy <code>python scan_assets.py</code>.</small></div>
 </div></aside>
 <section class="workspace">
-<div class="toolsbar"><div class="toolgroup"><button class="toolbtn active" data-tool="paint" title="B: tô ô">✎ Vẽ <small>(B)</small></button><button class="toolbtn" data-tool="line" title="L: vẽ một đường thẳng liên tục">╱ Kẻ đường</button><button class="toolbtn" data-tool="erase" title="E: xóa ô">⌫ Xóa</button><button class="toolbtn" data-tool="pick" title="I: chọn sprite từ ô đang có">◉ Hút mẫu</button><button class="toolbtn" data-tool="pan" title="H hoặc Space: kéo bản đồ">✥ Di chuyển</button></div><div class="toolgroup"><button class="toolbtn" id="rotateBtn" title="R: xoay sprite đang chọn">↻ Xoay 90°</button><button class="toolbtn" id="undoBtn" title="Ctrl+Z">↶</button><button class="toolbtn" id="redoBtn" title="Ctrl+Y">↷</button><button class="toolbtn" id="gridBtn" title="G: bật/tắt lưới">▦ Lưới</button><button class="toolbtn sharp-on" id="sharpBtn" title="Pixel Sharp: không làm mờ sprite khi zoom">◈ Pixel Sharp</button></div></div>
-<div class="viewport" id="viewport"><canvas id="mapCanvas"></canvas><div id="sunHandle" class="sun-handle" tabindex="0" role="slider" aria-label="Kéo mặt trời để đổi hướng bóng" title="Kéo mặt trời để đổi hướng bóng, có thể dùng phím mũi tên">☀️</div><div id="simFullscreenHud" class="sim-fullscreen-hud" aria-label="Điều khiển mô phỏng toàn màn hình"><strong id="hudClock">☀ 08:00</strong><label><input type="checkbox" id="hudDayNightEnable"/> Ngày/đêm</label><input id="hudTime" type="range" min="0" max="1439" step="1" value="480" title="Kéo chọn thời gian trong ngày"/><select id="hudTimeSpeed" aria-label="Tốc độ thời gian"><option value="1" selected>×1</option><option value="60">×60</option><option value="360">×360</option><option value="1440">×1440</option></select><span class="hud-hint">Kéo map · Cuộn để zoom</span><button type="button" id="hudPause">⏸ Tạm dừng</button><button type="button" id="hudExit">✕ Thoát toàn màn hình</button></div><div id="mapWarning" class="map-warning" hidden>⚠ Kết nối sai <b id="mapWarnCount">0</b> ô · Sửa các ô đỏ trước khi mô phỏng</div><div class="axislabel" id="axisLabel">Lưới vô hạn · 120 × 120 px · (0, 0)</div><div class="canvas-help"><b>HƯỚNG DẪN NHANH</b><div>Chọn tile rồi <kbd>click</kbd> hoặc <kbd>kéo chuột</kbd> để vẽ.</div><div><kbd>Chuột phải</kbd> xóa · <kbd>Space + kéo</kbd> di chuyển · <kbd>Con lăn</kbd> zoom.</div><div><kbd>Kéo ô 300</kbd> tự nối đường dọc/ngang và rẽ góc · <kbd>Shift + kéo</kbd> tô chữ nhật.</div><div>Click ô đất xây dựng hoặc công trình để mở bảng thiết lập House; <kbd>R</kbd> xoay · <kbd>Ctrl+Z</kbd> hoàn tác.</div></div><div class="zoomctl"><button id="zoomOut" title="Thu nhỏ">−</button><label id="zoomLabel">100%</label><button id="zoomIn" title="Phóng to">+</button><button id="fitBtn" title="Canh vừa map" style="font-size:12px">⌗</button></div><div class="toast" id="toast"></div></div>
+<div class="toolsbar"><div class="toolgroup"><button class="toolbtn active" data-tool="paint" title="B: tô ô">✎ Vẽ <small>(B)</small></button><button class="toolbtn" data-tool="line" title="L: vẽ một đường thẳng liên tục">╱ Kẻ đường</button><button class="toolbtn" data-tool="erase" title="E: xóa ô">⌫ Xóa</button><button class="toolbtn" data-tool="pick" title="I: chọn sprite từ ô đang có">◉ Hút mẫu</button><button class="toolbtn" data-tool="decorate" title="D: mở Trang trí cho bất kỳ ô đã đặt">🌳 Trang trí</button><button class="toolbtn" data-tool="pan" title="H hoặc Space: kéo bản đồ">✥ Di chuyển</button></div><div class="toolgroup"><button class="toolbtn" id="rotateBtn" title="R: xoay sprite đang chọn">↻ Xoay 90°</button><button class="toolbtn" id="undoBtn" title="Ctrl+Z">↶</button><button class="toolbtn" id="redoBtn" title="Ctrl+Y">↷</button><button class="toolbtn" id="gridBtn" title="G: bật/tắt lưới">▦ Lưới</button><button class="toolbtn" id="sharpBtn" title="Chọn kiểu lọc ảnh">◈ Smooth</button><button class="toolbtn" id="renderQualityBtn" type="button" title="Chất lượng Canvas; đổi Eco / Auto / Ultra">◉ HQ Auto</button></div></div>
+<div class="viewport" id="viewport"><canvas id="mapCanvas"></canvas><div id="sunHandle" class="sun-handle" tabindex="0" role="slider" aria-label="Kéo mặt trời để đổi hướng bóng" title="Kéo mặt trời để đổi hướng bóng, có thể dùng phím mũi tên">☀️</div><div id="simFullscreenHud" class="sim-fullscreen-hud" aria-label="Điều khiển mô phỏng toàn màn hình"><strong id="hudClock">☀ 08:00</strong><label><input type="checkbox" id="hudDayNightEnable"/> Ngày/đêm</label><input id="hudTime" type="range" min="0" max="1439" step="1" value="480" title="Kéo chọn thời gian trong ngày"/><select id="hudTimeSpeed" aria-label="Tốc độ thời gian"><option value="1" selected>×1</option><option value="60">×60</option><option value="360">×360</option><option value="1440">×1440</option></select><span class="hud-hint">Kéo map · Cuộn để zoom</span><button type="button" id="hudPause">⏸ Tạm dừng</button><button type="button" id="hudExit">✕ Thoát toàn màn hình</button></div><div id="mapWarning" class="map-warning" hidden>⚠ Kết nối sai <b id="mapWarnCount">0</b> ô · Sửa các ô đỏ trước khi mô phỏng</div><div class="axislabel" id="axisLabel">Lưới vô hạn · 120 × 120 px · (0, 0)</div><div class="canvas-help"><b>HƯỚNG DẪN NHANH</b><div>Chọn tile rồi <kbd>click</kbd> hoặc <kbd>kéo chuột</kbd> để vẽ.</div><div><kbd>Chuột phải</kbd> xóa · <kbd>Space + kéo</kbd> di chuyển · <kbd>Con lăn</kbd> zoom.</div><div><kbd>Kéo ô 300</kbd> tự nối đường dọc/ngang và rẽ góc · <kbd>Shift + kéo</kbd> tô chữ nhật.</div><div>Click ô công trình để chọn Trang trí/Thiết lập; công cụ 🌳 Trang trí dùng cho mọi ô; <kbd>R</kbd> xoay · <kbd>Ctrl+Z</kbd> hoàn tác.</div></div><div class="zoomctl"><button id="zoomOut" title="Thu nhỏ">−</button><label id="zoomLabel">100%</label><button id="zoomIn" title="Phóng to">+</button><button id="fitBtn" title="Canh vừa map" style="font-size:12px">⌗</button></div><div class="toast" id="toast"></div></div>
 <div class="status"><span id="coordText">Tọa độ ô: (0, 0)</span><span id="statusCount">0 ô đã đặt</span><span id="saveStatus">Chưa có dữ liệu</span></div>
 </section>
 <aside class="inspector"><div class="map-edit-inspector"><div class="ins-head"><span class="eyebrow">INSPECTOR</span><h2>Chi tiết bản đồ</h2><p>Cấp 4 dùng bộ ảnh gốc do mày cung cấp. Những cấp khác có thể thêm vào sau mà không cần đổi cấu trúc JSON.</p></div>
@@ -164,6 +276,7 @@
       <div class="sim-field"><label for="simShadowLength">Chiều dài <output id="simShadowLengthNum">115%</output></label><input id="simShadowLength" type="range" min="20" max="230" value="115" step="5"/></div>
       <div class="sim-field"><label for="simShadowPivot">Pivot từ đáy <output id="simShadowPivotNum">28%</output></label><input id="simShadowPivot" type="range" min="0" max="65" value="28"/></div>
       <div class="sim-field"><label for="simShadowInset">Dịch chân bóng <output id="simShadowInsetNum">12%</output></label><input id="simShadowInset" type="range" min="0" max="45" value="12"/></div>
+      <p class="sim-mini">Pivot từ đáy: điểm gập hình chiếu bóng. Dịch chân bóng: di chuyển điểm tiếp đất lên trên; tác dụng với Nhà, Deco, xe, người đi bộ, cột đèn và cầu.</p>
       <label class="sim-check"><input id="simShadowDebug" type="checkbox"/> Hiện điểm bám bóng</label>
       <button id="simSunReset" type="button" class="sim-action muted" style="width:100%">☀️ Đặt lại mặt trời</button>
     </div></details>
@@ -197,17 +310,63 @@
     <div class="mask-fields"><label>X tâm<input id="houseLightX" type="number" step="1"/></label><label>Y tâm<input id="houseLightY" type="number" step="1"/></label>
     <label id="houseLightWLabel">Rộng<input id="houseLightW" type="number" min="2" step="1"/></label><label id="houseLightHLabel">Cao<input id="houseLightH" type="number" min="2" step="1"/></label></div>
     <label>Chọn màu ánh sáng<input type="color" id="houseLightColor" value="#ffd38c"/></label>
-    <label class="light-intensity">Độ sáng tối đa khi đêm tối <span id="houseLightIntensityOut">65%</span><input id="houseLightIntensity" type="range" min="0" max="100" value="65"/></label>
+    <label class="light-intensity">Cường độ đèn ban đêm (tối đa 300%) <span id="houseLightIntensityOut">65%</span><input id="houseLightIntensity" type="range" min="0" max="300" value="65" step="5"/></label>
     <button class="btn danger" type="button" id="removeHouseLight">🗑 Xóa vị trí sáng đang chọn</button>
    </div>
    <button class="btn primary" id="saveHouseLights" type="button">✓ Lưu ánh sáng cho House</button><p class="asset-hint">Không giới hạn số đèn. Kéo đèn trên ảnh để đổi vị trí; kéo góc để chỉnh kích thước. Nguồn sáng được lưu theo House trong houses.json.</p>
   </div>
  </div></div></div></div>
+
+
+<div id="decoLightModal" class="construction-overlay" hidden role="dialog" aria-modal="true" aria-label="Thiết lập ánh sáng Deco dùng chung">
+ <div class="construction-dialog mask-dialog deco-light-dialog">
+  <div class="construction-modal-header"><div><b>☀ Ánh sáng đêm · Deco</b><small id="decoLightTitle">Cấu hình chung theo file asset, không theo ô</small></div><button id="decoLightClose" type="button" aria-label="Đóng">✕</button></div>
+  <div class="construction-mask-body">
+   <div class="mask-canvas-wrap"><canvas id="decoLightCanvas" width="580" height="490" tabindex="0" aria-label="Kéo đèn để di chuyển và kéo tay nắm để đổi kích thước"></canvas><p style="margin:7px 6px;color:#66778b;font-size:12px">Kéo chấm tâm để di chuyển. Kéo nút ở viền để thay đổi kích thước vùng sáng.</p></div>
+   <div class="mask-right deco-light-controls">
+    <label class="light-preview-check"><input id="decoLightNightPreview" type="checkbox" checked/> Xem trước vào ban đêm</label>
+    <div class="light-add-row"><button id="decoLightAddCircle" type="button" class="btn">＋ Đèn tròn</button><button id="decoLightAddRect" type="button" class="btn">＋ Đèn chữ nhật</button></div>
+    <label>Danh sách đèn của asset<select id="decoLightList" size="4" aria-label="Nguồn sáng Deco"></select></label>
+    <div id="decoLightFields" hidden>
+     <label>Hình dạng<select id="decoLightShape"><option value="circle">Tròn</option><option value="rect">Chữ nhật</option></select></label>
+     <div class="mask-fields"><label>Tâm X (px)<input id="decoLightX" type="number" step="1"/></label><label>Tâm Y (px)<input id="decoLightY" type="number" step="1"/></label><label id="decoLightWLabel">Bán kính (px)<input id="decoLightW" type="number" min="3" step="1"/></label><label id="decoLightHLabel">Cao (px)<input id="decoLightH" type="number" min="3" step="1"/></label></div>
+     <label>Màu ánh sáng<input id="decoLightColor" type="color" value="#ffd38c"/></label>
+     <label class="light-intensity">Cường độ (0–300%) <span id="decoLightIntensityOut">100%</span><input id="decoLightIntensity" type="range" min="0" max="300" value="100" step="5"/></label>
+     <button id="decoLightRemove" type="button" class="btn danger">🗑 Xóa nguồn sáng được chọn</button>
+    </div>
+    <div class="deco-light-actions"><button id="decoLightSave" class="btn primary" type="button">✓ Lưu ánh sáng Deco</button><button id="decoLightExport" class="btn" type="button">⇩ Xuất deco_lights.json</button><label class="btn deco-light-import">⇧ Nhập JSON<input id="decoLightImport" type="file" accept=".json,application/json" hidden/></label></div>
+    <p class="asset-hint">Cấu hình áp dụng cho tất cả Deco cùng loại. Sau khi xuất JSON, đặt vào <code>Asset/Sprites/deco_lights.json</code> rồi chạy <code>python scan_assets.py</code> và <code>python build_standalone.py</code>.</p>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div id="tileActionModal" class="deco-modal" hidden><div class="deco-dialog" style="width:min(430px,94vw)"><div class="deco-head"><div><b>Chọn thao tác cho ô</b><small id="tileActionLocation" style="display:block;color:#c5d5e8"></small></div><button id="closeTileActions">✕</button></div><div class="tile-action-buttons"><button class="primary" id="tileActionDeco">🌳 Trang trí</button><button id="tileActionBuilding">🏠 Thiết lập công trình</button></div></div></div>
+<div id="decoModal" class="deco-modal" hidden><div class="deco-dialog"><div class="deco-head"><div><b>🌳 Trang trí theo ô</b><small id="decoLocation" style="display:block;color:#b9c9d8;font-weight:400">Tile</small></div><button id="decoClose">✕</button></div><div class="deco-body"><div class="deco-panel"><label>Nhóm asset (theo tên folder)<select id="decoGroup"></select></label><div id="decoSpriteList" class="deco-sprites"></div><p class="deco-hint">Thêm ảnh PNG tại <code>Asset/Sprites/Deco/Trees/</code>, <code>TrashBins/</code>... rồi chạy scan_assets.py hoặc Quét thư mục Sprites. Không phân theo Level.</p></div><div class="deco-stage"><canvas id="decoCanvas" width="560" height="560"></canvas></div><div class="deco-panel"><b>Đối tượng đang chọn</b><label>Danh sách Deco trong ô<select id="decoObjectList" size="5"></select></label><div class="deco-fieldgrid"><label>X so với tâm ô<input id="decoX" type="number" step="1"/></label><label>Y so với tâm ô<input id="decoY" type="number" step="1"/></label><label>Rộng (px)<input id="decoWidth" type="number" min="2" step="1"/></label><label>Cao (px)<input id="decoHeight" type="number" min="2" step="1"/></label></div><label>Góc xoay<select id="decoRotation"><option value="0">0°</option><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select></label><button id="decoRemove">🗑 Xóa object</button><button id="decoDuplicate">⧉ Nhân đôi object</button><p class="deco-hint">Kéo hình để đặt vị trí, kéo góc phải dưới để đổi kích thước. Nhập chiều rộng hoặc cao sẽ tự khóa tỷ lệ gốc. 6 đường căn: tâm X, tâm Y và 4 cạnh của ô.</p></div></div><div class="deco-actions"><button class="primary" id="decoSave">✓ Lưu trang trí ô</button><button id="decoCancel">Hủy</button><button id="decoCopy">⧉ Copy trang trí</button><button id="decoPaste">📋 Paste trang trí</button><span style="flex:1"></span><button id="decoExport">⇩ Xuất decorations.json</button><label class="deco-import">⇧ Nhập decorations.json<input id="decoImport" type="file" accept=".json,application/json" hidden/></label></div></div></div>
+
+<div id="assetSettingsModal" class="deco-modal asset-settings-modal" hidden aria-label="Cài đặt chung cho asset" role="dialog" aria-modal="true">
+ <div class="deco-dialog">
+  <div class="deco-head"><div><b>⚙ Cài đặt Asset dùng chung</b><small id="assetSettingsTitle" style="display:block;color:#cbd8e7;font-weight:400;margin-top:4px"></small></div><button id="assetSettingsClose" type="button" aria-label="Đóng">✕</button></div>
+  <div class="asset-settings-body">
+   <div class="asset-settings-preview"><canvas id="assetSortCanvas" width="480" height="440" tabindex="0" aria-label="Kéo chấm vàng theo chiều dọc để chọn Sort Y"></canvas></div>
+   <div class="asset-settings-details">
+    <h3>📍 Điểm tính Sort Layer</h3>
+    <div id="assetSettingsPath" class="asset-settings-path"></div>
+    <p id="assetSettingsHelp">Kéo điểm vàng lên hoặc xuống trực tiếp trên hình. Trục X được khóa tại giữa ảnh (X = 0), chỉ Y ảnh hưởng thứ tự che khuất.</p>
+    <label class="asset-settings-field" for="assetSortYInput">Sort Y (%) · Từ đỉnh ảnh (0) đến đáy ảnh (100)<input id="assetSortYInput" type="number" min="0" max="100" step="0.1" value="100"/></label>
+    <button id="assetOpenDecoLights" type="button" class="asset-deco-light-button" hidden>☀ Cài đặt ánh sáng cho Deco này</button>
+    <p id="assetSettingsEffect" class="asset-settings-hint">Cài đặt này áp dụng cho tất cả object dùng chung asset, không riêng ô đang chọn.</p>
+    <p class="asset-settings-hint">Sau khi áp dụng, phần mềm tự lưu giá trị trong trình duyệt. Để đưa vào source và dùng ở máy khác, xuất <code>asset_sort_y.json</code> rồi chép vào thư mục <code>Asset/Sprites</code>.</p>
+   </div>
+  </div>
+  <div class="asset-settings-actions"><button id="assetSortReset" type="button">↺ Mặc định</button><button id="assetSortExport" type="button">⇩ Xuất cấu hình chung</button><button id="assetSortApply" class="primary" type="button">✓ Áp dụng cho asset</button></div>
+ </div>
+</div>
 <script src="asset_manifest.js"></script>
 <script>
 'use strict';
 // Asset paths below are replaced with data URIs for the standalone HTML build.
-let ASSET_MANIFEST=window.__ASSET_MANIFEST__||{version:1,vehicles:{bikes:[],cars:[]},pedestrians:[],invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{}};
+let ASSET_MANIFEST=window.__ASSET_MANIFEST__||{version:1,vehicles:{bikes:[],cars:[]},pedestrians:[],invalidBikes:[],roads:{},deco:{},decoGroups:{},constructions:{},trafficLights:{}};
 let assetCategory='vehicles',assetVehicleType='bikes',assetLevel=4,assetPreviewIndex=0,blobAssetURLs=[];
 const TILE_SOURCES={};
 function applyTileSources(){for(const key of Object.keys(TILE_SOURCES))delete TILE_SOURCES[key];for(const files of Object.values(ASSET_MANIFEST.roads||{}))for(const tile of files){if(tile.code&&tile.path)TILE_SOURCES[tile.code]=tile.path}if(TILE_SOURCES['305'])TILE_SOURCES['314']=TILE_SOURCES['305']}
@@ -239,7 +398,7 @@ const META_MAP=Object.fromEntries(META.map(e=>[e[0],{name:e[1],group:e[2]}]));
 const GROUP_LABEL={road:'Đường bộ',river:'Đường sông',sidewalk:'Vỉa hè',bridge:'Cầu qua sông'};
 const $=id=>document.getElementById(id);
 const viewport=$('viewport'),canvas=$('mapCanvas'),ctx=canvas.getContext('2d',{alpha:false});
-let materialLevel=4,sharpPixels=true,sceneObjects=[];
+let materialLevel=4,sharpPixels=false,sceneObjects=[];
 let generatedBounds=null,map=new Map(),activeGroup='road',selectedCode='300',selectedRotation=0,tool='paint',showGrid=true,zoom=1,cam={x:0,y:0},vw=1,vh=1,dpr=1;
 let hovering=null,pointerState=null,pressedSpace=false,lastSave=0,updatePending=false,history=[],future=[],drawQueued=false;
 const tileImages={};let loaded=0;
@@ -265,11 +424,11 @@ function drawTile(tile,x,y,alpha=1){
 }
 function draw(){if(vw<1||vh<1)return;if(typeof placeSun==='function')placeSun();ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=!sharpPixels;ctx.imageSmoothingQuality='high';ctx.fillStyle='#e8dac7';ctx.fillRect(0,0,vw,vh);const halfW=vw/(2*zoom),halfH=vh/(2*zoom),xmin=Math.floor((cam.x-halfW)/TS)-1,xmax=Math.ceil((cam.x+halfW)/TS)+1,ymin=Math.floor((cam.y-halfH)/TS)-1,ymax=Math.ceil((cam.y+halfH)/TS)+1;for(let y=ymin;y<=ymax;y++)for(let x=xmin;x<=xmax;x++){const t=map.get(key(x,y));if(t)drawTile(t,x,y)}
 if(showGrid){ctx.strokeStyle='rgba(69,67,57,.21)';ctx.lineWidth=1;ctx.beginPath();for(let x=xmin;x<=xmax+1;x++){let sx=toScreen(x*TS,0).x+0.5;ctx.moveTo(sx,0);ctx.lineTo(sx,vh)}for(let y=ymin;y<=ymax+1;y++){let sy=toScreen(0,y*TS).y+0.5;ctx.moveTo(0,sy);ctx.lineTo(vw,sy)}ctx.stroke();const origin=toScreen(0,0);ctx.strokeStyle='rgba(207,124,55,.5)';ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(origin.x,0);ctx.lineTo(origin.x,vh);ctx.moveTo(0,origin.y);ctx.lineTo(vw,origin.y);ctx.stroke();ctx.setLineDash([])}
-if(!simMode&&typeof drawConstructionObjectsOnly==='function')drawConstructionObjectsOnly();
+if(!simMode&&typeof drawStaticWorldObjects==='function')drawStaticWorldObjects();else if(!simMode&&typeof drawConstructionObjectsOnly==='function')drawConstructionObjectsOnly();
 if(simMode){
- if(simConfig.shadows&&daylightFactor()>.001)drawBridgeShadows(xmin,xmax,ymin,ymax);
+ if(simConfig.shadows&&shadowNightFactor()>.001)drawBridgeShadows(xmin,xmax,ymin,ymax);
  if(simShowNetwork)drawTrafficNetwork();renderWorldObjects();
- if(dayNight.enabled){drawDayNightLight();if(typeof drawConstructionNightLights==='function')drawConstructionNightLights()}drawWeather();
+ if(dayNight.enabled){drawDayNightLight();if(typeof drawConstructionNightLights==='function')drawConstructionNightLights();if(typeof drawDecoNightLights==='function')drawDecoNightLights()}drawWeather();
 }drawValidationOverlay();
 if(pointerState&&pointerState.kind==='rect'){for(const c of rectCells(pointerState.start,pointerState.last))previewCell(c)}
 if(pointerState&&pointerState.kind==='line'){for(const c of bresenham(pointerState.start.x,pointerState.start.y,pointerState.last.x,pointerState.last.y))previewCell(c)}else if(hovering&&tool!=='pan'&&!pointerState?.pan&&!pointerState?.autoRoad){previewCell(hovering)}}
@@ -288,12 +447,47 @@ function drawBridgeShadows(xmin,xmax,ymin,ymax){
 }
 function rectCells(a,b){let r=[];const x0=Math.min(a.x,b.x),x1=Math.max(a.x,b.x),y0=Math.min(a.y,b.y),y1=Math.max(a.y,b.y);if((x1-x0+1)*(y1-y0+1)>16000)return r;for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)r.push({x,y});return r}
 function previewCell(c){const p=toScreen(c.x*TS,c.y*TS),size=TS*zoom;if(tool==='paint'||tool==='line')drawTile({code:selectedCode,rotation:selectedRotation},c.x,c.y,.47);ctx.save();ctx.strokeStyle=tool==='erase'?'#db5c42':'#c38942';ctx.lineWidth=2;ctx.strokeRect(p.x+1,p.y+1,size-2,size-2);ctx.restore()}
-function resize(){const b=viewport.getBoundingClientRect();vw=Math.max(1,b.width);vh=Math.max(1,b.height);dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(vw*dpr);canvas.height=Math.round(vh*dpr);if(typeof placeSun==='function')placeSun();if(typeof resetWeatherParticles==='function')resetWeatherParticles();requestDraw()}
+// v26: WORLD-CAMERA RENDERING + HIGH-DPI CANVAS.
+// Camera/world-to-screen calculations stay in CSS logical px; backing store scales by dpr.
+// No CSS transform/zoom scales an already rendered bitmap. Every zoom redraws source sprites.
+// This improves display sharpness but cannot invent pixels missing from a 95x95 source.
+const RENDER_QUALITY_KEY='tnvq_render_quality_v26';
+const RENDER_QUALITY_CAP={eco:1,auto:2,ultra:3};
+let renderQuality='auto';
+try{const q=localStorage.getItem(RENDER_QUALITY_KEY);if(Object.hasOwn(RENDER_QUALITY_CAP,q))renderQuality=q}catch(e){}
+function currentBackingDPR(width,height,deviceDPR=window.devicePixelRatio||1,mode=renderQuality){
+ const maxDpr=Math.min(3,Math.max(1,RENDER_QUALITY_CAP[mode]||2));
+ // 12MP / max 8192 dimension stops giant canvas allocations on 4k+ monitors.
+ const memoryBudget=Math.sqrt(12000000/Math.max(1,width*height));
+ const dimensionBudget=8192/Math.max(1,width,height);
+ return Math.max(0.5,Math.min(deviceDPR,maxDpr,memoryBudget,dimensionBudget));
+}
+function syncRenderQualityUI(){
+ const button=$('renderQualityBtn');if(!button)return;
+ button.textContent=renderQuality==='eco'?'◉ HQ Eco':renderQuality==='ultra'?'◉ HQ Ultra':'◉ HQ Auto';
+ button.title=`DPR render: ${dpr.toFixed(2)}×. Eco = 1×, Auto = 2×, Ultra = 3× (nếu thiết bị hỗ trợ).`;
+}
+function resize(){
+ const b=viewport.getBoundingClientRect();
+ const width=Math.max(1,b.width),height=Math.max(1,b.height);
+ const nextDPR=currentBackingDPR(width,height);
+ const pixelW=Math.max(1,Math.round(width*nextDPR)),pixelH=Math.max(1,Math.round(height*nextDPR));
+ const changed=canvas.width!==pixelW||canvas.height!==pixelH;
+ vw=width;vh=height;dpr=nextDPR;
+ // Reallocation only when dimensions actually changed. Prevent per-frame GPU churn.
+ if(changed){canvas.width=pixelW;canvas.height=pixelH;if(typeof resetWeatherParticles==='function')resetWeatherParticles()}
+ if(typeof placeSun==='function')placeSun();syncRenderQualityUI();requestDraw();
+}
+$('renderQualityBtn').onclick=()=>{
+ renderQuality=renderQuality==='auto'?'ultra':renderQuality==='ultra'?'eco':'auto';
+ try{localStorage.setItem(RENDER_QUALITY_KEY,renderQuality)}catch(e){}
+ resize();notify('Render '+renderQuality.toUpperCase()+' · DPR '+dpr.toFixed(2)+'×');
+};
 new ResizeObserver(resize).observe(viewport);
-function addChange(stroke,x,y,value){if(!Number.isInteger(x)||!Number.isInteger(y))return;const k=key(x,y),old=map.get(k);if(typeof constructionObjects!=='undefined'&&constructionObjects.has(k))return;if(!stroke.changes.has(k))stroke.changes.set(k,{key:k,before:clone(old),after:null});let t=value?clone(value):null;if(t&&t.code==='313')t={code:'305',rotation:0,landType:1};if(t&&t.code==='314')t={code:'305',rotation:0,landType:2};if(t&&t.code==='305'&&t.landType===undefined)t.landType=0;validationDirty=true;const c=stroke.changes.get(k);c.after=clone(t);if(t)map.set(k,t);else map.delete(k);requestDraw()}
+function addChange(stroke,x,y,value){if(!Number.isInteger(x)||!Number.isInteger(y))return;const k=key(x,y),old=map.get(k);if(typeof constructionObjects!=='undefined'&&constructionObjects.has(k))return;if(!stroke.changes.has(k))stroke.changes.set(k,{key:k,before:clone(old),after:null,decoBefore:typeof decorationsAt==='function'?decorationsAt(k):[],decoAfter:[]});let t=value?clone(value):null;if(t&&t.code==='313')t={code:'305',rotation:0,landType:1};if(t&&t.code==='314')t={code:'305',rotation:0,landType:2};if(t&&t.code==='305'&&t.landType===undefined)t.landType=0;validationDirty=true;const c=stroke.changes.get(k);c.after=clone(t);if(t)map.set(k,t);else{map.delete(k);if(typeof dropDecorationsAt==='function')dropDecorationsAt(k)}c.decoAfter=typeof decorationsAt==='function'?decorationsAt(k):[];requestDraw()}
 function beginStroke(){return {type:'stroke',changes:new Map()}}
 function recordStroke(st){const arr=[...st.changes.values()].filter(c=>JSON.stringify(c.before)!==JSON.stringify(c.after));if(!arr.length)return;history.push({type:'stroke',changes:arr});if(history.length>80)history.shift();future=[];updateStats();saveSoon()}
-function saveSoon(){clearTimeout(saveSoon.timer);saveSoon.timer=setTimeout(()=>{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(serializeMap()));if(typeof saveConstructionLocal==='function')saveConstructionLocal();$('saveStatus').textContent='Đã lưu tạm trong trình duyệt';}catch(e){$('saveStatus').textContent='Không lưu tạm được'}} ,320)}
+function saveSoon(){clearTimeout(saveSoon.timer);saveSoon.timer=setTimeout(()=>{try{localStorage.setItem(STORAGE_KEY,JSON.stringify(serializeMap()));if(typeof saveConstructionLocal==='function')saveConstructionLocal();if(typeof saveDecorationsLocal==='function')saveDecorationsLocal();$('saveStatus').textContent='Đã lưu tạm trong trình duyệt';}catch(e){$('saveStatus').textContent='Không lưu tạm được'}} ,320)}
 function performStroke(st,c,erase=false){if(!erase&&(!selectedCode||!TILE_SOURCES[selectedCode]))return;addChange(st,c.x,c.y,erase?null:{code:selectedCode,rotation:selectedRotation,landType:selectedCode==='313'?1:selectedCode==='314'?2:0})}
 function bresenham(x0,y0,x1,y1){const result=[];let dx=Math.abs(x1-x0),sx=x0<x1?1:-1,dy=-Math.abs(y1-y0),sy=y0<y1?1:-1,err=dx+dy;while(true){result.push({x:x0,y:y0});if(x0===x1&&y0===y1)break;let e2=err*2;if(e2>=dy){err+=dy;x0+=sx}if(e2<=dx){err+=dx;y0+=sy}if(result.length>100000)break}return result}
 function paintSegment(st,a,b,erase){for(const c of bresenham(a.x,a.y,b.x,b.y))performStroke(st,c,erase)}
@@ -326,20 +520,22 @@ function orthogonalSteps(from,to){const steps=[];let a={...from};let dx=to.x-a.x
  return steps;}
 
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-canvas.addEventListener('pointerdown',e=>{if(e.button!==0&&e.button!==1&&e.button!==2)return;e.preventDefault();const p=position(e),c=cellAt(p);hovering=c;const isPan=tool==='pan'||pressedSpace||e.button===1;if(!simMode&&!isPan&&!e.shiftKey&&e.button===0&&typeof tryOpenConstructionAt==='function'&&tryOpenConstructionAt(p,c))return;canvas.setPointerCapture(e.pointerId);if(isPan){pointerState={kind:'pan',start:p,last:p,camera:{...cam},pan:true};viewport.classList.add('panning')}else if(tool==='pick'&&e.button!==2){const t=map.get(key(c.x,c.y));if(t){selectTile(t.code,t.rotation);setTool('paint');notify(`Đã hút mẫu ${t.code}`)}pointerState=null}else if(e.shiftKey&&e.button!==2&&(tool==='paint'||tool==='erase')){pointerState={kind:'rect',start:c,last:c,erase:tool==='erase',stroke:beginStroke()}}else if(tool==='line'&&e.button!==2){pointerState={kind:'line',start:c,last:c,stroke:beginStroke()}}else{const erase=e.button===2||tool==='erase';const autoRoad=!erase&&tool==='paint'&&selectedCode==='300'&&materialLevel===4;pointerState={kind:'stroke',last:c,stroke:beginStroke(),erase,autoRoad,path:[]};if(autoRoad)drawRoadPathPoint(pointerState,c);else performStroke(pointerState.stroke,c,erase)}requestDraw()});
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0&&e.button!==1&&e.button!==2)return;e.preventDefault();const p=position(e),c=cellAt(p);hovering=c;const isPan=tool==='pan'||pressedSpace||e.button===1;if(!simMode&&!isPan&&!e.shiftKey&&e.button===0&&((tool==='decorate'&&typeof openDecoEditorForTile==='function'&&openDecoEditorForTile(c))||(typeof tryOpenConstructionAt==='function'&&tryOpenConstructionAt(p,c))))return;canvas.setPointerCapture(e.pointerId);if(isPan){pointerState={kind:'pan',start:p,last:p,camera:{...cam},pan:true};viewport.classList.add('panning')}else if(tool==='pick'&&e.button!==2){const t=map.get(key(c.x,c.y));if(t){selectTile(t.code,t.rotation);setTool('paint');notify(`Đã hút mẫu ${t.code}`)}pointerState=null}else if(e.shiftKey&&e.button!==2&&(tool==='paint'||tool==='erase')){pointerState={kind:'rect',start:c,last:c,erase:tool==='erase',stroke:beginStroke()}}else if(tool==='line'&&e.button!==2){pointerState={kind:'line',start:c,last:c,stroke:beginStroke()}}else{const erase=e.button===2||tool==='erase';const autoRoad=!erase&&tool==='paint'&&selectedCode==='300'&&materialLevel===4;pointerState={kind:'stroke',last:c,stroke:beginStroke(),erase,autoRoad,path:[]};if(autoRoad)drawRoadPathPoint(pointerState,c);else performStroke(pointerState.stroke,c,erase)}requestDraw()});
 canvas.addEventListener('pointermove',e=>{const p=position(e),c=cellAt(p);hovering=c;updateHover();if(pointerState){if(pointerState.kind==='pan'){cam.x=pointerState.camera.x-(p.x-pointerState.start.x)/zoom;cam.y=pointerState.camera.y-(p.y-pointerState.start.y)/zoom}else if(pointerState.kind==='line'||pointerState.kind==='rect'){pointerState.last=c}else if(pointerState.kind==='stroke'){if(pointerState.autoRoad){for(const p2 of orthogonalSteps(pointerState.last,c))drawRoadPathPoint(pointerState,p2)}else paintSegment(pointerState.stroke,pointerState.last,c,pointerState.erase);pointerState.last=c}}requestDraw()});
 function endPointer(){if(!pointerState)return;if(pointerState.kind==='stroke')recordStroke(pointerState.stroke);if(pointerState.kind==='line'){const s=pointerState;paintSegment(s.stroke,s.start,s.last,false);recordStroke(s.stroke)}if(pointerState.kind==='rect'){const s=pointerState;for(const c of rectCells(s.start,s.last))performStroke(s.stroke,c,s.erase);recordStroke(s.stroke)}pointerState=null;viewport.classList.remove('panning');requestDraw()}
 canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('pointerleave',()=>{if(!pointerState){hovering=null;requestDraw()}});
 canvas.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});
 canvas.addEventListener('drop',e=>{e.preventDefault();try{const d=JSON.parse(e.dataTransfer.getData('application/x-map-tile'));if(!META_MAP[d.code])throw new Error();selectTile(d.code,safeRotation(d.rotation));const c=cellAt(position(e)),st=beginStroke();addChange(st,c.x,c.y,{code:d.code,rotation:d.rotation,landType:d.code==='313'?1:d.code==='314'?2:0});recordStroke(st);notify(`Đã đặt ô ${d.code} tại (${c.x}, ${c.y})`)}catch(err){notify('Không đọc được sprite kéo thả')}requestDraw()});
 canvas.addEventListener('wheel',e=>{e.preventDefault();zoomTo(zoom*Math.exp(-e.deltaY*.0012),position(e))},{passive:false});
-function zoomTo(n,p={x:vw/2,y:vh/2}){n=Math.max(.25,Math.min(5,n));const wx=(p.x-vw/2)/zoom+cam.x,wy=(p.y-vh/2)/zoom+cam.y;zoom=n;cam.x=wx-(p.x-vw/2)/zoom;cam.y=wy-(p.y-vh/2)/zoom;$('zoomLabel').textContent=Math.round(zoom*100)+'%';requestDraw()}
+function zoomTo(n,p={x:vw/2,y:vh/2}){n=Math.max(.25,Math.min(5,n));const wx=(p.x-vw/2)/zoom+cam.x,wy=(p.y-vh/2)/zoom+cam.y;zoom=n;cam.x=wx-(p.x-vw/2)/zoom;cam.y=wy-(p.y-vh/2)/zoom;$('zoomLabel').textContent=Math.round(zoom*100)+'%';$('zoomLabel').title='Camera zoom, vẽ lại từ texture gốc';requestDraw()}
 $('zoomOut').onclick=()=>zoomTo(zoom/1.25);$('zoomIn').onclick=()=>zoomTo(zoom*1.25);$('fitBtn').onclick=fitMap;
-function fitMap(){if(!map.size){cam={x:0,y:0};zoom=1}else{const b=extent();cam.x=(b.minX+b.maxX+1)*TS/2;cam.y=(b.minY+b.maxY+1)*TS/2;zoom=Math.max(.25,Math.min(2,Math.min(vw/((b.maxX-b.minX+3)*TS),vh/((b.maxY-b.minY+3)*TS))))}$('zoomLabel').textContent=Math.round(zoom*100)+'%';requestDraw()}
+function fitMap(){if(!map.size){cam={x:0,y:0};zoom=1}else{const b=extent();cam.x=(b.minX+b.maxX+1)*TS/2;cam.y=(b.minY+b.maxY+1)*TS/2;zoom=Math.max(.25,Math.min(2,Math.min(vw/((b.maxX-b.minX+3)*TS),vh/((b.maxY-b.minY+3)*TS))))}$('zoomLabel').textContent=Math.round(zoom*100)+'%';$('zoomLabel').title='Camera zoom, vẽ lại từ texture gốc';requestDraw()}
 function extent(){let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;for(const k of map.keys()){const [x,y]=k.split(',').map(Number);minX=Math.min(x,minX);maxX=Math.max(x,maxX);minY=Math.min(y,minY);maxY=Math.max(y,maxY)}return{minX,maxX,minY,maxY}}
 function setTool(t){if(simMode&&t!=='pan')return;tool=t;document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));viewport.classList.toggle('pan',t==='pan');requestDraw()}
 document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.tool)));
-$('sharpBtn').onclick=()=>{sharpPixels=!sharpPixels;$('sharpBtn').classList.toggle('sharp-on',sharpPixels);$('sharpBtn').textContent=sharpPixels?'◈ Pixel Sharp':'◈ Smooth';requestDraw()};
+$('sharpBtn').onclick=()=>{sharpPixels=!sharpPixels;updateSpriteFilteringUI();requestDraw()};
+function updateSpriteFilteringUI(){$('sharpBtn').classList.toggle('sharp-on',sharpPixels);$('sharpBtn').textContent=sharpPixels?'◈ Pixel':'◈ Smooth';$('sharpBtn').title=sharpPixels?'Nearest-neighbor: phù hợp pixel-art, gây răng cưa với ảnh vẽ':'Bilinear/high: phù hợp đồ họa 2D vẽ tay';}
+updateSpriteFilteringUI();
 $('gridBtn').onclick=()=>{showGrid=!showGrid;$('gridBtn').classList.toggle('active',showGrid);requestDraw()};
 function rotate(delta){selectedRotation=safeRotation(selectedRotation+delta);updateSelected();requestDraw()}
 $('rotateBtn').onclick=()=>rotate(90);$('rotateRight').onclick=()=>rotate(90);$('rotateLeft').onclick=()=>rotate(-90);
@@ -351,9 +547,9 @@ $('materialLevel').addEventListener('change',e=>{materialLevel=Number(e.target.v
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{activeGroup=b.dataset.group;const first=META.find(m=>m[2]===activeGroup&&String(m[0]).startsWith(String(materialLevel-1)));if(first)selectedCode=first[0];selectedRotation=0;renderPalette();updateSelected();setTool('paint')});
 function updateHover(){if(!hovering)return;const t=map.get(key(hovering.x,hovering.y));$('coordText').textContent=`Tọa độ ô: (${hovering.x}, ${hovering.y})`;$('cellCoord').textContent=`${hovering.x} / ${hovering.y}`;$('cellCode').textContent=t?(t.code==='305'?`305 · Đất ${t.landType||0}`:t.code):'Trống';$('cellPorts').textContent=t?portsBits(t):'—';$('cellRot').textContent=t?t.rotation+'°':'—';$('axisLabel').textContent=`Lưới vô hạn · 120 × 120 px · (${hovering.x}, ${hovering.y})`}
 function updateStats(){validationDirty=true;rebuildValidation();let r=0,s=0,w=0;for(const t of map.values()){const g=META_MAP[t.code]?.group;if(g==='road')r++;else if(g==='river')s++;else if(g==='sidewalk')w++;else if(g==='bridge')r++}$('totalPlaced').textContent=map.size.toLocaleString('vi');$('roadPlaced').textContent=r.toLocaleString('vi');$('riverPlaced').textContent=s.toLocaleString('vi');$('walkPlaced').textContent=w.toLocaleString('vi');$('statusCount').textContent=map.size+' ô đã đặt';$('undoBtn').disabled=!history.length;$('redoBtn').disabled=!future.length;requestDraw()}
-function undoRedo(target,other,reverse){const h=target.pop();if(!h)return;if(h.type==='stroke'){for(const c of h.changes){const t=reverse?c.before:c.after;if(t)map.set(c.key,clone(t));else map.delete(c.key)}}else if(h.type==='snapshot'){const src=reverse?h.before:h.after;map=new Map(src.map(([k,v])=>[k,clone(v)]));generatedBounds=reverse?(h.beforeBounds||null):(h.afterBounds||null);if(typeof constructionObjects!=='undefined'){constructionObjects.clear();for(const [k,v] of (reverse?h.beforeBuildings:h.afterBuildings)||[])constructionObjects.set(k,v)}}other.push(h);updateStats();saveSoon()}
+function undoRedo(target,other,reverse){const h=target.pop();if(!h)return;if(h.type==='stroke'){for(const c of h.changes){const t=reverse?c.before:c.after;if(t)map.set(c.key,clone(t));else map.delete(c.key);if(typeof restoreDecorationsAt==='function')restoreDecorationsAt(c.key,reverse?c.decoBefore:c.decoAfter)}}else if(h.type==='deco'){if(typeof restoreDecorationsAt==='function')restoreDecorationsAt(h.key,reverse?h.before:h.after)}else if(h.type==='snapshot'){const src=reverse?h.before:h.after;map=new Map(src.map(([k,v])=>[k,clone(v)]));generatedBounds=reverse?(h.beforeBounds||null):(h.afterBounds||null);if(typeof restoreAllDecorations==='function')restoreAllDecorations(reverse?h.beforeDeco:h.afterDeco);if(typeof constructionObjects!=='undefined'){constructionObjects.clear();for(const [k,v] of (reverse?h.beforeBuildings:h.afterBuildings)||[])constructionObjects.set(k,v)}}other.push(h);updateStats();saveSoon()}
 $('undoBtn').onclick=()=>undoRedo(history,future,true);$('redoBtn').onclick=()=>undoRedo(future,history,false);
-function replaceMap(newMap,bounds=null){const beforeBounds=generatedBounds;generatedBounds=bounds;const before=[...map].map(([k,v])=>[k,clone(v)]),after=[...newMap].map(([k,v])=>[k,clone(v)]);const beforeBuildings=typeof constructionObjects!=='undefined'?[...constructionObjects]:[];if(typeof constructionObjects!=='undefined')constructionObjects.clear();history.push({type:'snapshot',before,after,beforeBounds,afterBounds:bounds,beforeBuildings,afterBuildings:[]});if(history.length>80)history.shift();future=[];map=newMap;updateStats();saveSoon()}
+function replaceMap(newMap,bounds=null){const beforeBounds=generatedBounds;generatedBounds=bounds;const before=[...map].map(([k,v])=>[k,clone(v)]),after=[...newMap].map(([k,v])=>[k,clone(v)]);const beforeBuildings=typeof constructionObjects!=='undefined'?[...constructionObjects]:[];const beforeDeco=typeof allDecorations==='function'?allDecorations():[];if(typeof clearAllDecorations==='function')clearAllDecorations();if(typeof constructionObjects!=='undefined')constructionObjects.clear();history.push({type:'snapshot',before,after,beforeBounds,afterBounds:bounds,beforeBuildings,afterBuildings:[],beforeDeco,afterDeco:[]});if(history.length>80)history.shift();future=[];map=newMap;updateStats();saveSoon()}
 $('clearBtn').onclick=()=>{if(!map.size)return;if(confirm('Xóa toàn bộ ô trên map hiện tại? Có thể hoàn tác bằng Ctrl+Z.')){replaceMap(new Map());notify('Đã xóa map')}};
 $('centerBtn').onclick=()=>{cam={x:0,y:0};zoom=1;$('zoomLabel').textContent='100%';requestDraw()};
 function serializeMap(){const tiles=[...map.entries()].map(([k,v])=>{const [x,y]=k.split(',').map(Number);return{x,y,code:v.code,rotation:v.rotation,landType:v.code==='305'?(v.landType||0):undefined}}).sort((a,b)=>a.y-b.y||a.x-b.x);return {format:'thất-nghiệp-về-quê-map',schemaVersion:4,landTypeLegend:{0:'sidewalk',1:'construction',2:'administrative'},generatedBounds:generatedBounds?{...generatedBounds}:null,mapName:$('mapName').value.trim()||'Map mới',tileSize:120,origin:'signed-grid',levelIndex:3,sourceAsset:'Asset/Sprites/Roads/Level_4',codeScheme:'xab: x=level-1, ab=tile-type 00..12; rotation=90*n',simulation:{headlights:{...headlights},trafficLights:{enabled:trafficConfig.enabled,green:trafficConfig.green,yellow:trafficConfig.yellow},weather:{mode:weather.mode,intensity:weather.intensity,wind:weather.wind},vehicleCount:simConfig.count,trafficDensity:[...trafficDensity],pedestrians:{...pedestrianConfig,enabledIds:[...enabledPedestrianIds]},hand:simConfig.hand,speedMin:simConfig.speedMin,speedMax:simConfig.speedMax,vehicleScale:simConfig.vehicleScale,shadows:simConfig.shadows,enabledBikes:[...enabledBikeIds],shadowSettings:{...shadowSettings},dayNight:{enabled:dayNight.enabled,minute:Math.floor(dayNight.minute),speed:dayNight.speed}},tiles}}
@@ -791,30 +987,45 @@ function maskForSprite(image){
  if(!mask){mask=makeShadow(image);genericShadowMasks.set(image,mask)}
  return mask;
 }
+// Shared full-sprite shadow for Houses, Deco, pedestrians, traffic lights and bridges.
+// Pivot bends the projected silhouette at a percentage above the image foot.
+// Inset moves the ground contact point upward by a percentage of the sprite height.
 function castFullSpriteShadow(image,groundX,groundY,dw,dh,anchorX=.5,anchorY=1,flip=false,opacity=1){
- if(!simConfig.shadows||daylightFactor()<=.001||!image||!dw||!dh)return;
+ if(!simConfig.shadows||shadowNightFactor()<=.001||!image||!dw||!dh)return;
  const mask=maskForSprite(image);if(!mask)return;
  const foot=toScreen(groundX,groundY);
  if(foot.x<-300||foot.x>vw+300||foot.y<-300||foot.y>vh+300)return;
- const w=mask.width,h=mask.height,sx=dw/w;
- const px=anchorX*w,py=Math.max(1,anchorY*h);
- const sun=solarScreenPosition(),dx=foot.x-sun.x,dy=foot.y-sun.y;
- const hypot=Math.max(1,Math.hypot(dx,dy));
- let dirX=dx/hypot,dirY=dy/hypot;
- if(Math.abs(dirY)<.10)dirY=dirY<0?-.10:.10;
+ const w=mask.width,h=mask.height,sx=dw/w,px=anchorX*w;
+ const pivotPx=Math.max(0,Math.min(h, (anchorY-shadowSettings.pivot)*h));
+ const baseX=foot.x,baseY=foot.y-dh*shadowSettings.inset;
+ const sun=solarScreenPosition(),dx=baseX-sun.x,dy=baseY-sun.y;
+ const magnitude=Math.max(1,Math.hypot(dx,dy));
+ const dirX=dx/magnitude,dirY=Math.abs(dy/magnitude)<.10?(dy<0?-.10:.10):dy/magnitude;
  const length=dh*shadowSettings.length*1.1;
- const sl=length/py;
- const alpha=shadowSettings.alpha*daylightFactor()*opacity;
+ const nearLength=length*(.10+.45*shadowSettings.pivot);
+ const alpha=shadowSettings.alpha*shadowNightFactor()*opacity;
  if(alpha<=.001)return;
- ctx.save();ctx.globalAlpha=alpha;
  const fast=simBikes.length>=170;
+ // Slice the source image at the bend point, not at its crop bounds.
+ function projectBand(y0,y1,near,far){
+  if(y1-y0<.001)return;
+  const slope=(far-near)/(y1-y0),mirror=flip?-1:1;
+  ctx.save();
+  ctx.transform(sx*mirror,0,-dirX*slope,-dirY*slope,
+   baseX-sx*mirror*px+dirX*(near+y1*slope),
+   baseY+dirY*(near+y1*slope));
+  ctx.drawImage(mask,0,y0,w,y1-y0,0,y0,w,y1-y0);
+  ctx.restore();
+ }
+ ctx.save();ctx.globalAlpha=alpha;
  ctx.filter=(!fast&&shadowSettings.blur>0)?`blur(${Math.max(0,shadowSettings.blur*zoom*.6)}px)`:'none';
- // Both mirrored and original sprites are projected from exactly the same pole base.
- ctx.transform(sx*(flip?-1:1),0,-dirX*sl,-dirY*sl,
-  foot.x+sx*(flip?(w-px):(-px))+dirX*length,
-  foot.y+dirY*length);
- ctx.drawImage(mask,0,0,w,h);
+ projectBand(pivotPx,h,0,nearLength);
+ projectBand(0,pivotPx,nearLength,length);
  ctx.restore();
+ if(shadowSettings.debug){
+  ctx.save();ctx.lineWidth=1.5;ctx.strokeStyle='#ffe05a';ctx.beginPath();ctx.arc(baseX,baseY,5,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle='#fa6359';ctx.beginPath();ctx.moveTo(baseX-8,baseY+dirY*nearLength);ctx.lineTo(baseX+8,baseY+dirY*nearLength);ctx.stroke();ctx.restore();
+ }
 }
 function drawSceneObjectShadow(o){
  if(o.castsShadow===false || ['road','sidewalk','river'].includes(o.category))return;
@@ -841,12 +1052,13 @@ function renderWorldObjects(){
  visibleBikeCache=[];
  const objects=sceneObjects.map(o=>({worldY:o.worldY,kind:'world',object:o}));
  if(typeof constructionSceneItems==='function')for(const o of constructionSceneItems())objects.push({worldY:o.worldY,kind:'world',object:o});
+ if(typeof decoSceneItems==='function')for(const o of decoSceneItems())objects.push({worldY:o.worldY,kind:'world',object:o});
  for(const o of trafficLightObjects())objects.push({worldY:o.worldY,kind:'world',object:o});
  // Người đi bộ đi chung Y-sort với xe, cột đèn và House.
  for(const ped of simPedestrians){
   const screen=toScreen(ped.wx,ped.wy);
   if(screen.x<-140||screen.x>vw+140||screen.y<-140||screen.y>vh+140)continue;
-  objects.push({worldY:ped.wy,kind:'pedestrian',ped});
+  objects.push({worldY:ped.wy+(assetSortY('Pedestrians/'+ped.type,.97)-.97)*pedestrianConfig.height,kind:'pedestrian',ped});
  }
  const margin=simBikes.length>=170?150:240;
  for(const b of simBikes){
@@ -854,11 +1066,11 @@ function renderWorldObjects(){
   if(!info)continue;
   const s=info.s;
   if(s.x<-margin||s.x>vw+margin||s.y<-margin||s.y>vh+margin)continue;
-  const item={worldY:pos.y,kind:'bike',bike:b,pos,info};
+  const item={worldY:pos.y+(assetSortY('Vehicles/Bikes/'+b.type,.76)-.76)*(info.dh/zoom),kind:'bike',bike:b,pos,info};
   objects.push(item);visibleBikeCache.push(item);
  }
  objects.sort((a,b)=>a.worldY-b.worldY || (a.kind==='world'?-1:1));
- if(simConfig.shadows&&daylightFactor()>.001){for(const item of objects){
+ if(simConfig.shadows&&shadowNightFactor()>.001){for(const item of objects){
   if(item.kind==='bike')drawBikeShadow(item);else if(item.kind==='pedestrian')drawPedestrianShadow(item.ped);
   else drawSceneObjectShadow(item.object);
  }}
@@ -918,7 +1130,7 @@ function drawBikeShadow(item,w){
   ctx.restore();
  }
  ctx.save();
- ctx.globalAlpha=shadowSettings.alpha*daylightFactor();
+ ctx.globalAlpha=shadowSettings.alpha*shadowNightFactor();
  const heavyLoad=simBikes.length>=170;
  ctx.filter=(!heavyLoad&&shadowSettings.blur)?`blur(${Math.max(0,shadowSettings.blur*zoom)}px)`:'none';
  projectBand(pivotY,height,0,lower);
@@ -926,7 +1138,7 @@ function drawBikeShadow(item,w){
  ctx.restore();
  // Contact shadow is independent of the projected silhouette and stays at the wheel contact.
  ctx.save();
- ctx.fillStyle='#293747';ctx.globalAlpha=shadowSettings.alpha*.30*daylightFactor();
+ ctx.fillStyle='#293747';ctx.globalAlpha=shadowSettings.alpha*.30*shadowNightFactor();
  const heavyLoad2=simBikes.length>=170;
  ctx.filter=heavyLoad2?'none':`blur(${Math.max(1,(shadowSettings.blur+1)*zoom)}px)`;
  ctx.beginPath();ctx.ellipse(o.s.x,baseY,o.dw*.38,Math.max(2,o.dh*.07),0,0,Math.PI*2);ctx.fill();ctx.restore();
@@ -1064,6 +1276,8 @@ function clockText(minute){const v=((Math.floor(minute)%1440)+1440)%1440;return 
 function restoreDayNight(saved){if(!saved||typeof saved!=='object')return;dayNight.enabled=!!saved.enabled;const m=Number(saved.minute),v=Number(saved.speed);if(Number.isFinite(m))dayNight.minute=((m%1440)+1440)%1440;if([1,60,360,1440].includes(v))dayNight.speed=v;}
 function isNightHour(){const h=dayNight.minute/60;return h<6||h>=18}
 // Light from 05:00 to 06:30, full sunlight during the day, sunset 17:30–19:00.
+// At night every physical shadow retains exactly 50% of the configured opacity.
+function shadowNightFactor(){return dayNight.enabled?.5+.5*daylightFactor():1}
 function daylightFactor(){if(!dayNight.enabled)return 1;const h=dayNight.minute/60;
  if(h<5||h>=18)return 0;
  if(h<6)return Math.max(0,Math.min(1,h-5));
@@ -1142,10 +1356,32 @@ fullscreenBtn.addEventListener('click',async()=>{try{
  }catch(err){notify('Không mở được toàn màn hình. Hãy thử Chrome/Edge và cho phép Fullscreen.')}});
 document.addEventListener('fullscreenchange',updateFullscreenLabel);
 
+// v25: Single authoritative Y-only reference for all asset types. Paths are keys; never per placement.
+const ASSET_SORT_STORAGE='tnvq_asset_sort_y_v25';
+function assetSortY(assetKey,defaultY=1){
+ const value=ASSET_MANIFEST.assetSortY?.[assetKey];
+ return Number.isFinite(Number(value))&&value!==undefined&&value!==null?Math.max(0,Math.min(1,Number(value))):defaultY;
+}
+function loadLocalAssetSortY(){
+ try{const saved=JSON.parse(localStorage.getItem(ASSET_SORT_STORAGE)||'null');
+  if(saved?.points&&typeof saved.points==='object'){
+   ASSET_MANIFEST.assetSortY??={};for(const [name,value] of Object.entries(saved.points)){
+    if(typeof name==='string'&&Number.isFinite(Number(value))&&Number(value)>=0&&Number(value)<=1)ASSET_MANIFEST.assetSortY[name]=Number(value);
+   }
+  }
+ }catch(error){console.warn('Asset sort settings could not be loaded',error)}
+}
+loadLocalAssetSortY();
+function assetSettingsButton(category,record){
+ const btn=document.createElement('button');btn.type='button';btn.className='asset-settings-btn';btn.textContent='⚙ Settings';
+ btn.title='Cài đặt dùng chung theo file asset, không theo ô';
+ btn.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();openAssetSettings(category,record)});
+ return btn;
+}
 // ================== Asset browser / folder scanner v12 ==================
 function setLibraryView(which){
  const isAssets=which==='assets';
- $('materialsView').hidden=isAssets;$('assetsView').hidden=!isAssets;
+ $('materialsView').hidden=isAssets;$('assetsView').hidden=!isAssets;document.body.classList.toggle('asset-library-mode',isAssets);
  $('libraryMaterials').classList.toggle('active',!isAssets);$('libraryAssets').classList.toggle('active',isAssets);
  $('libraryMaterials').setAttribute('aria-selected',String(!isAssets));$('libraryAssets').setAttribute('aria-selected',String(isAssets));
  if(isAssets)renderAssetBrowser();
@@ -1155,7 +1391,7 @@ function spriteCard(row,group){
  const img=document.createElement('img');img.src=row.path;img.alt=row.id;img.loading='lazy';
  const name=document.createElement('strong');name.textContent=row.id;
  const level=document.createElement('span');level.className='asset-badge';level.textContent=`${group} · Level ${row.level}`;
- div.append(img,name,level);
+ div.append(img,name,level,assetSettingsButton(group,row));
  if(group==='Roads'&&row.code){div.title='Click để chọn tile '+row.code;div.style.cursor='pointer';div.onclick=()=>{
   materialLevel=row.level;$('materialLevel').value=String(row.level);$('levelTitle').textContent=String(row.level);
   const groupInfo=META_MAP[row.code];if(groupInfo)activeGroup=groupInfo.group;
@@ -1165,7 +1401,7 @@ function spriteCard(row,group){
 function renderAssetBrowser(){
  const target=$('assetCards');if(!target)return;
  document.querySelectorAll('[data-asset-category]').forEach(btn=>btn.classList.toggle('chosen',btn.dataset.assetCategory===assetCategory));
- $('vehicleTypeWrap').hidden=assetCategory!=='vehicles';$('assetLevelWrap').hidden=assetCategory==='vehicles'||assetCategory==='pedestrians';
+ $('vehicleTypeWrap').hidden=assetCategory!=='vehicles';$('assetLevelWrap').hidden=assetCategory==='vehicles'||assetCategory==='pedestrians'||assetCategory==='deco';
  $('assetBulkActions').hidden=assetCategory!=='vehicles'||assetVehicleType!=='bikes';
  $('assetVehicleType').value=assetVehicleType;$('assetLevel').value=String(assetLevel);
  target.replaceChildren();
@@ -1184,7 +1420,7 @@ function renderAssetBrowser(){
    const check=document.createElement('input');check.type='checkbox';check.checked=enabledBikeIds.has(row.id);check.setAttribute('aria-label','Cho phép '+row.id+' xuất hiện');
    check.onchange=()=>{if(check.checked)enabledBikeIds.add(row.id);else enabledBikeIds.delete(row.id);
     lbl.classList.toggle('enabled',check.checked);populateBikes(true);renderAssetBrowser();saveSoon()};
-   bottom.append(text,check);lbl.append(top,bottom);target.append(lbl);
+   bottom.append(text,check);lbl.append(top,bottom,assetSettingsButton('Vehicles/Bikes',{...row,path:row.right}));target.append(lbl);
   }
   const invalid=ASSET_MANIFEST.invalidBikes||[];
   if(invalid.length){errors.hidden=false;errors.textContent='⚠ '+invalid.length+' folder không hợp lệ: '+invalid.map(r=>`${r.id}: ${r.reason||''} ${r.missing?.length?'thiếu '+r.missing.join(', '):''} ${r.extra?.length?'dư '+r.extra.join(', '):''}`).join(' | ')}
@@ -1205,11 +1441,11 @@ function renderAssetBrowser(){
    const bottom=document.createElement('div');const title=document.createElement('span');title.textContent=row.id+' · 12 frame (4 × 3 hướng)';
    const check=document.createElement('input');check.type='checkbox';check.checked=enabledPedestrianIds.has(row.id);
    check.onchange=()=>{if(check.checked)enabledPedestrianIds.add(row.id);else enabledPedestrianIds.delete(row.id);lbl.classList.toggle('enabled',check.checked);populatePedestrians(true);saveSoon()};
-   bottom.className='asset-bike-bottom';bottom.append(title,check);lbl.append(top,bottom);target.append(lbl);
+   bottom.className='asset-bike-bottom';bottom.append(title,check);lbl.append(top,bottom,assetSettingsButton('Pedestrians',{...row,path:row.frames?.down?.[0]}));target.append(lbl);
   }
   const invalid=ASSET_MANIFEST.invalidPedestrians||[];
   if(invalid.length){errors.hidden=false;errors.textContent='⚠ '+invalid.map(x=>x.id+': '+x.reason).join(' | ')}
- }else if(assetCategory==='constructions'){renderConstructionAssetsBrowser(target)}else{
+ }else if(assetCategory==='deco'){renderDecoAssetBrowser(target)}else if(assetCategory==='constructions'){renderConstructionAssetsBrowser(target)}else if(assetCategory==='interiors'){renderInteriorAssetsBrowser(target)}else{
   const source=ASSET_MANIFEST[assetCategory]||{};const list=source[String(assetLevel)]||[];
   $('assetCount').textContent=`${({roads:'Đường',deco:'Deco',constructions:'Công trình'})[assetCategory]} · Level ${assetLevel} · ${list.length} sprite`;
   if(!list.length){const p=document.createElement('div');p.className='asset-placeholder';p.textContent=`Chưa có PNG tại Asset/Sprites/${({roads:'Roads',deco:'Deco',constructions:'Constructions'})[assetCategory]}/Level_${assetLevel}.`;target.append(p)}
@@ -1230,10 +1466,22 @@ function installAssetBrowser(){
  $('disableAllBikes').onclick=()=>{enabledBikeIds.clear();populateBikes(true);renderAssetBrowser();saveSoon()};
  $('scanAssetFolder').addEventListener('change',async e=>{
   const files=[...e.target.files];if(!files.length)return;
-  try{const next=manifestFromBrowserFolder(files);for(const u of blobAssetURLs)URL.revokeObjectURL(u);blobAssetURLs=next.urls;
-   ASSET_MANIFEST=next.manifest;applyTileSources();applyBikeSources();if(typeof loadConstructionRegistry==='function')loadConstructionRegistry(ASSET_MANIFEST);
+  try{const next=manifestFromBrowserFolder(files);
+   const normalizedPath=f=>(f.webkitRelativePath||f.name).replaceAll('\\','/');
+   const sortFile=files.find(f=>/(?:^|\/)asset_sort_y\.json$/i.test(normalizedPath(f)));
+   if(sortFile){const parsed=JSON.parse(await sortFile.text());for(const [id,value] of Object.entries(parsed.points||{})){
+    const y=typeof value==='object'?Number(value?.y):Number(value);
+    if(Number.isFinite(y)&&y>=0&&y<=1)next.manifest.assetSortY[id]=y;
+   }}else{
+    const legacyFile=files.find(f=>/(?:^|\/)Deco\/deco_sort_points\.json$/i.test(normalizedPath(f)));
+    if(legacyFile){const parsed=JSON.parse(await legacyFile.text());for(const [id,p]of Object.entries(parsed.points||{})){
+     const y=Number(p?.y);if(Number.isFinite(y)&&y>=0&&y<=1)next.manifest.assetSortY['Deco/'+id]=y;
+    }}
+   }
+   for(const u of blobAssetURLs)URL.revokeObjectURL(u);blobAssetURLs=next.urls;
+   ASSET_MANIFEST=next.manifest;loadLocalAssetSortY();applyTileSources();applyBikeSources();if(typeof loadConstructionRegistry==='function')loadConstructionRegistry(ASSET_MANIFEST);
    addManifestLevelMetadata();for(const m of META)META_MAP[m[0]]={name:m[1],group:m[2]};
-   for(const k of Object.keys(LIGHT_SOURCES))delete LIGHT_SOURCES[k];Object.assign(LIGHT_SOURCES,ASSET_MANIFEST.trafficLights);
+   if(typeof refreshDecoManifest==='function')refreshDecoManifest();for(const k of Object.keys(LIGHT_SOURCES))delete LIGHT_SOURCES[k];Object.assign(LIGHT_SOURCES,ASSET_MANIFEST.trafficLights);
    enabledBikeIds=new Set(Object.keys(BIKE_SOURCES));applyPedestrianSources();enabledPedestrianIds=new Set(Object.keys(PEDESTRIAN_SOURCES));initPedestrianSprites();
    loadTileImages();initBikes();initTrafficLights();renderAssetBrowser();renderPalette();updateSelected();
    if(simMode){populateBikes(true);populatePedestrians(true)}requestDraw();saveSoon();
@@ -1243,7 +1491,7 @@ function installAssetBrowser(){
  setInterval(advanceBikePreviews,800);renderAssetBrowser();
 }
 function manifestFromBrowserFolder(files){
- const m={version:1,root:'Asset/Sprites',vehicles:{bikes:[],cars:[]},pedestrians:[],invalidPedestrians:[],invalidBikes:[],roads:{},deco:{},constructions:{},trafficLights:{},constructionAssets:{houses:[],interiors:[],doors:[]},houseConfigs:{}};
+ const m={version:1,root:'Asset/Sprites',vehicles:{bikes:[],cars:[]},pedestrians:[],invalidPedestrians:[],invalidBikes:[],roads:{},deco:{},decoGroups:{},assetSortY:{},decoSortPoints:{},constructions:{},trafficLights:{},constructionAssets:{houses:[],interiors:[],doors:[]},houseConfigs:{}};
  for(const group of ['roads','deco','constructions'])for(let i=1;i<=5;i++)m[group][String(i)]=[];
  const byPath=new Map(),urls=[];
  function resolvePath(f){const path=(f.webkitRelativePath||f.name).replaceAll('\\','/');
@@ -1260,7 +1508,9 @@ function manifestFromBrowserFolder(files){
   if(person){const id=person[1];if(!people.has(id))people.set(id,new Map());people.get(id).set(person[2].toLowerCase(),info.blob);continue;}
   const veh=path.match(/^Vehicles\/Bikes\/([^/]+)\/([^/]+)$/i);
   if(veh){const id=veh[1],name=veh[2];if(!bikes.has(id))bikes.set(id,new Map());bikes.get(id).set(name.toLowerCase(),info.blob);continue;}
-  const other=path.match(/^(Roads|Deco|Constructions)\/Level_([1-5])\/(.+)\.png$/i);
+  const deco=path.match(/^Deco\/([A-Za-z][A-Za-z0-9_-]*)\/([^/]+)\.png$/i);
+   if(deco&&!/^Level_[1-5]$/i.test(deco[1])){const group=deco[1],id=deco[2];if(!m.decoGroups[group])m.decoGroups[group]=[];m.decoGroups[group].push({id,group,path:info.blob});continue;}
+   const other=path.match(/^(Roads|Deco|Constructions)\/Level_([1-5])\/(.+)\.png$/i);
   if(other){const kind=other[1].toLowerCase(),level=Number(other[2]),id=other[3].split('/').pop(),record={id,path:info.blob,level};
    if(kind==='roads'){if(!/^\d{3}$/.test(id)||Number(id[0])!==level-1)continue;record.code=id;}
    m[kind][String(level)].push(record);if(kind==='constructions'){const mt=other[3].match(/^(Houses|Interiors|ClosedDoors)\/(.+)$/i);if(mt){const group={houses:'houses',interiors:'interiors',closeddoors:'doors'}[mt[1].toLowerCase()];const entry={id,level,path:info.blob};const mi=id.match(/^(\d{2})_(\d{2})$/);if(group==='interiors'&&mi)entry.industry=Number(mi[2]);m.constructionAssets[group].push(entry)}}
@@ -1506,5 +1756,9 @@ $('resetPedestrians').onclick=()=>{readPedestrianControls();populatePedestrians(
 installAssetBrowser();initialLoad();initBikes();initTrafficLights();updateSimUI();updateShadowUI();syncDayNightUI(true);
 </script>
 <script src="construction_extension.js"></script>
+<script src="deco_editor.js"></script>
+<script src="asset_settings.js"></script>
+<script src="deco_lights.js"></script>
+<script>assetCategory='deco';setLibraryView('assets');</script>
 </body>
 </html>
